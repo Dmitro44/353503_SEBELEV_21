@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали аренды - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+
+                    {% if next_url and 'staff_rental_list' in next_url %}
+                        <li class="breadcrumb-item"><a href="{% url 'staff_rental_list' %}">Управление арендами</a></li>
+                    {% else %}
+                        <li class="breadcrumb-item"><a href="{% url 'rental_list' %}">Мои аренды</a></li>
+                    {% endif %}
+
+                    <li class="breadcrumb-item active" aria-current="page">Детали аренды</li>
+                </ol>
+            </nav>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h1 class="h3 mb-0">Детали аренды #{{ rental.pk }}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Информация об аренде</h4>
+                            <table class="table">
+                                <tr>
+                                    <th>Статус:</th>
+                                    <td>
+                                        {% if rental.status == 'pending' %}
+                                            <span class="badge bg-warning">{{ rental.get_status_display }}</span>
+                                        {% elif rental.status == 'active' %}
+                                            <span class="badge bg-success">{{ rental.get_status_display }}</span>
+                                        {% elif rental.status == 'returned' %}
+                                            <span class="badge bg-primary">{{ rental.get_status_display }}</span>
+                                        {% elif rental.status == 'cancelled' %}
+                                            <span class="badge bg-danger">{{ rental.get_status_display }}</span>
+                                        {% elif rental.status == 'overdue' %}
+                                            <span class="badge bg-danger">{{ rental.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Дата начала:</th>
+                                    <td>{{ rental.rental_date|date:"d.m.Y" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Количество дней:</th>
+                                    <td>{{ rental.rental_days }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Ожидаемая дата возврата:</th>
+                                    <td>{{ rental.expected_return_date|date:"d.m.Y" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Фактическая дата возврата:</th>
+                                    <td>{{ rental.actual_return_date|date:"d.m.Y"|default:"Не возвращен" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Сумма аренды:</th>
+                                    <td>$ {{ rental.rental_amount }}.</td>
+                                </tr>
+                                {% if rental.discount %}
+                                <tr>
+                                    <th>Скидка:</th>
+                                    <td>{{ rental.discount.name }} ($ {{ rental.discount_amount }}.)</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th>Итоговая сумма:</th>
+                                    <td><strong>$ {{ rental.total_amount }}.</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Информация об автомобиле</h4>
+                            <table class="table">
+                                <tr>
+                                    <th>Автомобиль:</th>
+                                    <td>{{ rental.vehicle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Гос. номер:</th>
+                                    <td>{{ rental.vehicle.license_plate }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Год выпуска:</th>
+                                    <td>{{ rental.vehicle.year }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Стоимость в сутки:</th>
+                                    <td>$ {{ rental.vehicle.daily_rental_price }}.</td>
+                                </tr>
+                                <tr>
+                                    <th>Автопарк:</th>
+                                    <td>{{ rental.vehicle.car_park }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    {% if rental.condition_notes %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-info text-white">
+                                    <h5 class="mb-0">Примечания о состоянии автомобиля</h5>
+                                </div>
+                                <div class="card-body">
+                                    {{ rental.condition_notes|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if penalties %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-danger text-white">
+                                    <h5 class="mb-0">Штрафы</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Тип штрафа</th>
+                                                <th>Сумма</th>
+                                                <th>Дата</th>
+                                                <th>Примечания</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for penalty in penalties %}
+                                            <tr>
+                                                <td>{{ penalty.penalty_type.name }}</td>
+                                                <td>$ {{ penalty.penalty_type.amount }}.</td>
+                                                <td>{{ penalty.date_applied|date:"d.m.Y" }}</td>
+                                                <td>{{ penalty.notes|default:"-" }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        {% if next_url %}
+                            <a href="{{ next_url }}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left me-1"></i> Назад к списку
+                            </a>
+                        {% else %}
+                            {% if is_staff_user or is_admin_user %}
+                                <a href="{% url 'staff_rental_list' %}" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left me-1"></i> Назад к управлению арендами
+                                </a>
+                            {% else %}
+                                <a href="{% url 'rental_list' %}" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left me-1"></i> Назад к моим арендам
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                        
+                        {% if rental.status == 'active' and is_staff_user %}
+                        <a href="{% url 'rental_return' rental.pk %}" class="btn btn-primary">
+                            <i class="bi bi-box-arrow-in-left me-1"></i> Оформить возврат
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block title %}Список автомобилей{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Список автомобилей</h1>
+            {% if user.is_authenticated and is_staff_user or user.is_authenticated and is_admin_user %}
+                <a href="{% url 'vehicle_create' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Добавить автомобиль
+                </a>
+            {% endif %}
+        </div>
+
+        <!-- Поиск (отдельно от фильтров) -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-search"></i> Поиск автомобилей</h5>
+            </div>
+            <div class="card-body">
+                <form method="get" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Введите номер, марку или модель" name="search" value="{{ search_query|default:'' }}">
+                        <button class="btn btn-primary" type="submit">Искать</button>
+                        {% if search_query %}
+                            <a href="{% url 'vehicle_list' %}" class="btn btn-outline-secondary">Сбросить</a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Фильтры (отдельно от поиска) -->
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0"><i class="bi bi-funnel"></i> Фильтры</h5>
+            </div>
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <!-- Если есть поисковый запрос, сохраняем его при фильтрации -->
+                    {% if search_query %}
+                        <input type="hidden" name="search" value="{{ search_query }}">
+                    {% endif %}
+
+                    <!-- Марка - выпадающий список -->
+                    <div class="col-md-3">
+                        <label for="brand" class="form-label">Марка</label>
+                        <select class="form-select" id="brand" name="brand">
+                            <option value="">Все марки</option>
+                            {% for brand_option in brands %}
+                                <option value="{{ brand_option }}" {% if selected_brand == brand_option %}selected{% endif %}>{{ brand_option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Тип кузова - выпадающий список -->
+                    <div class="col-md-3">
+                        <label for="body_type" class="form-label">Тип кузова</label>
+                        <select class="form-select" id="body_type" name="body_type">
+                            <option value="">Все типы кузова</option>
+                            {% for body_type_option in body_types %}
+                                <option value="{{ body_type_option.id }}" {% if selected_body_type == body_type_option.id|stringformat:"s" %}selected{% endif %}>{{ body_type_option.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Год выпуска - выпадающий список -->
+                    <div class="col-md-2">
+                        <label for="year" class="form-label">Год выпуска</label>
+                        <select class="form-select" id="year" name="year">
+                            <option value="">Все годы</option>
+                            {% for year_option in years %}
+                                <option value="{{ year_option }}" {% if selected_year == year_option|stringformat:"s" %}selected{% endif %}>{{ year_option }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Доступность - выпадающий список -->
+                    <div class="col-md-2">
+                        <label for="is_available" class="form-label">Статус</label>
+                        <select class="form-select" id="is_available" name="is_available">
+                            <option value="">Все</option>
+                            <option value="true" {% if selected_is_available == True %}selected{% endif %}>Доступные</option>
+                            <option value="false" {% if selected_is_available == False %}selected{% endif %}>Недоступные</option>
+                        </select>
+                    </div>
+
+                    <!-- Автопарк - выпадающий список -->
+                    <div class="col-md-2">
+                        <label for="car_park" class="form-label">Автопарк</label>
+                        <select class="form-select" id="car_park" name="car_park">
+                            <option value="">Все автопарки</option>
+                            {% for car_park_option in car_parks %}
+                                <option value="{{ car_park_option.id }}" {% if selected_car_park == car_park_option.id|stringformat:"s" %}selected{% endif %}>{{ car_park_option.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Кнопки фильтров -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-funnel"></i> Применить фильтры
+                        </button>
+                        <a href="{% url 'vehicle_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Сбросить все
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Список автомобилей -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-car-front"></i>
+                    Автомобили
+                    {% if vehicles %}
+                        <span class="badge bg-secondary">{{ vehicles|length }}</span>
+                    {% endif %}
+                </h5>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-sort-down"></i> Сортировка
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
+                        <li><a class="dropdown-item {% if current_ordering == 'daily_rental_price' %}active{% endif %}"
+                               href="?ordering=daily_rental_price{% if search_query %}&search={{ search_query }}{% endif %}
+                               {% if selected_brand %}&brand={{ selected_brand }}{% endif %}
+                               {% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}
+                               {% if selected_year %}&year={{ selected_year }}{% endif %}
+                               {% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}
+                               {% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}">
+                            <i class="bi bi-sort-numeric-down"></i> Цена проката (по возрастанию)
+                        </a></li>
+                        <li><a class="dropdown-item {% if current_ordering == '-daily_rental_price' %}active{% endif %}"
+                               href="?ordering=-daily_rental_price{% if search_query %}&search={{ search_query }}{% endif %}
+                               {% if selected_brand %}&brand={{ selected_brand }}{% endif %}
+                               {% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}
+                               {% if selected_year %}&year={{ selected_year }}{% endif %}
+                               {% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}
+                               {% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}">
+                            <i class="bi bi-sort-numeric-up"></i> Цена проката (по убыванию)
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item {% if current_ordering == 'year' %}active{% endif %}"
+                               href="?ordering=year{% if search_query %}&search={{ search_query }}{% endif %}
+                               {% if selected_brand %}&brand={{ selected_brand }}{% endif %}
+                               {% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}
+                               {% if selected_year %}&year={{ selected_year }}{% endif %}
+                               {% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}
+                               {% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}">
+                            <i class="bi bi-sort-numeric-down"></i> Год выпуска (по возрастанию)
+                        </a></li>
+                        <li><a class="dropdown-item {% if current_ordering == '-year' %}active{% endif %}"
+                               href="?ordering=-year{% if search_query %}&search={{ search_query }}{% endif %}
+                               {% if selected_brand %}&brand={{ selected_brand }}{% endif %}
+                               {% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}
+                               {% if selected_year %}&year={{ selected_year }}{% endif %}
+                               {% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}
+                               {% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}">
+                            <i class="bi bi-sort-numeric-up"></i> Год выпуска (по убыванию)
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if vehicles %}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for vehicle in vehicles %}
+                            <div class="col">
+                                <div class="card h-100 {% if vehicle.is_available %}border-success{% else %}border-danger{% endif %}">
+
+                                    {% if vehicle.image %}
+                                        <img src="{{ vehicle.image.url }}" class="card-img-top" alt="{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}" style="height: 200px; object-fit: cover;">
+                                    {% endif %}
+
+                                    <div class="card-header {% if vehicle.is_available %}bg-success bg-opacity-10{% else %}bg-danger bg-opacity-10{% endif %}">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h5 class="card-title mb-0">{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</h5>
+                                            <span class="badge {% if vehicle.is_available %}bg-success{% else %}bg-danger{% endif %}">
+                                            {% if vehicle.is_available %}Доступен{% else %}Недоступен{% endif %}
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ vehicle.license_plate }}</h6>
+                                        <p class="card-text">
+                                            <i class="bi bi-calendar"></i> <strong>Год выпуска:</strong> {{ vehicle.year }}<br>
+                                            <i class="bi bi-cash"></i> <strong>Стоимость проката:</strong> {{ vehicle.daily_rental_price }} $/день<br>
+                                            {% if vehicle.car_model.body_type %}
+                                                <i class="bi bi-car-front"></i> <strong>Тип кузова:</strong> {{ vehicle.car_model.body_type }}<br>
+                                            {% endif %}
+                                            {% if vehicle.car_park %}
+                                                <i class="bi bi-geo-alt"></i> <strong>Автопарк:</strong> {{ vehicle.car_park }}<br>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="card-footer bg-transparent">
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{% url 'vehicle_detail' pk=vehicle.pk %}" class="btn btn-primary btn-sm">
+                                                <i class="bi bi-info-circle"></i> Подробнее
+                                            </a>
+                                            {% if user.is_authenticated and is_staff_user or user.is_authenticated and is_admin_user %}
+                                                <div>
+                                                    <a href="{% url 'vehicle_update' pk=vehicle.pk %}" class="btn btn-warning btn-sm">
+                                                        <i class="bi bi-pencil"></i> Изменить
+                                                    </a>
+                                                    <a href="{% url 'vehicle_delete' pk=vehicle.pk %}" class="btn btn-danger btn-sm">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i> По вашему запросу не найдено ни одного автомобиля.
+                        {% if search_query or selected_brand or selected_body_type or selected_year or selected_is_available or selected_car_park %}
+                            <a href="{% url 'vehicle_list' %}" class="alert-link">Сбросить все фильтры</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

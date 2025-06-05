@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика - Автопрокат{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1><i class="bi bi-graph-up me-2"></i>Статистика компании</h1>
+                    <a href="{% url 'about' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-arrow-left me-1"></i> Вернуться на страницу о компании
+                    </a>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Основные показатели -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Количество аренд</div>
+                    <div class="card-body">
+                        <h1 class="card-title">{{ total_rentals }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Общая выручка</div>
+                    <div class="card-body">
+                        <h1 class="card-title">{{ total_revenue }} $</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">Средняя стоимость аренды</div>
+                    <div class="card-body">
+                        <h1 class="card-title">{{ avg_rental_price }} $</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Графики -->
+        <div class="row mb-4">
+            <!-- Популярность марок -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Популярность марок автомобилей</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="data:image/png;base64,{{ charts.brand_pie }}" alt="Популярность марок" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Статистика по дням недели -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Аренды по дням недели</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="data:image/png;base64,{{ charts.weekday_chart }}" alt="Статистика по дням недели" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <!-- Динамика по месяцам -->
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Динамика аренд по месяцам</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="data:image/png;base64,{{ charts.monthly_chart }}" alt="Динамика по месяцам" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <!-- Статистика по длительности аренды -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Распределение аренд по длительности</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="data:image/png;base64,{{ charts.duration_chart }}" alt="Длительность аренд" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Таблица с детализацией длительности аренд -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Детали по длительности аренд</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Длительность</th>
+                                <th>Количество</th>
+                                <th>Процент</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in duration_stats %}
+                                <tr>
+                                    <td>{{ item.category }}</td>
+                                    <td>{{ item.count }}</td>
+                                    <td>{{ item.percentage }}%</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="text-center">Нет данных</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Автопрокат{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4">Добро пожаловать в систему Автопроката!</h1>
+            <p class="lead">Выберите автомобиль для аренды или ознакомьтесь с нашими услугами.</p>
+            <hr class="my-4">
+            <p>У нас большой выбор автомобилей различных классов по доступным ценам.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'vehicle_list' %}" role="button">Посмотреть автомобили</a>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-car-front display-1 text-primary"></i>
+                        <h5 class="card-title mt-3">Автомобили</h5>
+                        <p class="card-text">Просмотр доступных автомобилей для аренды.</p>
+                        <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Перейти</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-info-circle display-1 text-info"></i>
+                        <h5 class="card-title mt-3">О компании</h5>
+                        <p class="card-text">Информация о нашей компании и услугах.</p>
+                        <a href="{% url 'about' %}" class="btn btn-info">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-newspaper display-1 text-success"></i>
+                        <h5 class="card-title mt-3">Новости</h5>
+                        <p class="card-text">Последние новости и акции компании.</p>
+                        <a href="{% url 'news_list' %}" class="btn btn-success">Читать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if latest_article %}
+            <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3>Последняя новость</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% if latest_article.image %}
+                                <div class="col-md-4">
+                                    <img src="{{ latest_article.image.url }}" class="img-fluid rounded" alt="{{ latest_article.title }}">
+                                </div>
+                                <div class="col-md-8">
+                            {% else %}
+                                <div class="col-12">
+                            {% endif %}
+                            <h4 class="card-title">{{ latest_article.title }}</h4>
+                            <p class="card-text text-muted">
+                                <small>Опубликовано: {{ latest_article.published_at|date:"d.m.Y" }}</small>
+                            </p>
+                            <p class="card-text">{{ latest_article.summary }}</p>
+                            <a href="{% url 'news_detail' latest_article.pk %}" class="btn btn-outline-primary">Читать полностью</a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row mt-4 mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-star display-1 text-warning"></i>
+                        <h5 class="card-title mt-3">Отзывы</h5>
+                        <p class="card-text">Отзывы наших клиентов о сервисе.</p>
+                        <a href="{% url 'review_list' %}" class="btn btn-warning">Смотреть отзывы</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-ticket-perforated display-1 text-danger"></i>
+                        <h5 class="card-title mt-3">Промокоды</h5>
+                        <p class="card-text">Действующие промокоды и скидки.</p>
+                        <a href="{% url 'promocode_list' %}" class="btn btn-danger">Посмотреть</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок с шуткой -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h5 class="mb-0"><i class="bi bi-emoji-laughing me-2"></i>Случайная шутка</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="joke-container">
+                            {% if joke_setup %}
+                                <p class="mb-2 h5">{{ joke_setup }}</p>
+                                <p class="text-muted"><strong>{{ joke_punchline }}</strong></p>
+                            {% else %}
+                                <p class="mb-2 h5">Нажмите на кнопку, чтобы получить шутку</p>
+                            {% endif %}
+                        </div>
+                        <form method="GET">
+                            <input type="hidden" name="get_joke" value="1">
+                            <button type="submit" class="btn btn-warning mt-2">
+                                <i class="bi bi-emoji-smile me-1"></i> Получить случайную шутку
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок с фактом о котах -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Интересный факт о кошках</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{ cat_fact }}</p>
+                        <form method="GET">
+                            <input type="hidden" name="refresh_cat_fact" value="1">
+                            <button type="submit" class="btn btn-info mt-2">
+                                <i class="bi bi-arrow-repeat me-1"></i> Обновить факт
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
