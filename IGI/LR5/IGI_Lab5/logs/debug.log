@@ -5209,3 +5209,358 @@ INFO 2025-06-05 17:10:31,485 basehttp "GET /contacts/ HTTP/1.1" 200 11666
 INFO 2025-06-05 17:10:31,627 basehttp "GET /media/contacts/sotrudnik_4.jpg HTTP/1.1" 304 0
 INFO 2025-06-05 17:10:38,482 views Latest article displayed on home page: ����� �������� SUMMER2025: ������ 15% �� ��� ���������� � ������������ ����������� ���������!
 INFO 2025-06-05 17:10:38,491 basehttp "GET / HTTP/1.1" 200 10606
+INFO 2025-07-04 10:03:31,717 autoreload Watching for file changes with StatReloader
+INFO 2025-07-04 10:03:54,174 autoreload Watching for file changes with StatReloader
+INFO 2025-07-04 10:04:04,132 autoreload Watching for file changes with StatReloader
+INFO 2025-07-04 10:04:34,136 autoreload Watching for file changes with StatReloader
+INFO 2025-07-04 10:04:39,335 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-07-04 10:04:39,998 basehttp "GET / HTTP/1.1" 200 10546
+INFO 2025-07-04 10:04:40,107 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+WARNING 2025-07-04 10:04:40,174 log Not Found: /favicon.ico
+WARNING 2025-07-04 10:04:40,174 basehttp "GET /favicon.ico HTTP/1.1" 404 6509
+INFO 2025-07-04 10:04:49,158 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-07-04 10:04:49,358 basehttp "GET /?refresh_cat_fact=1 HTTP/1.1" 200 10750
+INFO 2025-07-04 10:04:51,892 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-07-04 10:04:52,149 basehttp "GET /?get_joke=1 HTTP/1.1" 200 10819
+INFO 2025-07-04 10:05:03,739 basehttp "GET /vehicles/ HTTP/1.1" 200 29893
+INFO 2025-07-04 10:05:03,763 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-07-04 10:05:03,764 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-07-04 10:05:03,766 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-07-04 10:05:03,766 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-07-04 10:05:03,767 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-07-04 10:05:03,767 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-07-04 10:05:03,769 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-07-04 10:05:22,199 views Company information displayed on about page
+INFO 2025-07-04 10:05:22,200 basehttp "GET /about/ HTTP/1.1" 200 5164
+INFO 2025-07-04 10:05:23,985 basehttp "GET /contacts/ HTTP/1.1" 200 11666
+INFO 2025-07-04 10:05:24,005 basehttp "GET /media/contacts/sotrudnik_2.jpg HTTP/1.1" 200 5573
+INFO 2025-07-04 10:05:24,005 basehttp "GET /media/contacts/sotrudnik_3.jpg HTTP/1.1" 200 5278
+INFO 2025-07-04 10:05:24,006 basehttp "GET /media/contacts/sotrudnik_4.jpg HTTP/1.1" 200 34552
+INFO 2025-07-04 10:05:24,006 basehttp "GET /media/contacts/sotrudnik_1.jpg HTTP/1.1" 200 218135
+INFO 2025-07-04 10:05:37,989 views News list displayed with 3 articles
+INFO 2025-07-04 10:05:37,992 basehttp "GET /news/ HTTP/1.1" 200 7603
+INFO 2025-07-04 10:05:38,021 basehttp "GET /media/articles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-07-04 10:05:38,021 basehttp "GET /media/articles/tesla_model_3_2023.jpg HTTP/1.1" 200 357193
+INFO 2025-07-04 10:05:43,523 views Review list displayed with 4 reviews
+INFO 2025-07-04 10:05:43,529 basehttp "GET /reviews/ HTTP/1.1" 200 15838
+INFO 2025-07-04 10:05:47,548 views PromoCode list displayed with 9 active and 1 expired codes
+INFO 2025-07-04 10:05:47,551 basehttp "GET /rentals/promocodes/ HTTP/1.1" 200 10777
+INFO 2025-07-04 10:05:52,588 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-07-04 10:05:52,589 basehttp "GET / HTTP/1.1" 200 10819
+INFO 2025-07-04 10:06:08,849 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-07-04 10:06:08,851 basehttp "GET / HTTP/1.1" 200 10819
+INFO 2025-08-20 15:29:22,610 autoreload Watching for file changes with StatReloader
+INFO 2025-08-20 15:29:43,716 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:29:44,369 basehttp "GET / HTTP/1.1" 200 10625
+INFO 2025-08-20 15:29:44,422 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+WARNING 2025-08-20 15:29:44,601 log Not Found: /favicon.ico
+WARNING 2025-08-20 15:29:44,601 basehttp "GET /favicon.ico HTTP/1.1" 404 6509
+INFO 2025-08-20 15:29:51,825 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:29:52,076 basehttp "GET /?get_joke=1 HTTP/1.1" 200 10637
+INFO 2025-08-20 15:29:57,231 basehttp "GET /vehicles/ HTTP/1.1" 200 29893
+INFO 2025-08-20 15:29:57,278 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-08-20 15:29:57,280 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-08-20 15:29:57,281 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-08-20 15:29:57,282 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-08-20 15:29:57,284 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-08-20 15:29:57,284 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-08-20 15:29:57,286 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-08-20 15:30:06,911 basehttp "GET /vehicles/?search=tesla HTTP/1.1" 200 14704
+INFO 2025-08-20 15:30:10,782 basehttp "GET /vehicles/?search= HTTP/1.1" 200 29893
+INFO 2025-08-20 15:30:35,795 basehttp "GET /auth/login/ HTTP/1.1" 200 5041
+INFO 2025-08-20 15:31:06,751 views User logged in: testClient (ID: 2)
+INFO 2025-08-20 15:31:06,754 basehttp "POST /auth/login/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:31:06,762 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:31:06,764 basehttp "GET / HTTP/1.1" 200 11072
+INFO 2025-08-20 15:31:12,330 views User testClient viewed their rentals list
+INFO 2025-08-20 15:31:12,341 basehttp "GET /rentals/ HTTP/1.1" 200 13226
+INFO 2025-08-20 15:31:22,982 views Company information displayed on about page
+INFO 2025-08-20 15:31:22,985 basehttp "GET /about/ HTTP/1.1" 200 5260
+INFO 2025-08-20 15:31:24,716 basehttp "GET /contacts/ HTTP/1.1" 200 11762
+INFO 2025-08-20 15:31:24,748 basehttp "GET /media/contacts/sotrudnik_3.jpg HTTP/1.1" 200 5278
+INFO 2025-08-20 15:31:24,748 basehttp "GET /media/contacts/sotrudnik_2.jpg HTTP/1.1" 200 5573
+INFO 2025-08-20 15:31:24,749 basehttp "GET /media/contacts/sotrudnik_4.jpg HTTP/1.1" 200 34552
+INFO 2025-08-20 15:31:24,752 basehttp "GET /media/contacts/sotrudnik_1.jpg HTTP/1.1" 200 218135
+INFO 2025-08-20 15:31:40,829 views News list displayed with 3 articles
+INFO 2025-08-20 15:31:40,834 basehttp "GET /news/ HTTP/1.1" 200 7699
+INFO 2025-08-20 15:31:40,871 basehttp "GET /media/articles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-08-20 15:31:40,872 basehttp "GET /media/articles/tesla_model_3_2023.jpg HTTP/1.1" 200 357193
+INFO 2025-08-20 15:31:48,992 views Review list displayed with 4 reviews
+INFO 2025-08-20 15:31:49,002 basehttp "GET /reviews/ HTTP/1.1" 200 16184
+INFO 2025-08-20 15:32:17,649 views PromoCode list displayed with 8 active and 2 expired codes
+INFO 2025-08-20 15:32:17,654 basehttp "GET /rentals/promocodes/ HTTP/1.1" 200 10905
+INFO 2025-08-20 15:32:26,757 views News list displayed with 3 articles
+INFO 2025-08-20 15:32:26,760 basehttp "GET /news/ HTTP/1.1" 200 7699
+INFO 2025-08-20 15:32:30,415 views Article viewed: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:32:30,418 basehttp "GET /news/3/ HTTP/1.1" 200 6713
+INFO 2025-08-20 15:32:33,267 views News list displayed with 3 articles
+INFO 2025-08-20 15:32:33,271 basehttp "GET /news/ HTTP/1.1" 200 7699
+INFO 2025-08-20 15:52:43,022 views User logged out: testClient (ID: 2)
+INFO 2025-08-20 15:52:43,023 basehttp "GET /auth/logout/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:52:43,032 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:52:43,543 basehttp "GET / HTTP/1.1" 200 10899
+INFO 2025-08-20 15:52:45,057 basehttp "GET /auth/login/ HTTP/1.1" 200 5041
+INFO 2025-08-20 15:52:53,314 views User logged in: testStaff (ID: 3)
+INFO 2025-08-20 15:52:53,316 basehttp "POST /auth/login/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:52:53,322 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:52:53,325 basehttp "GET / HTTP/1.1" 200 11157
+INFO 2025-08-20 15:53:03,176 views Staff testStaff viewed all rentals list
+INFO 2025-08-20 15:53:03,190 basehttp "GET /rentals/staff/ HTTP/1.1" 200 15655
+INFO 2025-08-20 15:53:10,638 views Company information displayed on about page
+INFO 2025-08-20 15:53:10,640 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-20 15:53:12,977 basehttp "GET /statistics/dashboard/ HTTP/1.1" 200 136009
+INFO 2025-08-20 15:53:19,867 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:53:19,870 basehttp "GET / HTTP/1.1" 200 10819
+INFO 2025-08-20 15:53:22,024 views User logged out: testStaff (ID: 3)
+INFO 2025-08-20 15:53:22,024 basehttp "GET /auth/logout/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:53:22,034 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:53:23,059 basehttp "GET / HTTP/1.1" 200 10967
+INFO 2025-08-20 15:53:23,399 basehttp "GET /auth/login/ HTTP/1.1" 200 5041
+WARNING 2025-08-20 15:53:28,573 views Failed login attempt for username: testClient
+INFO 2025-08-20 15:53:28,575 basehttp "POST /auth/login/ HTTP/1.1" 200 5421
+WARNING 2025-08-20 15:53:32,073 views Failed login attempt for username: testClient
+INFO 2025-08-20 15:53:32,076 basehttp "POST /auth/login/ HTTP/1.1" 200 5421
+INFO 2025-08-20 15:53:35,623 views User logged in: testClient (ID: 2)
+INFO 2025-08-20 15:53:35,625 basehttp "POST /auth/login/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:53:35,630 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:53:35,633 basehttp "GET / HTTP/1.1" 200 11075
+INFO 2025-08-20 15:53:38,002 basehttp "GET /vehicles/ HTTP/1.1" 200 29989
+INFO 2025-08-20 15:53:41,067 basehttp "GET /vehicles/4/ HTTP/1.1" 200 8911
+INFO 2025-08-20 15:53:44,496 basehttp "GET /rentals/create/4/ HTTP/1.1" 200 8153
+INFO 2025-08-20 15:53:44,524 basehttp "GET /static/js/rental_price_calculator.js HTTP/1.1" 200 2687
+INFO 2025-08-20 15:54:07,089 views User testClient created rental 8 for vehicle Audi A5 Sportback (HDS853SDG)
+INFO 2025-08-20 15:54:07,092 basehttp "POST /rentals/create/4/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:54:07,102 views User testClient viewed rental 8
+INFO 2025-08-20 15:54:07,107 basehttp "GET /rentals/8/ HTTP/1.1" 200 8147
+INFO 2025-08-20 15:54:10,396 views User logged out: testClient (ID: 2)
+INFO 2025-08-20 15:54:10,397 basehttp "GET /auth/logout/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:54:10,408 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:54:10,861 basehttp "GET / HTTP/1.1" 200 10944
+INFO 2025-08-20 15:54:12,034 basehttp "GET /auth/login/ HTTP/1.1" 200 5041
+INFO 2025-08-20 15:54:17,896 views User logged in: testStaff (ID: 3)
+INFO 2025-08-20 15:54:17,899 basehttp "POST /auth/login/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:54:17,904 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:54:17,907 basehttp "GET / HTTP/1.1" 200 11202
+INFO 2025-08-20 15:54:20,613 views Staff testStaff viewed all rentals list
+INFO 2025-08-20 15:54:20,627 basehttp "GET /rentals/staff/ HTTP/1.1" 200 18121
+INFO 2025-08-20 15:54:22,559 views Staff testStaff approved rental 8 for vehicle Audi A5 Sportback (HDS853SDG)
+INFO 2025-08-20 15:54:22,561 basehttp "POST /rentals/8/confirm/ HTTP/1.1" 302 0
+INFO 2025-08-20 15:54:22,569 views Staff testStaff viewed all rentals list
+INFO 2025-08-20 15:54:22,584 basehttp "GET /rentals/staff/ HTTP/1.1" 200 17701
+INFO 2025-08-20 15:54:33,227 views Company information displayed on about page
+INFO 2025-08-20 15:54:33,230 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-20 15:54:34,649 basehttp "GET /statistics/dashboard/ HTTP/1.1" 200 147673
+INFO 2025-08-20 15:55:23,672 views Company information displayed on about page
+INFO 2025-08-20 15:55:23,674 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-20 15:55:24,993 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:55:24,995 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-20 15:55:27,580 views Company information displayed on about page
+INFO 2025-08-20 15:55:27,583 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-20 15:55:29,206 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:55:29,209 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-20 15:55:31,507 views News list displayed with 3 articles
+INFO 2025-08-20 15:55:31,512 basehttp "GET /news/ HTTP/1.1" 200 9770
+INFO 2025-08-20 15:55:32,839 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:55:32,841 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-20 15:55:40,916 views Article viewed: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-20 15:55:40,919 basehttp "GET /news/3/ HTTP/1.1" 200 7410
+INFO 2025-08-20 15:55:44,763 basehttp "GET /news/3/edit/ HTTP/1.1" 200 9314
+INFO 2025-08-20 15:56:09,459 basehttp "GET /contacts/ HTTP/1.1" 200 11913
+INFO 2025-08-20 15:56:12,905 basehttp "GET /staff/reviews/ HTTP/1.1" 200 16095
+INFO 2025-08-20 15:56:23,507 views Review list displayed with 4 reviews
+INFO 2025-08-20 15:56:23,515 basehttp "GET /reviews/ HTTP/1.1" 200 16335
+INFO 2025-08-20 15:56:28,088 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-21 19:58:19,587 autoreload Watching for file changes with StatReloader
+INFO 2025-08-21 19:58:33,651 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-21 19:58:33,671 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-21 19:58:33,713 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+WARNING 2025-08-21 19:58:34,019 log Not Found: /favicon.ico
+INFO 2025-08-21 19:58:39,315 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-21 19:58:59,380 views Staff testStaff viewed all rentals list
+INFO 2025-08-21 19:58:59,396 basehttp "GET /rentals/staff/ HTTP/1.1" 200 17250
+INFO 2025-08-21 19:59:17,974 basehttp "GET /auth/profile/ HTTP/1.1" 200 10038
+INFO 2025-08-21 20:01:41,677 autoreload Watching for file changes with StatReloader
+INFO 2025-08-21 20:01:49,940 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-21 20:01:49,959 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-21 20:01:59,184 views Article viewed: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-21 20:01:59,191 basehttp "GET /news/3/ HTTP/1.1" 200 7410
+INFO 2025-08-21 20:02:26,525 basehttp "GET /news/3/edit/ HTTP/1.1" 200 9314
+INFO 2025-08-21 20:02:31,522 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-21 20:02:31,524 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-21 20:02:37,171 views Company information displayed on about page
+INFO 2025-08-21 20:02:37,174 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-21 20:02:40,996 basehttp "GET /statistics/dashboard/ HTTP/1.1" 200 147673
+INFO 2025-08-21 20:02:51,388 views PromoCode list displayed with 8 active and 2 expired codes
+INFO 2025-08-21 20:02:51,394 basehttp "GET /rentals/promocodes/ HTTP/1.1" 200 11274
+INFO 2025-08-27 15:57:45,909 autoreload Watching for file changes with StatReloader
+INFO 2025-08-27 15:57:52,796 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-27 15:57:52,816 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-27 15:57:52,871 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+WARNING 2025-08-27 15:57:53,180 log Not Found: /favicon.ico
+INFO 2025-08-27 15:58:02,756 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-27 15:58:02,805 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-08-27 15:58:02,809 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-08-27 15:58:02,809 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-08-27 15:58:02,810 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-08-27 15:58:02,811 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-08-27 15:58:02,811 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-08-27 15:58:02,813 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-08-27 15:58:06,513 views Staff testStaff viewed all rentals list
+INFO 2025-08-27 15:58:06,524 basehttp "GET /rentals/staff/ HTTP/1.1" 200 17250
+INFO 2025-08-27 16:01:51,155 views User testStaff viewed rental 8
+INFO 2025-08-27 16:01:51,159 basehttp "GET /rentals/8/?next=/rentals/staff/ HTTP/1.1" 200 8031
+INFO 2025-08-27 16:01:54,842 views Staff testStaff viewed all rentals list
+INFO 2025-08-27 16:01:54,850 basehttp "GET /rentals/staff/ HTTP/1.1" 200 17250
+INFO 2025-08-27 19:09:00,345 autoreload Watching for file changes with StatReloader
+INFO 2025-08-27 19:09:04,550 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-27 19:09:04,568 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-27 19:09:04,607 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+INFO 2025-08-27 19:09:10,256 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-27 19:09:10,301 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-08-27 19:09:10,303 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-08-27 19:09:10,303 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-08-27 19:09:10,305 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-08-27 19:09:10,306 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-08-27 19:09:10,306 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-08-27 19:09:10,308 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-08-27 19:09:12,590 views Staff testStaff viewed all rentals list
+INFO 2025-08-27 19:09:12,602 basehttp "GET /rentals/staff/ HTTP/1.1" 200 17250
+INFO 2025-08-27 19:09:16,663 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-27 19:09:16,666 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-28 11:27:07,690 autoreload Watching for file changes with StatReloader
+INFO 2025-08-28 11:27:11,198 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-28 11:27:11,213 basehttp "GET / HTTP/1.1" 200 10864
+WARNING 2025-08-28 11:27:11,312 log Not Found: /favicon.ico
+INFO 2025-08-28 11:30:18,840 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-28 11:30:18,908 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-08-28 11:30:18,911 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-08-28 11:30:18,912 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-08-28 11:30:18,912 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-08-28 11:30:18,914 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-08-28 11:30:18,914 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-08-28 11:30:18,916 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-08-28 11:31:38,641 basehttp "GET /vehicles/6/ HTTP/1.1" 200 9587
+INFO 2025-08-28 11:31:46,364 basehttp "GET /vehicles/6/update/ HTTP/1.1" 200 10845
+INFO 2025-08-28 11:31:54,318 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-28 11:31:59,718 basehttp "GET /vehicles/4/ HTTP/1.1" 200 9512
+INFO 2025-08-28 11:32:05,948 basehttp "GET /vehicles/5/ HTTP/1.1" 200 9475
+INFO 2025-08-28 11:32:09,063 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-28 11:32:50,033 basehttp "GET /vehicles/?brand=&body_type=&year=&is_available=true&car_park= HTTP/1.1" 200 25378
+INFO 2025-08-28 11:32:56,739 basehttp "GET /vehicles/?brand=&body_type=&year=&is_available=&car_park= HTTP/1.1" 200 35099
+INFO 2025-08-28 11:58:31,038 autoreload /home/velebes/Study/353503_SEBELEV_21/IGI/LR5/IGI_Lab5/IGI_Lab5/urls.py changed, reloading.
+INFO 2025-08-28 11:58:31,413 autoreload Watching for file changes with StatReloader
+INFO 2025-08-31 15:50:59,324 autoreload Watching for file changes with StatReloader
+INFO 2025-08-31 15:51:14,556 autoreload /home/velebes/Study/353503_SEBELEV_21/IGI/LR5/IGI_Lab5/users/models.py changed, reloading.
+INFO 2025-08-31 15:51:14,786 autoreload Watching for file changes with StatReloader
+INFO 2025-08-31 15:51:19,856 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-31 15:51:19,877 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-31 15:51:20,334 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+WARNING 2025-08-31 15:51:20,524 log Not Found: /favicon.ico
+INFO 2025-08-31 15:51:24,173 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-31 15:51:24,221 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-08-31 15:51:24,224 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-08-31 15:51:24,224 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-08-31 15:51:24,225 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-08-31 15:51:24,226 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-08-31 15:51:24,227 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-08-31 15:51:24,229 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-08-31 15:51:27,632 basehttp "GET /vehicles/6/delete/ HTTP/1.1" 200 5160
+INFO 2025-08-31 15:51:35,752 basehttp "GET /vehicles/6/ HTTP/1.1" 200 9587
+INFO 2025-08-31 15:51:40,372 basehttp "GET /rentals/create/6/ HTTP/1.1" 200 8216
+INFO 2025-08-31 15:51:40,410 basehttp "GET /static/js/rental_price_calculator.js HTTP/1.1" 200 2687
+INFO 2025-08-31 15:51:44,275 views Staff testStaff viewed all rentals list
+INFO 2025-08-31 15:51:44,286 basehttp "GET /rentals/staff/ HTTP/1.1" 200 17250
+INFO 2025-08-31 15:51:51,418 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-08-31 15:51:51,420 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-08-31 15:51:53,019 basehttp "GET /vehicles/ HTTP/1.1" 200 35099
+INFO 2025-08-31 15:51:57,566 basehttp "GET /vehicles/6/ HTTP/1.1" 200 9587
+INFO 2025-08-31 15:52:01,354 basehttp "GET /rentals/create/6/ HTTP/1.1" 200 8216
+INFO 2025-08-31 15:52:14,767 views User testStaff created rental 9 for vehicle Tesla Model 3 (SDL592HFB)
+INFO 2025-08-31 15:52:14,772 basehttp "POST /rentals/create/6/ HTTP/1.1" 302 0
+INFO 2025-08-31 15:52:14,786 views User testStaff viewed rental 9
+INFO 2025-08-31 15:52:14,792 basehttp "GET /rentals/9/ HTTP/1.1" 200 8301
+INFO 2025-08-31 15:52:18,164 views Staff testStaff viewed all rentals list
+INFO 2025-08-31 15:52:18,173 basehttp "GET /rentals/staff/ HTTP/1.1" 200 19709
+INFO 2025-08-31 15:52:20,020 views Staff testStaff approved rental 9 for vehicle Tesla Model 3 (SDL592HFB)
+INFO 2025-08-31 15:52:20,022 basehttp "POST /rentals/9/confirm/ HTTP/1.1" 302 0
+INFO 2025-08-31 15:52:20,030 views Staff testStaff viewed all rentals list
+INFO 2025-08-31 15:52:20,040 basehttp "GET /rentals/staff/ HTTP/1.1" 200 19285
+INFO 2025-08-31 15:52:23,713 basehttp "GET /vehicles/ HTTP/1.1" 200 35100
+INFO 2025-08-31 15:52:39,024 basehttp "GET /staff/reviews/ HTTP/1.1" 200 16095
+INFO 2025-08-31 15:52:40,811 views Company information displayed on about page
+INFO 2025-08-31 15:52:40,814 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-31 15:52:41,781 basehttp "GET /contacts/ HTTP/1.1" 200 11913
+INFO 2025-08-31 15:52:41,812 basehttp "GET /media/contacts/sotrudnik_2.jpg HTTP/1.1" 200 5573
+INFO 2025-08-31 15:52:41,813 basehttp "GET /media/contacts/sotrudnik_3.jpg HTTP/1.1" 200 5278
+INFO 2025-08-31 15:52:41,813 basehttp "GET /media/contacts/sotrudnik_4.jpg HTTP/1.1" 200 34552
+INFO 2025-08-31 15:52:41,814 basehttp "GET /media/contacts/sotrudnik_1.jpg HTTP/1.1" 200 218135
+INFO 2025-08-31 15:52:45,940 views Company information displayed on about page
+INFO 2025-08-31 15:52:45,942 basehttp "GET /about/ HTTP/1.1" 200 5725
+INFO 2025-08-31 16:00:48,719 autoreload /home/velebes/Study/353503_SEBELEV_21/IGI/LR5/IGI_Lab5/users/models.py changed, reloading.
+INFO 2025-08-31 16:00:49,123 autoreload Watching for file changes with StatReloader
+INFO 2025-08-31 16:00:59,781 autoreload /home/velebes/Study/353503_SEBELEV_21/IGI/LR5/IGI_Lab5/users/models.py changed, reloading.
+INFO 2025-08-31 16:01:00,165 autoreload Watching for file changes with StatReloader
+INFO 2025-09-01 12:55:09,103 autoreload Watching for file changes with StatReloader
+INFO 2025-09-01 12:55:14,096 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-01 12:55:14,134 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-09-01 12:55:14,253 basehttp "GET /media/articles/promocode.jpg HTTP/1.1" 200 30197
+INFO 2025-09-01 12:56:14,120 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-01 12:56:14,126 basehttp "GET / HTTP/1.1" 200 10864
+INFO 2025-09-01 12:57:00,151 views Article viewed: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-01 12:57:00,160 basehttp "GET /news/3/ HTTP/1.1" 200 7410
+INFO 2025-09-01 12:57:04,113 views News list displayed with 3 articles
+INFO 2025-09-01 12:57:04,121 basehttp "GET /news/ HTTP/1.1" 200 9770
+INFO 2025-09-01 12:57:04,185 basehttp "GET /media/articles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-09-01 12:57:04,187 basehttp "GET /media/articles/tesla_model_3_2023.jpg HTTP/1.1" 200 357193
+INFO 2025-09-01 12:57:15,312 basehttp "GET /contacts/ HTTP/1.1" 200 11913
+INFO 2025-09-01 12:57:15,398 basehttp "GET /media/contacts/sotrudnik_2.jpg HTTP/1.1" 200 5573
+INFO 2025-09-01 12:57:15,400 basehttp "GET /media/contacts/sotrudnik_3.jpg HTTP/1.1" 200 5278
+INFO 2025-09-01 12:57:15,400 basehttp "GET /media/contacts/sotrudnik_4.jpg HTTP/1.1" 200 34552
+INFO 2025-09-01 12:57:15,402 basehttp "GET /media/contacts/sotrudnik_1.jpg HTTP/1.1" 200 218135
+INFO 2025-09-01 12:57:19,496 views Staff testStaff viewed all rentals list
+INFO 2025-09-01 12:57:19,515 basehttp "GET /rentals/staff/ HTTP/1.1" 200 18838
+INFO 2025-09-01 12:57:24,121 basehttp "GET /staff/reviews/ HTTP/1.1" 200 16095
+INFO 2025-09-01 12:57:27,607 views PromoCode list displayed with 0 active and 10 expired codes
+INFO 2025-09-01 12:57:27,616 basehttp "GET /rentals/promocodes/ HTTP/1.1" 200 11044
+INFO 2025-09-01 12:57:30,619 views Review list displayed with 4 reviews
+INFO 2025-09-01 12:57:30,636 basehttp "GET /reviews/ HTTP/1.1" 200 16335
+INFO 2025-09-01 12:57:32,260 basehttp "GET /contacts/ HTTP/1.1" 200 11913
+INFO 2025-09-01 12:57:34,691 basehttp "GET /vehicles/ HTTP/1.1" 200 35100
+INFO 2025-09-01 12:57:34,799 basehttp "GET /media/vehicles/bmw_x5_2023.jpg HTTP/1.1" 200 8490
+INFO 2025-09-01 12:57:34,805 basehttp "GET /media/vehicles/mazda_mx_5_2023.jpg HTTP/1.1" 200 151886
+INFO 2025-09-01 12:57:34,807 basehttp "GET /media/vehicles/huracan.jpg HTTP/1.1" 200 167770
+INFO 2025-09-01 12:57:34,808 basehttp "GET /media/vehicles/audi_a5_sportback.jpg HTTP/1.1" 200 170223
+INFO 2025-09-01 12:57:34,811 basehttp "GET /media/vehicles/tesla_model_3.jpg HTTP/1.1" 200 357193
+INFO 2025-09-01 12:57:34,812 basehttp "GET /media/vehicles/bmw_m3.jpg HTTP/1.1" 200 366472
+INFO 2025-09-01 12:57:34,816 basehttp "GET /media/vehicles/ford_ranger_2023.jpg HTTP/1.1" 200 1153378
+INFO 2025-09-01 12:57:54,181 views User logged out: testStaff (ID: 3)
+INFO 2025-09-01 12:57:54,183 basehttp "GET /auth/logout/ HTTP/1.1" 302 0
+INFO 2025-09-01 12:57:54,209 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-01 12:57:57,221 basehttp "GET / HTTP/1.1" 200 10891
+INFO 2025-09-01 12:57:58,624 basehttp "GET /auth/login/ HTTP/1.1" 200 5041
+INFO 2025-09-01 12:58:05,342 views User logged in: testClient (ID: 2)
+INFO 2025-09-01 12:58:05,349 basehttp "POST /auth/login/ HTTP/1.1" 302 0
+INFO 2025-09-01 12:58:05,366 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-01 12:58:05,371 basehttp "GET / HTTP/1.1" 200 10999
+INFO 2025-09-01 12:58:07,925 basehttp "GET /vehicles/ HTTP/1.1" 200 29991
+INFO 2025-09-01 13:00:45,886 basehttp "GET /vehicles/ HTTP/1.1" 200 30000
+INFO 2025-09-01 13:01:04,214 basehttp "GET /vehicles/ HTTP/1.1" 200 29991
+INFO 2025-09-01 13:04:59,547 basehttp "GET /auth/profile/ HTTP/1.1" 200 9814
+INFO 2025-09-01 13:05:11,456 basehttp "POST /auth/profile/ HTTP/1.1" 200 10817
+INFO 2025-09-01 13:05:39,057 basehttp "POST /auth/profile/ HTTP/1.1" 200 10817
+INFO 2025-09-01 13:05:47,236 basehttp "POST /auth/profile/ HTTP/1.1" 200 10817
+INFO 2025-09-01 13:08:31,306 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-01 13:08:31,314 basehttp "GET / HTTP/1.1" 200 10660
+INFO 2025-09-01 13:08:34,124 views Company information displayed on about page
+INFO 2025-09-01 13:08:34,129 basehttp "GET /about/ HTTP/1.1" 200 5260
+INFO 2025-09-01 13:08:36,831 basehttp "GET /contacts/ HTTP/1.1" 200 11762
+INFO 2025-09-02 12:02:35,995 autoreload Watching for file changes with StatReloader
+INFO 2025-09-02 12:02:44,302 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-02 12:02:44,337 basehttp "GET / HTTP/1.1" 200 10660
+INFO 2025-09-02 12:02:48,124 views Company information displayed on about page
+INFO 2025-09-02 12:02:48,131 basehttp "GET /about/ HTTP/1.1" 200 5260
+INFO 2025-09-02 12:02:51,685 basehttp "GET /contacts/ HTTP/1.1" 200 11762
+INFO 2025-09-02 12:03:06,524 views News list displayed with 3 articles
+INFO 2025-09-02 12:03:06,534 basehttp "GET /news/ HTTP/1.1" 200 7699
+INFO 2025-09-02 12:03:16,098 views Latest article displayed on home page: Новый промокод SUMMER2025: скидка 15% на все автомобили с ограниченным количеством активаций!
+INFO 2025-09-02 12:03:16,102 basehttp "GET / HTTP/1.1" 200 10660

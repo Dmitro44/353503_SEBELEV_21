@@ -115,7 +115,8 @@ class ViewTestCase(TestCase):
             username='staffuser',
             password='staffpass',
             email='staff@example.com',
-            is_staff=True
+            is_staff=True,
+            role='staff'
         )
 
         # Создаем обычного пользователя

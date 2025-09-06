@@ -28,7 +28,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
 
     phone_regex = RegexValidator(
-        regex=r'^\+37529\d{7}$',
+        regex=r'^\+37529\d{7}',
         message="Номер телефона должен быть в формате: '+37529XXXXXXX'."
     )
 
@@ -52,11 +52,3 @@ class User(AbstractUser):
 
     def has_role(self, role):
         return self.role == role
-
-    # def is_adult(self):
-    #     """Check if user is 18+ years old"""
-    #     if not self.date_of_birth:
-    #         return False
-    #     today = timezone.now().date()
-    #     age = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
-    #     return age >= 18
