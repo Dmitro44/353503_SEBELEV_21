@@ -3,90 +3,83 @@
 {% block title %}Контакты - Автопрокат{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-8">
-                <h1 class="mb-4">Контакты</h1>
+    <section>
+        <h1>Контакты</h1>
 
-                {% if company_info %}
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-building"></i> Наш офис</h5>
-                            <p class="card-text">{{ company_info.address }}</p>
-                            <p class="card-text">Время работы: {{ company_info.working_hours }}</p>
-                        </div>
-                    </div>
+        {% if company_info %}
+            <article>
+                <h4>Наш офис</h4>
+                <p>{{ company_info.address }}</p>
+                <p>Время работы: {{ company_info.working_hours }}</p>
+            </article>
 
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-telephone"></i> Телефоны</h5>
-                            <p class="card-text">Общие вопросы: <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
-                        </div>
-                    </div>
+            <article>
+                <h4>Телефоны</h4>
+                <p>Общие вопросы: <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
+            </article>
 
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-envelope"></i> Электронная почта</h5>
-                            <p class="card-text">Общие вопросы: <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-building"></i> Наш офис</h5>
-                            <p class="card-text">г. Москва, ул. Примерная, д. 123</p>
-                            <p class="card-text">Время работы: пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
-                        </div>
-                    </div>
+            <article>
+                <h4>Электронная почта</h4>
+                <p>Общие вопросы: <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
+            </article>
+        {% else %}
+            <article>
+                <h4>Наш офис</h4>
+                <p>г. Москва, ул. Примерная, д. 123</p>
+                <p>Время работы: пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
+            </article>
 
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-telephone"></i> Телефоны</h5>
-                            <p class="card-text">Общие вопросы: <a href="tel:+71234567890">+7 (123) 456-78-90</a></p>
-                            <p class="card-text">Служба поддержки: <a href="tel:+70987654321">+7 (098) 765-43-21</a></p>
-                        </div>
-                    </div>
+            <article>
+                <h4>Телефоны</h4>
+                <p>Общие вопросы: <a href="tel:+71234567890">+7 (123) 456-78-90</a></p>
+                <p>Служба поддержки: <a href="tel:+70987654321">+7 (098) 765-43-21</a></p>
+            </article>
 
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-envelope"></i> Электронная почта</h5>
-                            <p class="card-text">Общие вопросы: <a href="mailto:info@autorent.ru">info@autorent.ru</a></p>
-                            <p class="card-text">Служба поддержки: <a href="mailto:support@autorent.ru">support@autorent.ru</a></p>
-                        </div>
-                    </div>
-                {% endif %}
+            <article>
+                <h4>Электронная почта</h4>
+                <p>Общие вопросы: <a href="mailto:info@autorent.ru">info@autorent.ru</a></p>
+                <p>Служба поддержки: <a href="mailto:support@autorent.ru">support@autorent.ru</a></p>
+            </article>
+        {% endif %}
 
-                <h2 class="mb-4">Наши сотрудники</h2>
+        <h2>Наши сотрудники</h2>
 
-                {% if contacts %}
-                    {% for contact in contacts %}
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                {% if contact.photo %}
-                                    <div class="col-md-4">
-                                        <img src="{{ contact.photo.url }}" class="img-fluid rounded-start" alt="{{ contact.get_full_name }}">
-                                    </div>
-                                {% endif %}
-                                <div class="col {% if not contact.photo %}col-md-12{% else %}col-md-8{% endif %}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ contact.get_full_name }}</h5>
-                                        <p class="card-text">{{ contact.position }}{% if contact.department %}, {{ contact.department }}{% endif %}</p>
-                                        <p class="card-text"><i class="bi bi-telephone"></i> <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
-                                        <p class="card-text"><i class="bi bi-envelope"></i> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-                                        {% if contact.bio %}
-                                            <p class="card-text">{{ contact.bio|truncatewords:20 }}</p>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
+        {% if contacts %}
+            {% for contact in contacts %}
+                <article style="margin-bottom: 2em; display: flex;">
+                    {% if contact.photo %}
+                        <div style="margin-right: 1em;">
+                            <img src="{{ contact.photo.url }}" alt="{{ contact.get_full_name }}" style="max-width: 150px;">
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="alert alert-info">
-                        <p>Информация о сотрудниках скоро появится!</p>
+                    {% endif %}
+                    <div>
+                        <h4>{{ contact.get_full_name }}</h4>
+                        <p>{{ contact.position }}{% if contact.department %}, {{ contact.department }}{% endif %}</p>
+                        <p><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
+                        <p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                        {% if contact.bio %}
+                            <p>{{ contact.bio|truncatewords:20 }}</p>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </article>
+            {% endfor %}
+        {% else %}
+            <div>
+                <p>Информация о сотрудниках скоро появится!</p>
             </div>
-        </div>
-    </div>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Свяжитесь с нами</h2>
+        <form action="" method="post">
+            <label for="name">Ваше имя:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email">Ваш Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <label for="message">Сообщение:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea><br>
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
 {% endblock %}

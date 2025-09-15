@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Оплата прошла успешно{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Оплата прошла успешно!</h1>
+    <p>Ваши заказы на аренду были успешно созданы.</p>
+    <p><a href="{% url 'rental_list' %}">Посмотреть мои аренды</a></p>
+</div>
+{% endblock %}

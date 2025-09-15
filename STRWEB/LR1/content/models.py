@@ -37,6 +37,10 @@ class CompanyInfo(models.Model):
     email = models.EmailField(verbose_name='Email')
     logo = models.ImageField(upload_to='company/', blank=True, null=True, verbose_name='Логотип')
     working_hours = models.CharField(max_length=100, verbose_name='Часы работы')
+    video_url = models.URLField(blank=True, null=True, verbose_name='Видео о компании')
+    history = models.TextField(blank=True, null=True, verbose_name='История компании')
+    requisites = models.TextField(blank=True, null=True, verbose_name='Реквизиты')
+    certificate = models.TextField(blank=True, null=True, verbose_name='Сертификат')
     
     class Meta:
         verbose_name = 'Информация о компании'
@@ -95,3 +99,66 @@ class Contact(models.Model):
 
     def get_full_name(self):
         return f"{self.last_name} {self.first_name}"
+
+class Partner(models.Model):
+    """Model for partner companies"""
+    name = models.CharField(max_length=100, verbose_name='Название компании')
+    logo = models.ImageField(upload_to='partners/', verbose_name='Логотип')
+    website_url = models.URLField(verbose_name='Сайт компании')
+    description = models.TextField(verbose_name='Описание', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+
+    class Meta:
+        verbose_name = 'Партнер'
+        verbose_name_plural = 'Партнеры'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+class GlossaryEntry(models.Model):
+    """Model for glossary entries (FAQ)"""
+    question = models.CharField(max_length=255, verbose_name='Вопрос')
+    answer = models.TextField(verbose_name='Ответ')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+
+    class Meta:
+        verbose_name = 'Запись в словаре'
+        verbose_name_plural = 'Записи в словаре'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.question
+
+class Vacancy(models.Model):
+    """Model for job vacancies"""
+    title = models.CharField(max_length=200, verbose_name='Название вакансии')
+    description = models.TextField(verbose_name='Описание')
+    requirements = models.TextField(verbose_name='Требования')
+    published_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    is_active = models.BooleanField(default=True, verbose_name='Активна')
+
+    class Meta:
+        verbose_name = 'Вакансия'
+        verbose_name_plural = 'Вакансии'
+        ordering = ['-published_at']
+
+    def __str__(self):
+        return self.title
+
+class Banner(models.Model):
+    """Model for banners on the home page"""
+    title = models.CharField(max_length=100, verbose_name='Заголовок')
+    subtitle = models.CharField(max_length=200, blank=True, null=True, verbose_name='Подзаголовок')
+    image = models.ImageField(upload_to='banners/', verbose_name='Изображение')
+    link = models.URLField(verbose_name='Ссылка', blank=True)
+    is_active = models.BooleanField(default=True, verbose_name='Активен')
+    order = models.PositiveIntegerField(default=0, verbose_name='Порядок')
+
+    class Meta:
+        verbose_name = 'Баннер'
+        verbose_name_plural = 'Баннеры'
+        ordering = ['order']
+
+    def __str__(self):
+        return self.title

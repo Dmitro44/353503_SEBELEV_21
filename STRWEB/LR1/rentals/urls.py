@@ -5,6 +5,12 @@ from . import views
 urlpatterns = [
     # Web views
     path('', views.RentalListView.as_view(), name='rental_list'),
+    path('add-to-cart/<int:vehicle_id>/', views.AddToCartView.as_view(), name='add_to_cart'),
+    path('cart/', views.CartView.as_view(), name='cart'),
+    path('cart/update/<int:item_id>/', views.UpdateCartItemView.as_view(), name='update_cart_item'),
+    path('cart/remove/<int:item_id>/', views.RemoveFromCartView.as_view(), name='remove_from_cart'),
+    path('payment/', views.PaymentView.as_view(), name='payment'),
+    path('payment/success/', views.PaymentSuccessView.as_view(), name='payment_success'),
     path('<int:pk>/', views.RentalDetailView.as_view(), name='rental_detail'),
     path('create/', views.RentalCreateView.as_view(), name='rental_create'),
     path('create/<int:vehicle_id>/', views.RentalCreateView.as_view(), name='rental_create_for_vehicle'),

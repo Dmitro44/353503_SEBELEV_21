@@ -172,3 +172,18 @@ class RentalPenalty(models.Model):
 
     def __str__(self):
         return f"Штраф {self.penalty_type} для проката {self.rental}"
+
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cart')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Cart for {self.user.username}"
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.vehicle.car_model} in cart for {self.cart.user.username}"

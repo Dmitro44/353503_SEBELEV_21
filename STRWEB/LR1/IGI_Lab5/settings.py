@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4=lrz2fo-k26k7g7$$+lasg0n#f4^*1a0*=vpfu^#e^j2r4@ml'
+SECRET_KEY = 'django-insecure-4=lrz2fo-k26k7g7$+lasg0n#f4^*1a0*=vpfu^#e^j2r4@ml'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -72,6 +72,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 ROOT_URLCONF = 'IGI_Lab5.urls'
 
 TEMPLATES = [
@@ -85,7 +87,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'authentication.context_processors.user_role'
+                'authentication.context_processors.user_role',
+                'content.context_processors.company_info'
             ],
         },
     },

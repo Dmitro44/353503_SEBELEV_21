@@ -3,44 +3,42 @@
 {% block title %}Возврат автомобиля - Автопрокат{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h1 class="h3 mb-0">Возврат автомобиля</h1>
+<div>
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h3>Возврат автомобиля</h3>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-info mb-4">
-                        <h5><i class="bi bi-info-circle-fill me-2"></i> Информация об аренде</h5>
-                        <p class="mb-1"><strong>Автомобиль:</strong> {{ rental.vehicle }}</p>
-                        <p class="mb-1"><strong>Клиент:</strong> {{ rental.user.get_full_name|default:rental.user.username }}</p>
-                        <p class="mb-1"><strong>Дата начала:</strong> {{ rental.rental_date|date:"d.m.Y" }}</p>
-                        <p class="mb-1"><strong>Ожидаемая дата возврата:</strong> {{ rental.expected_return_date|date:"d.m.Y" }}</p>
-                        <p class="mb-0"><strong>Сумма аренды:</strong> {{ rental.rental_amount }} руб.</p>
+                <div>
+                    <div>
+                        <h5>Информация об аренде</h5>
+                        <p><strong>Автомобиль:</strong> {{ rental.vehicle }}</p>
+                        <p><strong>Клиент:</strong> {{ rental.user.get_full_name|default:rental.user.username }}</p>
+                        <p><strong>Дата начала:</strong> {{ rental.rental_date|date:"d.m.Y" }}</p>
+                        <p><strong>Ожидаемая дата возврата:</strong> {{ rental.expected_return_date|date:"d.m.Y" }}</p>
+                        <p><strong>Сумма аренды:</strong> {{ rental.rental_amount }} руб.</p>
                     </div>
                     
                     <form method="post" novalidate>
                         {% csrf_token %}
                         
                         {% if form.non_field_errors %}
-                            <div class="alert alert-danger">
+                            <div>
                                 {% for error in form.non_field_errors %}
                                     {{ error }}
                                 {% endfor %}
                             </div>
                         {% endif %}
                         
-                        <div class="mb-3">
-                            <label for="{{ form.actual_return_date.id_for_label }}" class="form-label">
-                                <i class="bi bi-calendar-check me-1"></i> {{ form.actual_return_date.label|default:"Фактическая дата возврата" }}
-                            </label>
+                        <div>
+                            <label for="{{ form.actual_return_date.id_for_label }}">{{ form.actual_return_date.label|default:"Фактическая дата возврата" }}</label>
                             {{ form.actual_return_date }}
                             {% if form.actual_return_date.help_text %}
-                                <div class="form-text">{{ form.actual_return_date.help_text }}</div>
+                                <div>{{ form.actual_return_date.help_text }}</div>
                             {% endif %}
                             {% if form.actual_return_date.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.actual_return_date.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -48,16 +46,14 @@
                             {% endif %}
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="{{ form.condition_notes.id_for_label }}" class="form-label">
-                                <i class="bi bi-card-text me-1"></i> {{ form.condition_notes.label|default:"Примечания о состоянии автомобиля" }}
-                            </label>
+                        <div>
+                            <label for="{{ form.condition_notes.id_for_label }}">{{ form.condition_notes.label|default:"Примечания о состоянии автомобиля" }}</label>
                             {{ form.condition_notes }}
                             {% if form.condition_notes.help_text %}
-                                <div class="form-text">{{ form.condition_notes.help_text }}</div>
+                                <div>{{ form.condition_notes.help_text }}</div>
                             {% endif %}
                             {% if form.condition_notes.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.condition_notes.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -65,20 +61,20 @@
                             {% endif %}
                         </div>
                         
-                        <div class="card mb-3">
-                            <div class="card-header bg-warning">
-                                <h5 class="mb-0">Штрафы</h5>
+                        <div>
+                            <div>
+                                <h5>Штрафы</h5>
                             </div>
-                            <div class="card-body">
-                                <p class="text-muted mb-3">Выберите штрафы, если автомобиль возвращен в ненадлежащем состоянии:</p>
+                            <div>
+                                <p>Выберите штрафы, если автомобиль возвращен в ненадлежащем состоянии:</p>
                                 
-                                <div class="mb-3">
-                                    <label class="form-label">{{ form.penalty_types.label|default:"Типы штрафов" }}</label>
+                                <div>
+                                    <label>{{ form.penalty_types.label|default:"Типы штрафов" }}</label>
                                     <div class="penalty-types-list">
                                         {{ form.penalty_types }}
                                     </div>
                                     {% if form.penalty_types.errors %}
-                                        <div class="invalid-feedback d-block">
+                                        <div>
                                             {% for error in form.penalty_types.errors %}
                                                 {{ error }}
                                             {% endfor %}
@@ -86,13 +82,11 @@
                                     {% endif %}
                                 </div>
                                 
-                                <div class="mb-0">
-                                    <label for="{{ form.penalty_notes.id_for_label }}" class="form-label">
-                                        {{ form.penalty_notes.label|default:"Примечания к штрафам" }}
-                                    </label>
+                                <div>
+                                    <label for="{{ form.penalty_notes.id_for_label }}">{{ form.penalty_notes.label|default:"Примечания к штрафам" }}</label>
                                     {{ form.penalty_notes }}
                                     {% if form.penalty_notes.errors %}
-                                        <div class="invalid-feedback d-block">
+                                        <div>
                                             {% for error in form.penalty_notes.errors %}
                                                 {{ error }}
                                             {% endfor %}
@@ -102,13 +96,9 @@
                             </div>
                         </div>
                         
-                        <div class="d-flex justify-content-between">
-                            <a href="{% url 'rental_detail' rental.pk %}" class="btn btn-secondary">
-                                <i class="bi bi-arrow-left me-1"></i> Назад к деталям аренды
-                            </a>
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-check-circle me-1"></i> Оформить возврат
-                            </button>
+                        <div style="display: flex; justify-content: space-between;">
+                            <a href="{% url 'rental_detail' rental.pk %}">Назад к деталям аренды</a>
+                            <button type="submit">Оформить возврат</button>
                         </div>
                     </form>
                 </div>

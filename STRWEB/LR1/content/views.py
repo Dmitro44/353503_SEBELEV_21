@@ -12,8 +12,10 @@ from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from authentication.decorators import staff_required
+from vehicles.models import Vehicle
 from .forms import ReviewForm, ArticleForm
-from .models import Article, CompanyInfo, Review, Contact
+from .models import Article, CompanyInfo, Review, Contact, Partner, GlossaryEntry, Vacancy, Banner
+from .utils import create_html_calendar
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -23,6 +25,8 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['banners'] = Banner.objects.filter(is_active=True)
+        context['calendar'] = create_html_calendar()
         # Get the latest published article
         try:
             latest_article = Article.objects.filter(published=True).latest('published_at')
@@ -31,6 +35,12 @@ class HomeView(TemplateView):
         except Article.DoesNotExist:
             context['latest_article'] = None
             logger.warning("No published articles available for home page")
+
+        # Get partners
+        context['partners'] = Partner.objects.all()
+
+        # Get latest vehicles
+        context['vehicles'] = Vehicle.objects.filter(is_available=True).order_by('-id')[:3]
 
         # Получаем данные из сессии, если они там есть
         joke_setup = self.request.session.get('joke_setup')
@@ -283,3 +293,23 @@ class ContactsView(View):
         }
 
         return render(request, self.template_name, context)
+
+class GlossaryView(ListView):
+    model = GlossaryEntry
+    template_name = 'content/glossary.html'
+    context_object_name = 'entries'
+
+    def get_queryset(self):
+        return GlossaryEntry.objects.all().order_by('created_at')
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'content/privacy_policy.html'
+
+class VacancyListView(ListView):
+    model = Vacancy
+    template_name = 'content/vacancy_list.html'
+    context_object_name = 'vacancies'
+
+    def get_queryset(self):
+        return Vacancy.objects.filter(is_active=True)

@@ -14,7 +14,7 @@ from rest_framework import permissions
 
 from authentication.decorators import staff_required
 from rentals.forms import RentalCreateForm, RentalReturnForm, PromoCodeForm
-from rentals.models import Rental, RentalPenalty, PromoCode
+from rentals.models import Rental, RentalPenalty, PromoCode, Cart, CartItem
 from vehicles.models import Vehicle
 
 logger = logging.getLogger("rentals")
@@ -414,3 +414,147 @@ class PromoCodeUpdateView(UpdateView):
             f"Staff {self.request.user.username} updated promo code: {form.instance.code}"
         )
         return super().form_valid(form)
+
+class AddToCartView(View):
+    @method_decorator(login_required)
+    def post(self, request, vehicle_id):
+        vehicle = get_object_or_404(Vehicle, pk=vehicle_id)
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, vehicle=vehicle)
+
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+            messages.success(request, f"Еще один '{vehicle.car_model}' добавлен в вашу корзину.")
+        else:
+            messages.success(request, f"'{vehicle.car_model}' был добавлен в вашу корзину.")
+
+        return redirect('vehicle_detail', pk=vehicle_id)
+
+class CartView(View):
+    template_name = 'rentals/cart.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart_items = cart.items.all()
+        total_cart_price = 0
+        
+        for item in cart_items:
+            item.total_price = item.vehicle.daily_rental_price * item.quantity
+            total_cart_price += item.total_price
+
+        context = {
+            'cart': cart,
+            'cart_items': cart_items,
+            'total_cart_price': total_cart_price,
+        }
+        return render(request, self.template_name, context)
+
+class UpdateCartItemView(View):
+    @method_decorator(login_required)
+    def post(self, request, item_id):
+        cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity > 0:
+            cart_item.quantity = quantity
+            cart_item.save()
+            messages.success(request, 'Количество обновлено.')
+        else:
+            messages.error(request, 'Количество должно быть больше нуля.')
+        return redirect('cart')
+
+class RemoveFromCartView(View):
+    @method_decorator(login_required)
+    def post(self, request, item_id):
+        cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
+        cart_item.delete()
+        messages.success(request, 'Товар удален из корзины.')
+        return redirect('cart')
+
+class PaymentView(View):
+    template_name = 'rentals/payment.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+        cart = get_object_or_404(Cart, user=request.user)
+        cart_items = cart.items.all()
+        if not cart_items:
+            messages.error(request, "Ваша корзина пуста.")
+            return redirect('cart')
+
+        total_cart_price = 0
+        for item in cart_items:
+            item.total_price = item.vehicle.daily_rental_price * item.quantity
+            total_cart_price += item.total_price
+
+        context = {
+            'cart_items': cart_items,
+            'total_cart_price': total_cart_price,
+        }
+        return render(request, self.template_name, context)
+
+    @method_decorator(login_required)
+    @transaction.atomic
+    def post(self, request):
+        cart = get_object_or_404(Cart, user=request.user)
+        cart_items = cart.items.all()
+
+        if not cart_items:
+            messages.error(request, "Ваша корзина пуста.")
+            return redirect('cart')
+
+        # In a real application, you would process the payment here.
+        # For this example, we will just create the rentals.
+
+        for item in cart_items:
+            # This is a simplified rental creation.
+            # You might need to get more details from the user, like rental days.
+            # For now, let's assume a default of 1 day.
+            rental_days = 1 
+            rental = Rental.objects.create(
+                vehicle=item.vehicle,
+                user=request.user,
+                rental_days=rental_days,
+                rental_amount=item.vehicle.daily_rental_price * rental_days,
+                discount_amount=0,
+                total_amount=item.vehicle.daily_rental_price * rental_days,
+                status='pending'
+            )
+            item.vehicle.is_available = False
+            item.vehicle.save()
+
+        cart.items.all().delete()
+
+        messages.success(request, "Оплата прошла успешно! Ваши заказы на аренду созданы.")
+        return redirect('payment_success')
+
+class PaymentSuccessView(View):
+    template_name = 'rentals/payment_success.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+
+class UpdateCartItemView(View):
+    @method_decorator(login_required)
+    def post(self, request, item_id):
+        cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity > 0:
+            cart_item.quantity = quantity
+            cart_item.save()
+            messages.success(request, 'Количество обновлено.')
+        else:
+            messages.error(request, 'Количество должно быть больше нуля.')
+        return redirect('cart')
+
+class RemoveFromCartView(View):
+    @method_decorator(login_required)
+    def post(self, request, item_id):
+        cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
+        cart_item.delete()
+        messages.success(request, 'Товар удален из корзины.')
+        return redirect('cart')

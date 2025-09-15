@@ -1,44 +1,36 @@
-<!-- content/article_confirm_delete.html -->
 {% extends 'base.html' %}
 
 {% block title %}Удаление новости - Автопрокат{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header bg-danger text-white">
-                        <h2 class="card-title mb-0">Удаление новости</h2>
-                    </div>
-                    <div class="card-body">
-                        <p class="lead">Вы уверены, что хотите удалить новость "{{ object.title }}"?</p>
-                        <p><strong>Дата публикации:</strong> {{ object.published_at|date:"d.m.Y H:i" }}</p>
-                        <p><strong>Краткое описание:</strong> {{ object.summary }}</p>
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h2>Удаление новости</h2>
+                </div>
+                <div>
+                    <p>Вы уверены, что хотите удалить новость "{{ object.title }}"?</p>
+                    <p><strong>Дата публикации:</strong> {{ object.published_at|date:"d.m.Y H:i" }}</p>
+                    <p><strong>Краткое описание:</strong> {{ object.summary }}</p>
 
-                        {% if object.image %}
-                            <div class="mb-4">
-                                <img src="{{ object.image.url }}" alt="{{ object.title }}" class="img-fluid" style="max-height: 200px;">
-                            </div>
-                        {% endif %}
-
-                        <div class="alert alert-warning">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                            Внимание! Это действие необратимо. Новость будет полностью удалена из системы.
+                    {% if object.image %}
+                        <div>
+                            <img src="{{ object.image.url }}" alt="{{ object.title }}" style="max-height: 200px;">
                         </div>
+                    {% endif %}
 
-                        <form method="post">
-                            {% csrf_token %}
-                            <div class="d-flex justify-content-between">
-                                <a href="{% url 'news_detail' object.pk %}" class="btn btn-secondary">
-                                    <i class="bi bi-arrow-left me-1"></i> Отмена
-                                </a>
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="bi bi-trash me-1"></i> Удалить
-                                </button>
-                            </div>
-                        </form>
+                    <div>
+                        Внимание! Это действие необратимо. Новость будет полностью удалена из системы.
                     </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div style="display: flex; justify-content: space-between;">
+                            <a href="{% url 'news_detail' object.pk %}">Отмена</a>
+                            <button type="submit">Удалить</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, CompanyInfo, Review
+from .models import Article, CompanyInfo, Review, Partner, Contact, GlossaryEntry, Vacancy, Banner
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -16,6 +16,9 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
     )
 
+    #
+    #TODO: СДЕЛАТЬ ИНФОРМАЦИЮ О КОМПАНИИ В БАЗЕ ДАННЫХ, А НЕ НА HTML СТРАНИЦЕ
+    #
 
 @admin.register(CompanyInfo)
 class CompanyInfoAdmin(admin.ModelAdmin):
@@ -23,13 +26,16 @@ class CompanyInfoAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
     fieldsets = (
         ('Основная информация', {
-            'fields': ('name', 'description', 'logo')
+            'fields': ('name', 'description', 'logo', 'video_url')
         }),
         ('Контактная информация', {
             'fields': ('address', 'phone', 'email', 'working_hours')
         }),
+        ('Дополнительная информация', {
+            'fields': ('history', 'requisites', 'certificate')
+        }),
     )
-    
+
     def has_add_permission(self, request):
         # Ограничиваем создание более одной записи
         return CompanyInfo.objects.count() == 0
@@ -46,3 +52,32 @@ class ReviewAdmin(admin.ModelAdmin):
     def approve_reviews(self, request, queryset):
         queryset.update(approved=True)
     approve_reviews.short_description = "Одобрить выбранные отзывы"
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('get_full_name', 'position', 'email', 'phone', 'order', 'is_main_contact')
+    list_filter = ('department', 'is_main_contact')
+    search_fields = ('first_name', 'last_name', 'position', 'email')
+    list_editable = ('order', 'is_main_contact')
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'website_url', 'created_at')
+    search_fields = ('name',)
+
+@admin.register(GlossaryEntry)
+class GlossaryEntryAdmin(admin.ModelAdmin):
+    list_display = ('question', 'created_at')
+    search_fields = ('question', 'answer')
+
+@admin.register(Vacancy)
+class VacancyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'published_at', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('title', 'description', 'requirements')
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'order')
+    list_editable = ('is_active', 'order')
+    search_fields = ('title', 'subtitle')

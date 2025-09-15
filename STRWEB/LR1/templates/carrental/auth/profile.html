@@ -3,79 +3,77 @@
 {% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="mb-4 text-center">Профиль пользователя</h1>
+    <div>
+        <h1>Профиль пользователя</h1>
 
         <!-- Режим просмотра -->
-        <div id="view-mode" class="card shadow-sm mb-4">
-            <div class="card-header bg-primary text-white text-center">
+        <div id="view-mode">
+            <div>
                 <h4>Информация о пользователе</h4>
             </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
+            <div>
+                <ul>
+                    <li>
                         <strong>Имя пользователя:</strong> {{ user.username }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Email:</strong> {{ user.email }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Имя:</strong> {{ user.first_name }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Фамилия:</strong> {{ user.last_name }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Отчество:</strong> {{ user.middle_name|default:"Не указано" }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Роль:</strong> {{ user.role }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Дата рождения:</strong> {{ user.date_of_birth|date:"d.m.Y" }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Адрес:</strong> {{ user.address|default:"Не указан" }}
                     </li>
-                    <li class="list-group-item">
+                    <li>
                         <strong>Телефон:</strong> {{ user.phone|default:"Не указан" }}
                     </li>
                 </ul>
-                <div class="text-end mt-3">
-                    <button type="button" class="btn btn-primary" onclick="toggleEditMode()">Изменить</button>
+                <div>
+                    <button type="button" onclick="toggleEditMode()">Изменить</button>
                 </div>
             </div>
         </div>
 
         <!-- Режим редактирования -->
-        <div id="edit-mode" class="card shadow-sm mb-4 d-none">
-            <div class="card-header bg-warning text-dark text-center">
+        <div id="edit-mode" hidden>
+            <div>
                 <h4>Редактирование профиля</h4>
             </div>
-            <div class="card-body">
+            <div>
                 <form method="post" novalidate>
                     {% csrf_token %}
 
                     {% if form.non_field_errors %}
-                        <div class="alert alert-danger">
+                        <div>
                             {% for error in form.non_field_errors %}
                                 {{ error }}
                             {% endfor %}
                         </div>
                     {% endif %}
 
-                    <div class="row g-3">
+                    <div>
                         <!-- Username -->
-                        <div class="col-12">
-                            <label for="{{ form.username.id_for_label }}" class="form-label">
-                                <i class="bi bi-person"></i> {{ form.username.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
                             {{ form.username }}
                             {% if form.username.help_text %}
-                                <div class="form-text">{{ form.username.help_text }}</div>
+                                <div>{{ form.username.help_text }}</div>
                             {% endif %}
                             {% if form.username.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.username.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -84,13 +82,11 @@
                         </div>
 
                         <!-- Email -->
-                        <div class="col-12">
-                            <label for="{{ form.email.id_for_label }}" class="form-label">
-                                <i class="bi bi-envelope"></i> {{ form.email.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                             {{ form.email }}
                             {% if form.email.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.email.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -99,13 +95,11 @@
                         </div>
 
                         <!-- Last name -->
-                        <div class="col-12">
-                            <label for="{{ form.last_name.id_for_label }}" class="form-label">
-                                <i class="bi bi-person-badge"></i> {{ form.last_name.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
                             {{ form.last_name }}
                             {% if form.last_name.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.last_name.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -114,13 +108,11 @@
                         </div>
 
                         <!-- First name -->
-                        <div class="col-12">
-                            <label for="{{ form.first_name.id_for_label }}" class="form-label">
-                                <i class="bi bi-person-badge"></i> {{ form.first_name.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
                             {{ form.first_name }}
                             {% if form.first_name.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.first_name.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -129,13 +121,11 @@
                         </div>
 
                         <!-- Middle name -->
-                        <div class="col-12">
-                            <label for="{{ form.middle_name.id_for_label }}" class="form-label">
-                                <i class="bi bi-person-badge"></i> {{ form.middle_name.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.middle_name.id_for_label }}">{{ form.middle_name.label }}</label>
                             {{ form.middle_name }}
                             {% if form.middle_name.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.middle_name.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -144,13 +134,11 @@
                         </div>
 
                         <!-- Address -->
-                        <div class="col-12">
-                            <label for="{{ form.address.id_for_label }}" class="form-label">
-                                <i class="bi bi-house"></i> {{ form.address.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
                             {{ form.address }}
                             {% if form.address.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.address.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -159,13 +147,11 @@
                         </div>
 
                         <!-- Phone -->
-                        <div class="col-12">
-                            <label for="{{ form.phone.id_for_label }}" class="form-label">
-                                <i class="bi bi-telephone"></i> {{ form.phone.label }}
-                            </label>
+                        <div>
+                            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                             {{ form.phone }}
                             {% if form.phone.errors %}
-                                <div class="invalid-feedback d-block">
+                                <div>
                                     {% for error in form.phone.errors %}
                                         {{ error }}
                                     {% endfor %}
@@ -173,9 +159,9 @@
                             {% endif %}
                         </div>
 
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-success">Сохранить</button>
-                            <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Отмена</button>
+                        <div>
+                            <button type="submit">Сохранить</button>
+                            <button type="button" onclick="toggleEditMode()">Отмена</button>
                         </div>
                     </div>
                 </form>
@@ -187,8 +173,8 @@
         function toggleEditMode() {
             const viewMode = document.getElementById('view-mode');
             const editMode = document.getElementById('edit-mode');
-            viewMode.classList.toggle('d-none');
-            editMode.classList.toggle('d-none');
+            viewMode.hidden = !viewMode.hidden;
+            editMode.hidden = !editMode.hidden;
         }
     </script>
 {% endblock %}
