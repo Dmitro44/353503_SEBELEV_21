@@ -31,7 +31,7 @@
             {% endif %}
             <h3>{{ vehicle.car_model }}</h3>
             <p>Год: {{ vehicle.year }}</p>
-            <p>Цена: {{ vehicle.daily_rental_price }} руб./сутки</p>
+            <p>Цена: {{ vehicle.daily_rental_price }} $ /сутки</p>
             <a href="{% url 'vehicle_detail' vehicle.pk %}">Подробнее</a>
         </article>
         {% endfor %}

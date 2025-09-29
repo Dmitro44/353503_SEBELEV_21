@@ -26,8 +26,9 @@ class Migration(migrations.Migration):
             name='CartItem',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.PositiveIntegerField(default=1)),
+                ('rental_days', models.PositiveIntegerField(default=1)),
                 ('cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='rentals.cart')),
+                ('promo_code', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='rentals.promocode')),
                 ('vehicle', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vehicles.vehicle')),
             ],
         ),

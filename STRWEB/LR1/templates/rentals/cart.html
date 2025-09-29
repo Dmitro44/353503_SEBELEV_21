@@ -11,7 +11,8 @@
             <thead>
                 <tr>
                     <th>Автомобиль</th>
-                    <th>Количество</th>
+                    <th>Дни аренды</th>
+                    <th>Промокод</th>
                     <th>Цена за день</th>
                     <th>Всего</th>
                     <th>Действия</th>
@@ -24,10 +25,11 @@
                         <td>
                             <form action="{% url 'update_cart_item' item.pk %}" method="post">
                                 {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                <input type="number" name="rental_days" value="{{ item.rental_days }}" min="1">
                                 <button type="submit">Обновить</button>
                             </form>
                         </td>
+                        <td>{% if item.promo_code %}{{ item.promo_code.code }}{% else %}-{% endif %}</td>
                         <td>{{ item.vehicle.daily_rental_price }} $</td>
                         <td>{{ item.total_price }} $</td>
                         <td>

@@ -29,8 +29,8 @@
                     <img 
                         src="{{ company_info.logo.url }}" 
                         srcset="{{ company_info.logo.url }} 1x, {{ company_info.logo.url }} 2x" 
-                        alt="{{ company_info.name }}" 
-                        style="max-height: 200px; width: auto;"
+                        alt="{{ company_info.name }}"
+                        width="20%"
                     >
                 </figure>
             {% endif %}
@@ -58,7 +58,10 @@
         {% if company_info.video_url %}
         <section>
             <h3>Видео о компании</h3>
-            <iframe width="560" height="315" src="{{ company_info.video_url }}" frameborder="0" allowfullscreen></iframe>
+            <video width="560" height="315" autoplay muted loop controls>
+                <source src="{{ company_info.video_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </section>
         {% endif %}
 

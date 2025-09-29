@@ -41,12 +41,16 @@ class RentalListView(View):
 
     @method_decorator(login_required)
     def get(self, request):
-        # Get rentals for the current user
-        rentals = (
-            Rental.objects.select_related("vehicle", "promo_code")
-            .filter(user=request.user)
-            .order_by("-created_at")
-        )
+        if hasattr(request.user, 'has_role') and request.user.has_role("staff"):
+            rentals = Rental.objects.select_related("vehicle", "promo_code").order_by(
+                "-created_at"
+            )
+        else:
+            rentals = (
+                Rental.objects.select_related("vehicle", "promo_code")
+                .filter(user=request.user)
+                .order_by("-created_at")
+            )
 
         # Filter by status if provided
         status_filter = request.GET.get("status")
@@ -151,43 +155,26 @@ class RentalCreateView(View):
         form = RentalCreateForm(request.POST, user=request.user)
 
         if form.is_valid():
-            rental = form.save(commit=False)
+            cart, _ = Cart.objects.get_or_create(user=request.user)
+            vehicle = form.cleaned_data['vehicle']
+            rental_days = form.cleaned_data['rental_days']
+            promo_code = form.cleaned_data.get('promo_code')
 
-            # Recalculate amounts and handle promo code logic safely
-            base_amount = rental.vehicle.daily_rental_price * rental.rental_days
-            discount_amount = 0
-
-            if rental.promo_code:
-                promo = rental.promo_code
-                if promo.is_valid:
-                    discount_amount = base_amount * (promo.discount_percentage / 100)
-                    promo.current_uses += 1
-                    promo.save()
-                else:
-                    messages.error(request, "Промокод недействителен или истек.")
-                    context = {"form": form, "is_update": False}
-                    context.update(self._get_json_context_data(form))
-                    return render(request, self.template_name, context)
-
-            rental.discount_amount = discount_amount
-            rental.total_amount = base_amount - discount_amount
-            rental.user = request.user
-            rental.status = "pending"
-            rental.rental_date = timezone.now().date()
-            rental.expected_return_date = rental.rental_date + timezone.timedelta(
-                days=rental.rental_days
-            )
-            rental.save()
-
-            messages.success(
-                request,
-                f"Автомобиль {rental.vehicle} успешно арендован до {rental.expected_return_date}!",
-            )
-            logger.info(
-                f"User {request.user.username} created rental {rental.pk} for vehicle {rental.vehicle}"
+            cart_item, created = CartItem.objects.update_or_create(
+                cart=cart,
+                vehicle=vehicle,
+                defaults={
+                    'rental_days': rental_days,
+                    'promo_code': promo_code,
+                }
             )
 
-            return redirect("rental_detail", pk=rental.pk)
+            if created:
+                messages.success(request, f"'{vehicle.car_model}' был добавлен в вашу корзину.")
+            else:
+                messages.success(request, f"'{vehicle.car_model}' в вашей корзине был обновлен.")
+
+            return redirect('cart')
 
         # If form is invalid, re-render with the necessary context
         context = {
@@ -441,7 +428,11 @@ class CartView(View):
         total_cart_price = 0
         
         for item in cart_items:
-            item.total_price = item.vehicle.daily_rental_price * item.quantity
+            base_price = item.vehicle.daily_rental_price * item.rental_days
+            discount = 0
+            if item.promo_code and item.promo_code.is_valid:
+                discount = base_price * (item.promo_code.discount_percentage / 100)
+            item.total_price = base_price - discount
             total_cart_price += item.total_price
 
         context = {
@@ -455,13 +446,13 @@ class UpdateCartItemView(View):
     @method_decorator(login_required)
     def post(self, request, item_id):
         cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
-        quantity = int(request.POST.get('quantity', 1))
-        if quantity > 0:
-            cart_item.quantity = quantity
+        rental_days = int(request.POST.get('rental_days', 1))
+        if rental_days > 0:
+            cart_item.rental_days = rental_days
             cart_item.save()
-            messages.success(request, 'Количество обновлено.')
+            messages.success(request, 'Количество дней аренды обновлено.')
         else:
-            messages.error(request, 'Количество должно быть больше нуля.')
+            messages.error(request, 'Количество дней должно быть больше нуля.')
         return redirect('cart')
 
 class RemoveFromCartView(View):
@@ -485,7 +476,11 @@ class PaymentView(View):
 
         total_cart_price = 0
         for item in cart_items:
-            item.total_price = item.vehicle.daily_rental_price * item.quantity
+            base_price = item.vehicle.daily_rental_price * item.rental_days
+            discount = 0
+            if item.promo_code and item.promo_code.is_valid:
+                discount = base_price * (item.promo_code.discount_percentage / 100)
+            item.total_price = base_price - discount
             total_cart_price += item.total_price
 
         context = {
@@ -504,21 +499,22 @@ class PaymentView(View):
             messages.error(request, "Ваша корзина пуста.")
             return redirect('cart')
 
-        # In a real application, you would process the payment here.
-        # For this example, we will just create the rentals.
-
         for item in cart_items:
-            # This is a simplified rental creation.
-            # You might need to get more details from the user, like rental days.
-            # For now, let's assume a default of 1 day.
-            rental_days = 1 
+            base_amount = item.vehicle.daily_rental_price * item.rental_days
+            discount_amount = 0
+            if item.promo_code and item.promo_code.is_valid:
+                discount_amount = base_amount * (item.promo_code.discount_percentage / 100)
+                item.promo_code.current_uses += 1
+                item.promo_code.save()
+
             rental = Rental.objects.create(
                 vehicle=item.vehicle,
                 user=request.user,
-                rental_days=rental_days,
-                rental_amount=item.vehicle.daily_rental_price * rental_days,
-                discount_amount=0,
-                total_amount=item.vehicle.daily_rental_price * rental_days,
+                rental_days=item.rental_days,
+                promo_code=item.promo_code,
+                rental_amount=base_amount,
+                discount_amount=discount_amount,
+                total_amount=base_amount - discount_amount,
                 status='pending'
             )
             item.vehicle.is_available = False

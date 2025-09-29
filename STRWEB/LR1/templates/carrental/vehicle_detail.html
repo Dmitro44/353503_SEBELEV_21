@@ -77,10 +77,7 @@
                 <footer>
                     {% if vehicle.is_available %}
                         {% if user.is_authenticated %}
-                            <form action="{% url 'add_to_cart' vehicle.pk %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit">Добавить в корзину</button>
-                            </form>
+                            <a href="{% url 'rental_create_for_vehicle' vehicle_id=vehicle.pk %}">Добавить в корзину</a>
                         {% else %}
                             <a href="{% url 'login' %}?next={% url 'vehicle_detail' vehicle.pk %}">Войти, чтобы добавить в корзину</a>
                         {% endif %}
@@ -91,14 +88,14 @@
             </aside>
         </div>
 
-        <!-- <section>
+        <section>
             <h3>Пример API запроса для получения данных об автомобиле</h3>
             <pre><code>
 fetch('/api/vehicles/{{ vehicle.pk }}/')
     .then(response => response.json())
     .then(data => console.log(data));
             </code></pre>
-        </section> -->
+        </section>
 
     </div>
 {% endblock %}

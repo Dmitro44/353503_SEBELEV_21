@@ -183,7 +183,8 @@ class Cart(models.Model):
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    rental_days = models.PositiveIntegerField(default=1)
+    promo_code = models.ForeignKey(PromoCode, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.quantity} of {self.vehicle.car_model} in cart for {self.cart.user.username}"
+        return f"1 of {self.vehicle.car_model} for {self.rental_days} days in cart for {self.cart.user.username}"
