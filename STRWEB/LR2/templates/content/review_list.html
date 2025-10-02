@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы - Автопрокат{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <div>
+                <h1>Отзывы клиентов</h1>
+
+                <div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Рейтинг нашего сервиса</h3>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'review_add' %}">Добавить отзыв</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        {% if avg_rating %}
+                            <div style="text-align: center;">
+                                <h2>Средняя оценка: {{ avg_rating|floatformat:1 }} из 5</h2>
+                            </div>
+
+                            <div>
+                                <div>
+                                    <div>
+                                        {% for rating_info in rating_counts %}
+                                            <div>
+                                                <div>{{ rating_info.rating }} звезд:</div>
+                                                <div>Количество отзывов: {{ rating_info.count }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div>
+                                Пока нет отзывов. Будьте первым, кто оставит отзыв!
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if reviews %}
+                    <div>
+                        <h3>Все отзывы</h3>
+
+                        {% for review in reviews %}
+                            <div style="border: 1px solid #ccc; margin-bottom: 1em; padding: 1em;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <strong>{{ review.user.get_full_name|default:review.user.username }}</strong>
+                                    </div>
+                                    <div>
+                                        ({{ review.rating }}/5)
+                                    </div>
+                                </div>
+                                <div>
+                                    <blockquote>
+                                        <p>{{ review.text }}</p>
+                                    </blockquote>
+                                    <p>
+                                        <small>Дата: <time datetime="{{ review.created_at|date:"Y-m-d" }}">{{ review.created_at|date:"d.m.Y" }}</time></small>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        {% if is_paginated %}
+                            <nav>
+                                <ul>
+                                    {% if page_obj.has_previous %}
+                                        <li>
+                                            <a href="?page=1">&laquo;&laquo;</a>
+                                        </li>
+                                        <li>
+                                            <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                                        </li>
+                                    {% endif %}
+
+                                    <li>
+                                        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                                    </li>
+
+                                    {% if page_obj.has_next %}
+                                        <li>
+                                            <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                                        </li>
+                                        <li>
+                                            <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

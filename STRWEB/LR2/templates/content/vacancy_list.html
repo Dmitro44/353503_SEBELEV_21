@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Вакансии - Автопрокат{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Вакансии</h1>
+
+        {% if vacancies %}
+            {% for vacancy in vacancies %}
+                <article style="margin-bottom: 2em;">
+                    <h4>{{ vacancy.title }}</h4>
+                    <p><strong>Описание:</strong> {{ vacancy.description }}</p>
+                    <p><strong>Требования:</strong> {{ vacancy.requirements|safe }}</p>
+                    <p><em>Опубликовано: {{ vacancy.published_at|date:"d.m.Y" }}</em></p>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>На данный момент открытых вакансий нет.</p>
+        {% endif %}
+    </section>
+{% endblock %}

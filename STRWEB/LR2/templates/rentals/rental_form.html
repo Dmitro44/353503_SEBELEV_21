@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if is_update %}Изменение аренды{% else %}Новая аренда{% endif %} - Автопрокат{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h3>{% if is_update %}Изменение аренды{% else %}Новая аренда{% endif %}</h3>
+                </div>
+                <div>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div>
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div>
+                            <label for="{{ form.vehicle.id_for_label }}">{{ form.vehicle.label|default:"Автомобиль" }}</label>
+                            {{ form.vehicle }}
+                            {% if form.vehicle.help_text %}
+                                <div>{{ form.vehicle.help_text }}</div>
+                            {% endif %}
+                            {% if form.vehicle.errors %}
+                                <div>
+                                    {% for error in form.vehicle.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.rental_days.id_for_label }}">{{ form.rental_days.label|default:"Количество дней" }}</label>
+                            {{ form.rental_days }}
+                            {% if form.rental_days.help_text %}
+                                <div>{{ form.rental_days.help_text }}</div>
+                            {% endif %}
+                            {% if form.rental_days.errors %}
+                                <div>
+                                    {% for error in form.rental_days.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.promo_code.id_for_label }}">{{ form.promo_code.label|default:"Промокод" }}</label>
+                            {{ form.promo_code }}
+                            {% if form.promo_code.help_text %}
+                                <div>{{ form.promo_code.help_text }}</div>
+                            {% endif %}
+                            {% if form.promo_code.errors %}
+                                <div>
+                                    {% for error in form.promo_code.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <div>
+                                <h5>Расчет стоимости</h5>
+                                <div id="price-breakdown"></div>
+                                <h3 id="calculated-price">Выберите автомобиль и укажите количество дней</h3>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            Обратите внимание, что аренда автомобиля подразумевает ответственность за его сохранность. 
+                            При возврате автомобиля в ненадлежащем состоянии могут быть применены штрафы.
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between;">
+                            <a href="{% url 'vehicle_list' %}">Назад к списку автомобилей</a>
+                            <button type="submit">{% if is_update %}Сохранить{% else %}Добавить в корзину{% endif %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="vehicle-prices" data-prices="{{ vehicle_prices_json }}" style="display: none;"></div>
+<div id="promo-percentages" data-percentages="{{ promo_percentages_json }}" style="display: none;"></div>
+
+<script src="{% static 'js/rental_price_calculator.js' %}"></script>
+{% endblock %}

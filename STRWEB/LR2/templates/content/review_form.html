@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить отзыв - Автопрокат{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h4>Добавить отзыв</h4>
+                </div>
+                <div>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div>
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div>
+                            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}</label>
+                            {{ form.rating }}
+                            {% if form.rating.help_text %}
+                                <div>{{ form.rating.help_text }}</div>
+                            {% endif %}
+                            {% if form.rating.errors %}
+                                <div>
+                                    {% for error in form.rating.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+                            {{ form.text }}
+                            {% if form.text.errors %}
+                                <div>
+                                    {% for error in form.text.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div>
+                            Ваш отзыв будет опубликован после проверки администратором.
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between;">
+                            <a href="{% url 'review_list' %}">Назад к отзывам</a>
+                            <button type="submit">Отправить отзыв</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали промокода - Автопрокат{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Детали промокода: {{ promocode.code }}</h3>
+                            <div>
+                                {% if promocode.is_active and promocode.valid_to > now %}
+                                    <span>Активен</span>
+                                {% else %}
+                                    <span>Неактивен</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <h5>Код:</h5>
+                            <p>{{ promocode.code }}</p>
+                        </div>
+
+                        <div>
+                            <h5>Описание:</h5>
+                            <p>{{ promocode.description|default:"Описание отсутствует" }}</p>
+                        </div>
+
+                        <div>
+                            <h5>Процент скидки:</h5>
+                            <p>{{ promocode.discount_percentage }}%</p>
+                        </div>
+
+                        <div>
+                            <h5>Срок действия:</h5>
+                            <p>С {{ promocode.valid_from|date:"d.m.Y" }} по {{ promocode.valid_to|date:"d.m.Y" }}</p>
+                        </div>
+
+                        <div>
+                            <h5>Использование:</h5>
+                            <p>{{ promocode.current_uses }} из {{ promocode.max_uses }} возможных</p>
+                        </div>
+
+                        <div>
+                            <a href="{% url 'promocode_list' %}">Назад к списку</a>
+                            <a href="{% url 'promocode_edit' promocode.id %}">Редактировать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

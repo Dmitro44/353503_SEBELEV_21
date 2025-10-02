@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Профиль пользователя</h1>
+
+        <!-- Режим просмотра -->
+        <div id="view-mode">
+            <div>
+                <h4>Информация о пользователе</h4>
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <strong>Имя пользователя:</strong> {{ user.username }}
+                    </li>
+                    <li>
+                        <strong>Email:</strong> {{ user.email }}
+                    </li>
+                    <li>
+                        <strong>Имя:</strong> {{ user.first_name }}
+                    </li>
+                    <li>
+                        <strong>Фамилия:</strong> {{ user.last_name }}
+                    </li>
+                    <li>
+                        <strong>Отчество:</strong> {{ user.middle_name|default:"Не указано" }}
+                    </li>
+                    <li>
+                        <strong>Роль:</strong> {{ user.role }}
+                    </li>
+                    <li>
+                        <strong>Дата рождения:</strong> {{ user.date_of_birth|date:"d.m.Y" }}
+                    </li>
+                    <li>
+                        <strong>Адрес:</strong> {{ user.address|default:"Не указан" }}
+                    </li>
+                    <li>
+                        <strong>Телефон:</strong> {{ user.phone|default:"Не указан" }}
+                    </li>
+                </ul>
+                <div>
+                    <button type="button" onclick="toggleEditMode()">Изменить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Режим редактирования -->
+        <div id="edit-mode" hidden>
+            <div>
+                <h4>Редактирование профиля</h4>
+            </div>
+            <div>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div>
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div>
+                        <!-- Username -->
+                        <div>
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            {{ form.username }}
+                            {% if form.username.help_text %}
+                                <div>{{ form.username.help_text }}</div>
+                            {% endif %}
+                            {% if form.username.errors %}
+                                <div>
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div>
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Last name -->
+                        <div>
+                            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                            {% if form.last_name.errors %}
+                                <div>
+                                    {% for error in form.last_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- First name -->
+                        <div>
+                            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                            {% if form.first_name.errors %}
+                                <div>
+                                    {% for error in form.first_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Middle name -->
+                        <div>
+                            <label for="{{ form.middle_name.id_for_label }}">{{ form.middle_name.label }}</label>
+                            {{ form.middle_name }}
+                            {% if form.middle_name.errors %}
+                                <div>
+                                    {% for error in form.middle_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Address -->
+                        <div>
+                            <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div>
+                                    {% for error in form.address.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                                <div>
+                                    {% for error in form.phone.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <button type="submit">Сохранить</button>
+                            <button type="button" onclick="toggleEditMode()">Отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleEditMode() {
+            const viewMode = document.getElementById('view-mode');
+            const editMode = document.getElementById('edit-mode');
+            viewMode.hidden = !viewMode.hidden;
+            editMode.hidden = !editMode.hidden;
+        }
+    </script>
+{% endblock %}
