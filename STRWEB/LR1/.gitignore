@@ -23,9 +23,6 @@ coverage.xml
 
 # Django
 *.log
-db.sqlite3
-/media/
-/static/
 
 # Environment
 .env
