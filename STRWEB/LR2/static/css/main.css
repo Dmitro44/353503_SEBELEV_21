@@ -1,0 +1,15 @@
+/* Main CSS file - imports all other stylesheets */
+
+@import 'base/_variables.css';
+@import 'base/_base.css';
+
+@import 'components/_buttons.css';
+@import 'components/_forms.css';
+@import 'components/_navbar.css';
+@import 'components/_cards.css';
+
+@import 'layout/_header.css';
+@import 'layout/_footer.css';
+
+@import 'pages/_home.css';
+@import 'pages/_vehicle_list.css';

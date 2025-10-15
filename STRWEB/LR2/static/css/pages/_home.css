@@ -1,0 +1,155 @@
+.home-top-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.home-column-center {
+    flex: 2;
+}
+
+.home-column-left, .home-column-right {
+    flex: 1;
+}
+
+.home_new_arrivals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+/* Specific override for home page card image height */
+.home_new_arrivals .card-img-top {
+    height: 300px;
+}
+
+.info-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.info-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.info-card a.btn {
+    display: inline-block;
+    margin-top: auto; /* Pushes button to the bottom */
+    padding: 5px 10px; /* Adds space above the button */
+    align-self: center; /* Prevent stretching */
+}
+
+
+.last_news {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+
+.partners-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+
+
+.misc-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.misc-section section {
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Banner Carousel Styles */
+.banner-carousel {
+    width: 100%;
+}
+
+.carousel-viewport {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-radius: 8px;
+    /* Hide scrollbar for a cleaner look */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.carousel-viewport::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Calendar Styles */
+.home-column-right .month {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+.home-column-right .month th, 
+.home-column-right .month td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #eee;
+}
+
+.home-column-right .month th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.home-column-right .month .noday {
+    background-color: #fdfdfd;
+    color: #ccc;
+}
+
+.home-column-right .month td:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}

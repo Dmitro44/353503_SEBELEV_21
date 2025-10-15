@@ -1,0 +1,97 @@
+/* General Page Layout */
+.vehicle-list-page h1 {
+    margin-bottom: 20px;
+}
+
+.vehicle-list-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+/* --- Left Column: Filters --- */
+.vehicle-filters-column {
+    flex: 0 0 280px; /* Fixed width for the filter column */
+    position: sticky; /* Make it stick on scroll */
+    top: 20px;
+}
+
+.filters-container {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.filter-section {
+    margin-bottom: 25px;
+}
+
+.filter-section:last-child {
+    margin-bottom: 0;
+}
+
+.filter-section h5 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.filter-section input[type="text"],
+.filter-section select {
+    margin-bottom: 15px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-buttons .btn {
+    flex: 1;
+}
+
+/* --- Right Column: Vehicle List --- */
+.vehicle-list-column {
+    flex: 1; /* Takes up the remaining space */
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.list-header p {
+    margin: 0;
+    color: #6c757d;
+}
+
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Vehicle Grid */
+.vehicle-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* No Vehicles Found Message */
+.no-vehicles-found {
+    padding: 40px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
