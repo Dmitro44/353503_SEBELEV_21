@@ -15,7 +15,8 @@ body {
 
 main {
     flex: 1;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 h1, h2, h3 {
