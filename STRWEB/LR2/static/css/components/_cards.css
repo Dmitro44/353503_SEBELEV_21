@@ -16,6 +16,19 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+/* Modifier for horizontal layout */
+.card.card-horizontal {
+    flex-direction: row;
+    align-items: stretch; 
+}
+
+.card-horizontal .card-img-left {
+    width: 200px; /* Fixed width for the image */
+    flex-shrink: 0;
+    object-fit: cover;
+    border-right: 1px solid #e9ecef;
+}
+
 .card-img-top {
     width: 100%;
     height: 200px;

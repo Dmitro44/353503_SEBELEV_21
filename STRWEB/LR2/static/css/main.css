@@ -16,3 +16,5 @@
 @import 'pages/_login.css';
 @import 'pages/_register.css';
 @import 'pages/_vehicle_detail.css';
+@import url("pages/_about.css");
+@import url("pages/_contacts.css");
