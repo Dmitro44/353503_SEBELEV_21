@@ -164,6 +164,7 @@
     background: #f8f9fa;
     padding: 1.5rem;
     border-radius: 8px;
+    font-size: 1.1rem;
 }
 
 /* Certificate Styling */
@@ -208,6 +209,16 @@
 .certificate-details {
     margin: 1.5rem 0;
     font-style: italic;
+}
+
+.certificate-detail-inn::before {
+    content: "ИНН: ";
+    font-weight: bold;
+}
+
+.certificate-detail-reg::before {
+    content: "Рег. номер: ";
+    font-weight: bold;
 }
 
 .certificate-footer {

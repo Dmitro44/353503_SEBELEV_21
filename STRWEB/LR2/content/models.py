@@ -40,7 +40,8 @@ class CompanyInfo(models.Model):
     video_url = models.URLField(blank=True, null=True, verbose_name='Видео о компании')
     history = models.TextField(blank=True, null=True, verbose_name='История компании')
     requisites = models.TextField(blank=True, null=True, verbose_name='Реквизиты')
-    certificate = models.TextField(blank=True, null=True, verbose_name='Сертификат')
+    certificate_issue_date = models.DateField(blank=True, null=True, verbose_name='Дата выдачи сертификата')
+    certificate_expiry_date = models.DateField(blank=True, null=True, verbose_name='Дата окончания сертификата')
     
     class Meta:
         verbose_name = 'Информация о компании'
@@ -48,6 +49,27 @@ class CompanyInfo(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class CertificateDetail(models.Model):
+    """Model for certificate details"""
+    DETAIL_TYPE_CHOICES = (
+        ('text', 'Текст'),
+        ('inn', 'ИНН'),
+        ('reg', 'Регистрационный номер'),
+    )
+    company = models.ForeignKey(CompanyInfo, on_delete=models.CASCADE, related_name='certificate_details', verbose_name='Компания')
+    text = models.CharField(max_length=255, verbose_name='Текст детали')
+    order = models.PositiveIntegerField(default=0, verbose_name='Порядок')
+    detail_type = models.CharField(max_length=10, choices=DETAIL_TYPE_CHOICES, default='text', verbose_name='Тип детали')
+
+    class Meta:
+        verbose_name = 'Деталь сертификата'
+        verbose_name_plural = 'Детали сертификата'
+        ordering = ['order']
+
+    def __str__(self):
+        return self.text
 
 
 class Review(models.Model):

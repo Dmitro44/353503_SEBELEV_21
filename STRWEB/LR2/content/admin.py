@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, CompanyInfo, Review, Partner, Contact, GlossaryEntry, Vacancy, Banner
+from .models import Article, CompanyInfo, Review, Partner, Contact, GlossaryEntry, Vacancy, Banner, CertificateDetail
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -16,14 +16,16 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
     )
 
-    #
-    #TODO: СДЕЛАТЬ ИНФОРМАЦИЮ О КОМПАНИИ В БАЗЕ ДАННЫХ, А НЕ НА HTML СТРАНИЦЕ
-    #
+class CertificateDetailInline(admin.TabularInline):
+    model = CertificateDetail
+    extra = 1
+    fields = ('text', 'detail_type', 'order')
 
 @admin.register(CompanyInfo)
 class CompanyInfoAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'email')
     search_fields = ('name', 'description')
+    inlines = [CertificateDetailInline]
     fieldsets = (
         ('Основная информация', {
             'fields': ('name', 'description', 'logo', 'video_url')
@@ -32,7 +34,7 @@ class CompanyInfoAdmin(admin.ModelAdmin):
             'fields': ('address', 'phone', 'email', 'working_hours')
         }),
         ('Дополнительная информация', {
-            'fields': ('history', 'requisites', 'certificate')
+            'fields': ('history', 'requisites', 'certificate_issue_date', 'certificate_expiry_date')
         }),
     )
 
