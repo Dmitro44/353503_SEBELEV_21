@@ -1,0 +1,273 @@
+/* /static/css/pages/_about.css */
+
+.about-layout {
+    display: flex;
+    gap: 2rem;
+}
+
+/* Left Navigation Column */
+.about-nav-column {
+    flex: 0 0 250px; /* Fixed width for the nav column */
+}
+
+.nav-container {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    position: sticky;
+    top: 2rem;
+}
+
+.nav-section h5 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.nav-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-section ul li {
+    margin-bottom: 0.75rem;
+}
+
+.nav-section ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-section ul li a:hover,
+.nav-section ul li a.active {
+    color: var(--primary-color);
+}
+
+.staff-link {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+.staff-link .btn {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Right Content Column */
+.about-content-column {
+    flex: 1;
+    min-width: 0; /* Prevents flexbox overflow issues */
+}
+
+.company-description {
+    background: #fff;
+    font-size: 1.05rem;
+    padding: 2rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.company-description div {
+    color: var(--text-color);
+}
+
+.content-row {
+    display: flex;
+    gap: 2rem;
+    align-items: stretch;
+    margin-bottom: 2rem;
+}
+
+.video-section {
+    flex: 1.5;
+}
+
+.video-section video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.advantages-section {
+    flex: 1;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.advantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex-grow: 1;
+}
+
+.advantages-section h4 {
+    color: var(--primary-color);
+    margin-bottom: 0;
+    margin-top: 0.9rem;
+}
+
+.advantages-section p {
+    color: var(--text-color);
+    margin-top: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.advantages-section h4,
+.advantages-section p {
+    font-size: 1.1rem;
+}
+
+.advantages-section article {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.history-section {
+    background: #fff;
+    font-size: 1.1rem;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.history-section div {
+    color: var(--text-color);
+}
+
+.certificate-section {
+    flex: 2;
+}
+
+.details-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.requisites-section, .anthem-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+/* Certificate Styling */
+.certificate {
+    background: #fdfdf0; /* Creamy paper color */
+    border: 10px solid #c0a060; /* Gold-ish border */
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 0 5px #a08040, 0 5px 15px rgba(0,0,0,0.2); /* Double border effect and shadow */
+    font-family: 'Georgia', serif;
+    color: #333;
+    position: relative;
+}
+
+.certificate-border {
+    border: 2px dashed #a08040;
+    padding: 1.5rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.certificate-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #806030;
+    margin-bottom: 1rem;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase;
+}
+
+.certificate-body h4 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin: 0.5rem 0;
+}
+
+.certificate-body p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.certificate-details {
+    margin: 1.5rem 0;
+    font-style: italic;
+}
+
+.certificate-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.certificate-footer p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.seal {
+    width: 80px;
+    height: 80px;
+    background: #a08040;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: 4px solid #c0a060;
+}
+
+.seal::before, .seal::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid #c0a060;
+}
+
+.seal::before {
+    width: 90%;
+    height: 90%;
+    border-style: dashed;
+}
+
+.seal::after {
+    content: '★';
+    font-size: 3rem;
+    color: #fdfdf0;
+    opacity: 0.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .about-layout, .content-row {
+        flex-direction: column;
+    }
+    .about-nav-column {
+        width: 100%;
+        position: static;
+    }
+}

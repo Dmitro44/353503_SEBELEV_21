@@ -3,120 +3,126 @@
 {% block title %}О компании - Автопрокат{% endblock %}
 
 {% block content %}
-<div>
+<div class="content-container">
     <h1>О компании</h1>
 
-    <nav>
-        <h4>Навигация по странице</h4>
-        <ul>
-            <li><a href="#contacts">Контактная информация</a></li>
-            <li><a href="#advantages">Наши преимущества</a></li>
-            <li><a href="#anthem">Гимн компании</a></li>
-            {% if company_info.history %}<li><a href="#history">История компании</a></li>{% endif %}
-        </ul>
-    </nav>
-
-    {% if user.is_authenticated and is_staff_user or is_admin_user %}
-        <div>
-            <a href="{% url 'statistics_dashboard' %}">Статистика компании</a>
-        </div>
-    {% endif %}
-
-    {% if company_info %}
-        <section>
-            {% if company_info.logo %}
-                <figure>
-                    <img 
-                        src="{{ company_info.logo.url }}" 
-                        srcset="{{ company_info.logo.url }} 1x, {{ company_info.logo.url }} 2x" 
-                        alt="{{ company_info.name }}"
-                        width="20%"
-                    >
-                </figure>
-            {% endif %}
-            <h2>{{ company_info.name }}</h2>
-            <div>
-                {{ company_info.description|linebreaks }}
+    <div class="about-layout">
+        <!-- Left Column: Navigation -->
+        <aside class="about-nav-column">
+            <div class="nav-container">
+                <div class="nav-section">
+                    <h5>Навигация</h5>
+                    <ul>
+                        <li><a href="#video-advantages">Видео и преимущества</a></li>
+                        {% if company_info.history %}<li><a href="#history">История</a></li>{% endif %}
+                        <li><a href="#details">Детали</a></li>
+                    </ul>
+                     {% if user.is_authenticated and is_staff_user or is_admin_user %}
+                        <div class="staff-link">
+                            <a href="{% url 'statistics_dashboard' %}" class="btn btn-secondary">Статистика</a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        </section>
+        </aside>
 
-        <section id="contacts">
-            <h3>Контактная информация</h3>
-            <ul>
-                <li><strong>Адрес:</strong> {{ company_info.address }}</li>
-                <li><strong>Телефон:</strong> {{ company_info.phone }}</li>
-                <li><strong>Email:</strong> {{ company_info.email }}</li>
-            </ul>
-        </section>
+        <!-- Right Column: Main Content -->
+        <main class="about-content-column">
+            {% if company_info %}
+                <section class="company-description">
+                    <h2>{{ company_info.name }}</h2>
+                    <div>{{ company_info.description|linebreaks }}</div>
+                </section>
 
-        <section>
-            <h3>Часы работы</h3>
-            <p>{{ company_info.working_hours }}</p>
-            <p>Для бронирования автомобиля вы можете воспользоваться нашим сайтом круглосуточно.</p>
-        </section>
+                <div id="video-advantages" class="content-row">
+                    {% if company_info.video_url %}
+                    <section class="video-section">
+                        <h3>Видео о компании</h3>
+                        <video autoplay muted loop controls>
+                            <source src="{{ company_info.video_url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </section>
+                    {% endif %}
 
-        {% if company_info.video_url %}
-        <section>
-            <h3>Видео о компании</h3>
-            <video width="560" height="315" autoplay muted loop controls>
-                <source src="{{ company_info.video_url }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </section>
-        {% endif %}
+                    <section id="advantages" class="advantages-section">
+                        <h3>Наши преимущества</h3>
+                        <div class="advantages-list">
+                            <article>
+                                <h4>Большой выбор автомобилей</h4>
+                                <p>У нас вы найдете автомобили различных классов и марок. <q>Лучший выбор в городе!</q> - говорит один из наших клиентов.</p>
+                            </article>
+                            <article>
+                                <h4>Доступные цены</h4>
+                                <p>Мы предлагаем конкурентные цены и гибкую систему скидок для всех клиентов в <abbr title="Республика Беларусь">РБ</abbr>.</p>
+                            </article>
+                            <article class="last-advantage">
+                                <h4>Поддержка 24/7</h4>
+                                <p>Наша служба поддержки всегда готова помочь вам.</p>
+                            </article>
+                        </div>
+                    </section>
+                </div>
 
-        {% if company_info.history %}
-        <section id="history">
-            <h3>История компании</h3>
-            <div>{{ company_info.history|linebreaks }}</div>
-        </section>
-        {% endif %}
+                {% if company_info.history %}
+                <section id="history" class="history-section">
+                    <h3>История компании</h3>
+                    <div>{{ company_info.history|linebreaks }}</div>
+                </section>
+                {% endif %}
 
-        {% if company_info.requisites %}
-        <section>
-            <h3>Реквизиты</h3>
-            <div>{{ company_info.requisites|linebreaks }}</div>
-        </section>
-        {% endif %}
+                <div id="details" class="content-row">
+                    {% if company_info.certificate %}
+                    <section class="certificate-section">
+                        <div class="certificate">
+                            <div class="certificate-border">
+                                <div class="certificate-content">
+                                    <div class="certificate-header">Сертификат соответствия</div>
+                                    <div class="certificate-body">
+                                        <p>Настоящим подтверждается, что компания</p>
+                                        <h4>"{{ company_info.name }}"</h4>
+                                        <p>предоставляет услуги по прокату автомобилей в соответствии с высшими стандартами качества.</p>
+                                        <div class="certificate-details">
+                                            {{ company_info.certificate|linebreaks }}
+                                        </div>
+                                    </div>
+                                    <div class="certificate-footer">
+                                        <div class="seal"></div>
+                                        <p>Дата выдачи: {{ company_info.foundation_date|date:"d F Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
 
-        {% if company_info.certificate %}
-        <section>
-            <h3>Сертификат</h3>
-            <div>{{ company_info.certificate|linebreaks }}</div>
-        </section>
-        {% endif %}
+                    <div class="details-column">
+                        {% if company_info.requisites %}
+                        <section class="requisites-section">
+                            <h3>Реквизиты</h3>
+                            <div>{{ company_info.requisites|linebreaks }}</div>
+                        </section>
+                        {% endif %}
 
-    {% endif %}
-
-    <section id="advantages">
-        <h3>Наши преимущества</h3>
-        <article>
-            <h4>Большой выбор автомобилей</h4>
-            <p>У нас вы найдете автомобили различных классов и марок. <q>Лучший выбор в городе!</q> - говорит один из наших клиентов.</p>
-        </article>
-        <article>
-            <h4>Доступные цены</h4>
-            <p>Мы предлагаем конкурентные цены и гибкую систему скидок для всех клиентов в <abbr title="Республика Беларусь">РБ</abbr>.</p>
-        </article>
-        <article>
-            <h4>Поддержка 24/7</h4>
-            <p>Наша служба поддержки всегда готова помочь вам.</p>
-        </article>
-    </section>
-
-    <section id="anthem">
-        <h3>Гимн компании</h3>
-        <pre>
+                        <section id="anthem" class="anthem-section">
+                            <h3>Гимн компании</h3>
+                            <pre>
 По дорогам мчим мы смело,
 Солнце светит ярко нам.
 "Автопрокат" - благое дело,
 Рады мы всегда гостям!
-        </pre>
-        <audio controls>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </section>
-
+                            </pre>
+                            <audio controls>
+                                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </section>
+                    </div>
+                </div>
+            {% else %}
+                <p>Информация о компании не найдена.</p>
+            {% endif %}
+        </main>
+    </div>
 </div>
 {% endblock %}

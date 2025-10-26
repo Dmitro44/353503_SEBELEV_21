@@ -3,7 +3,7 @@
 {% block title %}Контакты - Автопрокат{% endblock %}
 
 {% block content %}
-<div class="content-container">
+<div class="contacts-page content-container">
     <h1>Контакты</h1>
 
     <section class="contact-form-section">
@@ -34,7 +34,11 @@
                 <article>
                     <h4>Наш офис</h4>
                     <p>{{ company_info.address }}</p>
-                    <p>Время работы: {{ company_info.working_hours }}</p>
+                </article>
+
+                <article>
+                    <h4>Время работы</h4>
+                    <p>{{ company_info.working_hours }}</p>
                 </article>
 
                 <article>
@@ -50,7 +54,11 @@
                 <article>
                     <h4>Наш офис</h4>
                     <p>г. Москва, ул. Примерная, д. 123</p>
-                    <p>Время работы: пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
+                </article>
+
+                <article>
+                    <h4>Время работы</h4>
+                    <p>пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
                 </article>
 
                 <article>
@@ -85,7 +93,7 @@
                                 <p>{{ contact.position }}{% if contact.department %}, {{ contact.department }}{% endif %}</p>
                                 <p><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a> | <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
                                 {% if contact.bio %}
-                                    <p class="text-muted">{{ contact.bio|truncatewords:20 }}</p>
+                                    <p class="text-muted">{{ contact.bio}}</p>
                                 {% endif %}
                             </div>
                         </div>
