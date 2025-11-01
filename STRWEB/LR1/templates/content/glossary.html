@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Словарь терминов{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Словарь терминов</h1>
+
+    {% if entries %}
+        {% for entry in entries %}
+            <details>
+                <summary><dfn>{{ entry.question }}</dfn></summary>
+                <div>
+                    <p>{{ entry.answer|linebreaks }}</p>
+                    <small>Добавлено: {{ entry.created_at|date:"d.m.Y" }}</small>
+                </div>
+            </details>
+        {% endfor %}
+    {% else %}
+        <p>В словаре пока нет записей.</p>
+    {% endif %}
+</div>
+{% endblock %}

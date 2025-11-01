@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }} - Автопрокат{% endblock %}
+
+{% block content %}
+    <div>
+        <nav>
+            <ol>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'vehicle_list' %}">Автомобили</a></li>
+                <li>{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</li>
+            </ol>
+        </nav>
+
+        <div itemscope itemtype="http://schema.org/Vehicle">
+            <meta itemprop="name" content="{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}">
+            <article>
+                {% if vehicle.image %}
+                    <img itemprop="image" src="{{ vehicle.image.url }}" alt="{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}" style="max-width: 100%;">
+                {% else %}
+                    <p>Изображение отсутствует</p>
+                {% endif %}
+
+                <header>
+                    <h2 itemprop="brand" content="{{ vehicle.car_model.brand }}">{{ vehicle.car_model.brand }} <span itemprop="model">{{ vehicle.car_model.model }}</span></h2>
+                    <link itemprop="url" href="{{ request.build_absolute_uri }}">
+                    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <meta itemprop="priceCurrency" content="USD">
+                        <meta itemprop="price" content="{{ vehicle.daily_rental_price }}">
+                        <link itemprop="availability" href="http://schema.org/{% if vehicle.is_available %}InStock{% else %}OutOfStock{% endif %}">
+                    </div>
+                </header>
+                
+                <section itemprop="description">
+                    <h4>{{ vehicle.license_plate }}</h4>
+
+                    <table>
+                        <tr>
+                            <th>Год выпуска</th>
+                            <td><span itemprop="productionDate">{{ vehicle.year }}</span></td>
+                        </tr>
+                        <tr>
+                            <th>Тип кузова</th>
+                            <td><span itemprop="vehicleModelDate">{{ vehicle.car_model.body_type }}</span></td>
+                        </tr>
+                        <tr>
+                            <th>Автопарк</th>
+                            <td>{{ vehicle.car_park }}</td>
+                        </tr>
+                        <tr>
+                            <th>Стоимость автомобиля</th>
+                            <td>{{ vehicle.car_price }} $</td>
+                        </tr>
+                        <tr>
+                            <th>Статус</th>
+                            <td>{% if vehicle.is_available %}Доступен для проката{% else %}Недоступен{% endif %}</td>
+                        </tr>
+                    </table>
+
+                    {% if user.is_authenticated and is_staff_user or user.is_authenticated and is_admin_user %}
+                        <div>
+                            <a href="{% url 'vehicle_update' pk=vehicle.pk %}">Редактировать</a>
+                            <a href="{% url 'vehicle_delete' pk=vehicle.pk %}">Удалить</a>
+                        </div>
+                    {% endif %}
+                </section>
+            </article>
+
+            <aside>
+                <section>
+                    <h5>{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</h5>
+                    <hr>
+                    <p>
+                        Стоимость проката: <strong>{{ vehicle.daily_rental_price }} $/день</strong>
+                    </p>
+                </section>
+                <footer>
+                    {% if vehicle.is_available %}
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'rental_create_for_vehicle' vehicle_id=vehicle.pk %}">Добавить в корзину</a>
+                        {% else %}
+                            <a href="{% url 'login' %}?next={% url 'vehicle_detail' vehicle.pk %}">Войти, чтобы добавить в корзину</a>
+                        {% endif %}
+                    {% else %}
+                        <button disabled>Недоступен</button>
+                    {% endif %}
+                </footer>
+            </aside>
+        </div>
+
+        <section>
+            <h3>Пример API запроса для получения данных об автомобиле</h3>
+            <pre><code>
+fetch('/api/vehicles/{{ vehicle.pk }}/')
+    .then(response => response.json())
+    .then(data => console.log(data));
+            </code></pre>
+        </section>
+
+    </div>
+{% endblock %}

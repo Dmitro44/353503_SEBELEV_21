@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали аренды - Автопрокат{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <div>
+            <nav>
+                <ol>
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+
+                    {% if next_url and 'staff_rental_list' in next_url %}
+                        <li><a href="{% url 'staff_rental_list' %}">Управление арендами</a></li>
+                    {% else %}
+                        <li><a href="{% url 'rental_list' %}">Мои аренды</a></li>
+                    {% endif %}
+
+                    <li>Детали аренды</li>
+                </ol>
+            </nav>
+            
+            <div>
+                <div>
+                    <h3>Детали аренды #{{ rental.pk }}</h3>
+                </div>
+                <div>
+                    <div style="display: flex;">
+                        <div style="flex: 1; margin-right: 1em;">
+                            <h4>Информация об аренде</h4>
+                            <table>
+                                <tr>
+                                    <th>Статус:</th>
+                                    <td>
+                                        {{ rental.get_status_display }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Дата начала:</th>
+                                    <td>{{ rental.rental_date|date:"d.m.Y" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Количество дней:</th>
+                                    <td>{{ rental.rental_days }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Ожидаемая дата возврата:</th>
+                                    <td>{{ rental.expected_return_date|date:"d.m.Y" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Фактическая дата возврата:</th>
+                                    <td>{{ rental.actual_return_date|date:"d.m.Y"|default:"Не возвращен" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Сумма аренды:</th>
+                                    <td>$ {{ rental.rental_amount }}.</td>
+                                </tr>
+                                {% if rental.discount %}
+                                <tr>
+                                    <th>Скидка:</th>
+                                    <td>{{ rental.discount.name }} ($ {{ rental.discount_amount }}.)</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th>Итоговая сумма:</th>
+                                    <td><strong>$ {{ rental.total_amount }}.</strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="flex: 1;">
+                            <h4>Информация об автомобиле</h4>
+                            <table>
+                                <tr>
+                                    <th>Автомобиль:</th>
+                                    <td>{{ rental.vehicle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Гос. номер:</th>
+                                    <td>{{ rental.vehicle.license_plate }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Год выпуска:</th>
+                                    <td>{{ rental.vehicle.year }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Стоимость в сутки:</th>
+                                    <td>$ {{ rental.vehicle.daily_rental_price }}.</td>
+                                </tr>
+                                <tr>
+                                    <th>Автопарк:</th>
+                                    <td>{{ rental.vehicle.car_park }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    {% if rental.condition_notes %}
+                    <div>
+                        <div>
+                            <div>
+                                <h5>Примечания о состоянии автомобиля</h5>
+                            </div>
+                            <div>
+                                {{ rental.condition_notes|linebreaks }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if penalties %}
+                    <div>
+                        <div>
+                            <div>
+                                <h5>Штрафы</h5>
+                            </div>
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Тип штрафа</th>
+                                            <th>Сумма</th>
+                                            <th>Дата</th>
+                                            <th>Примечания</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for penalty in penalties %}
+                                        <tr>
+                                            <td>{{ penalty.penalty_type.name }}</td>
+                                            <td>$ {{ penalty.penalty_type.amount }}.</td>
+                                            <td>{{ penalty.date_applied|date:"d.m.Y" }}</td>
+                                            <td>{{ penalty.notes|default:"-" }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between;">
+                        {% if next_url %}
+                            <a href="{{ next_url }}">Назад к списку</a>
+                        {% else %}
+                            {% if is_staff_user or is_admin_user %}
+                                <a href="{% url 'staff_rental_list' %}">Назад к управлению арендами</a>
+                            {% else %}
+                                <a href="{% url 'rental_list' %}">Назад к моим арендам</a>
+                            {% endif %}
+                        {% endif %}
+                        
+                        {% if rental.status == 'active' and is_staff_user %}
+                        <a href="{% url 'rental_return' rental.pk %}">Оформить возврат</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

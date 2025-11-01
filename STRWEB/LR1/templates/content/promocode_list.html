@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}Промокоды и купоны - Автопрокат{% endblock %}
+
+{% block content %}
+    <div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Промокоды и купоны</h1>
+
+            {% if is_staff_user or is_admin_user %}
+                <a href="{% url 'promocode_create' %}">Создать промокод</a>
+            {% endif %}
+        </div>
+
+        <div>
+            <div>
+                <p>Используйте промокоды при оформлении аренды автомобиля для получения скидки.</p>
+            </div>
+
+            <div>
+                <div>
+                    <h3>Активные промокоды</h3>
+                </div>
+                <div>
+                    {% if promocodes.active %}
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Код</th>
+                                <th>Скидка</th>
+                                <th>Действует до</th>
+                                {% if user.role.is_staff %}
+                                    <th>Действия</th>
+                                {% endif %}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for code in promocodes.active %}
+                                <tr>
+                                    <td>
+                                        <span>{{ code.code }}</span>
+                                    </td>
+                                    <td>{{ code.discount_percentage }}%</td>
+                                    <td>{{ code.valid_to|date:"d.m.Y" }}</td>
+                                    {% if user.role.is_staff %}
+                                        <td>
+                                            <a href="{% url 'promocode_detail' code.id %}">Подробнее</a>
+                                            <a href="{% url 'promocode_edit' code.id %}">Редактировать</a>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div>
+                            <p>В настоящее время нет активных промокодов.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <h3>Архивные промокоды</h3>
+                </div>
+                <div>
+                    {% if promocodes.expired %}
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Код</th>
+                                <th>Скидка</th>
+                                <th>Срок действия</th>
+                                {% if user.role.is_staff %}
+                                    <th>Действия</th>
+                                {% endif %}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for code in promocodes.expired %}
+                                <tr>
+                                    <td>
+                                        <span>{{ code.code }}</span>
+                                    </td>
+                                    <td>{{ code.discount_percentage }}%</td>
+                                    <td>до {{ code.valid_to|date:"d.m.Y" }}</td>
+                                    {% if user.role.is_staff %}
+                                        <td>
+                                            <a href="{% url 'promocode_detail' code.id %}">Подробнее</a>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div>
+                            <p>Нет архивных промокодов.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

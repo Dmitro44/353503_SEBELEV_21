@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Подтверждение удаления - {{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <nav>
+            <ol>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'vehicle_list' %}">Автомобили</a></li>
+                <li><a href="{% url 'vehicle_detail' pk=vehicle.pk %}">{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</a></li>
+                <li>Удаление</li>
+            </ol>
+        </nav>
+
+        <div>
+            <div>
+                <h2>Подтверждение удаления</h2>
+            </div>
+            <div>
+                <p>Вы уверены, что хотите удалить автомобиль?</p>
+                <div>
+                    <h4>{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</h4>
+                    <p><strong>Гос. номер:</strong> {{ vehicle.license_plate }}</p>
+                    <p><strong>Год выпуска:</strong> {{ vehicle.year }}</p>
+                </div>
+                <p>Это действие необратимо. Все связанные данные (например, история аренды) могут быть также затронуты.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Да, удалить</button>
+                    <a href="{% url 'vehicle_detail' pk=vehicle.pk %}">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
