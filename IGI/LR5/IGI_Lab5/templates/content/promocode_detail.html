@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали промокода - Автопрокат{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="mb-0">Детали промокода: {{ promocode.code }}</h3>
+                            <div>
+                                {% if promocode.is_active and promocode.valid_to > now %}
+                                    <span class="badge bg-success">Активен</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Неактивен</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h5>Код:</h5>
+                            <p class="lead">{{ promocode.code }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Описание:</h5>
+                            <p>{{ promocode.description|default:"Описание отсутствует" }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Процент скидки:</h5>
+                            <p class="text-primary fw-bold">{{ promocode.discount_percentage }}%</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Срок действия:</h5>
+                            <p>С {{ promocode.valid_from|date:"d.m.Y" }} по {{ promocode.valid_to|date:"d.m.Y" }}</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <h5>Использование:</h5>
+                            <p>{{ promocode.current_uses }} из {{ promocode.max_uses }} возможных</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                     style="width: {% widthratio promocode.current_uses promocode.max_uses 100 %}%;"
+                                     aria-valuenow="{{ promocode.current_uses }}"
+                                     aria-valuemin="0" aria-valuemax="{{ promocode.max_uses }}">
+                                    {% widthratio promocode.current_uses promocode.max_uses 100 %}%
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{% url 'promocode_list' %}" class="btn btn-secondary">Назад к списку</a>
+                            <a href="{% url 'promocode_edit' promocode.id %}" class="btn btn-primary">Редактировать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

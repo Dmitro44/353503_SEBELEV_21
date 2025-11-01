@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}О компании - Автопрокат{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4 text-center">О компании</h1>
+
+                <!-- Кнопка для перехода на страницу статистики (только для персонала) -->
+                {% if user.is_authenticated and is_staff_user or is_admin_user %}
+                    <div class="text-center mb-4">
+                        <a href="{% url 'statistics_dashboard' %}" class="btn btn-lg btn-primary">
+                            <i class="bi bi-graph-up me-2"></i>Статистика компании
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if company_info %}
+                    <div class="card mb-5">
+                    <div class="card-body">
+                        <div class="row">
+                            {% if company_info.logo %}
+                                <div class="col-md-4 text-center mb-3">
+                                    <img src="{{ company_info.logo.url }}" alt="{{ company_info.name }}" class="img-fluid rounded" style="max-height: 200px;">
+                                </div>
+                                <div class="col-md-8">
+                            {% else %}
+                                <div class="col-12">
+                            {% endif %}
+                            <h2 class="card-title">{{ company_info.name }}</h2>
+                            <div class="card-text mt-4">
+                                {{ company_info.description|linebreaks }}
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-primary text-white">
+                                    <h3>Контактная информация</h3>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                                            <strong>Адрес:</strong> {{ company_info.address }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="bi bi-telephone-fill text-primary me-2"></i>
+                                            <strong>Телефон:</strong> {{ company_info.phone }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="bi bi-envelope-fill text-primary me-2"></i>
+                                            <strong>Email:</strong> {{ company_info.email }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-success text-white">
+                                    <h3>Часы работы</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <i class="bi bi-clock-fill text-success me-2"></i>
+                                        {{ company_info.working_hours }}
+                                    </p>
+                                    <div class="alert alert-info mt-3">
+                                        <i class="bi bi-info-circle-fill me-2"></i>
+                                        Для бронирования автомобиля вы можете воспользоваться нашим сайтом круглосуточно.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="card mb-5">
+                    <div class="card-header bg-info text-white">
+                        <h3>Наши преимущества</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <i class="bi bi-car-front display-4 text-info"></i>
+                                    <h4 class="mt-3">Большой выбор автомобилей</h4>
+                                    <p>У нас вы найдете автомобили различных классов и марок.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <i class="bi bi-cash-coin display-4 text-info"></i>
+                                    <h4 class="mt-3">Доступные цены</h4>
+                                    <p>Мы предлагаем конкурентные цены и гибкую систему скидок.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="text-center">
+                                    <i class="bi bi-headset display-4 text-info"></i>
+                                    <h4 class="mt-3">Поддержка 24/7</h4>
+                                    <p>Наша служба поддержки всегда готова помочь вам.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

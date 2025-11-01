@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты - Автопрокат{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="mb-4">Контакты</h1>
+
+                {% if company_info %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-building"></i> Наш офис</h5>
+                            <p class="card-text">{{ company_info.address }}</p>
+                            <p class="card-text">Время работы: {{ company_info.working_hours }}</p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-telephone"></i> Телефоны</h5>
+                            <p class="card-text">Общие вопросы: <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-envelope"></i> Электронная почта</h5>
+                            <p class="card-text">Общие вопросы: <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-building"></i> Наш офис</h5>
+                            <p class="card-text">г. Москва, ул. Примерная, д. 123</p>
+                            <p class="card-text">Время работы: пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-telephone"></i> Телефоны</h5>
+                            <p class="card-text">Общие вопросы: <a href="tel:+71234567890">+7 (123) 456-78-90</a></p>
+                            <p class="card-text">Служба поддержки: <a href="tel:+70987654321">+7 (098) 765-43-21</a></p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-envelope"></i> Электронная почта</h5>
+                            <p class="card-text">Общие вопросы: <a href="mailto:info@autorent.ru">info@autorent.ru</a></p>
+                            <p class="card-text">Служба поддержки: <a href="mailto:support@autorent.ru">support@autorent.ru</a></p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <h2 class="mb-4">Наши сотрудники</h2>
+
+                {% if contacts %}
+                    {% for contact in contacts %}
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                {% if contact.photo %}
+                                    <div class="col-md-4">
+                                        <img src="{{ contact.photo.url }}" class="img-fluid rounded-start" alt="{{ contact.get_full_name }}">
+                                    </div>
+                                {% endif %}
+                                <div class="col {% if not contact.photo %}col-md-12{% else %}col-md-8{% endif %}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ contact.get_full_name }}</h5>
+                                        <p class="card-text">{{ contact.position }}{% if contact.department %}, {{ contact.department }}{% endif %}</p>
+                                        <p class="card-text"><i class="bi bi-telephone"></i> <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
+                                        <p class="card-text"><i class="bi bi-envelope"></i> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                                        {% if contact.bio %}
+                                            <p class="card-text">{{ contact.bio|truncatewords:20 }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">
+                        <p>Информация о сотрудниках скоро появится!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
