@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Оплата{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Оплата</h1>
+
+    <h2>Ваш заказ</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Автомобиль</th>
+                <th>Количество</th>
+                <th>Цена за день</th>
+                <th>Всего</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.vehicle.car_model }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.vehicle.daily_rental_price }} $</td>
+                    <td>{{ item.total_price }} $</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Итого к оплате: {{ total_cart_price }} $</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <h2>Платежная информация</h2>
+        <div>
+            <label for="card_number">Номер карты</label>
+            <input type="text" id="card_number" name="card_number" required>
+        </div>
+        <div>
+            <label for="card_holder">Имя владельца</label>
+            <input type="text" id="card_holder" name="card_holder" required>
+        </div>
+        <div>
+            <label for="expiry_date">Срок действия</label>
+            <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
+        </div>
+        <div>
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" required>
+        </div>
+        <button type="submit">Оплатить</button>
+    </form>
+</div>
+{% endblock %}

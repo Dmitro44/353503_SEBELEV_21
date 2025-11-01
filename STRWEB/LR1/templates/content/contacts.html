@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты - Автопрокат{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Контакты</h1>
+
+        {% if company_info %}
+            <article>
+                <h4>Наш офис</h4>
+                <p>{{ company_info.address }}</p>
+                <p>Время работы: {{ company_info.working_hours }}</p>
+            </article>
+
+            <article>
+                <h4>Телефоны</h4>
+                <p>Общие вопросы: <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
+            </article>
+
+            <article>
+                <h4>Электронная почта</h4>
+                <p>Общие вопросы: <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
+            </article>
+        {% else %}
+            <article>
+                <h4>Наш офис</h4>
+                <p>г. Москва, ул. Примерная, д. 123</p>
+                <p>Время работы: пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
+            </article>
+
+            <article>
+                <h4>Телефоны</h4>
+                <p>Общие вопросы: <a href="tel:+71234567890">+7 (123) 456-78-90</a></p>
+                <p>Служба поддержки: <a href="tel:+70987654321">+7 (098) 765-43-21</a></p>
+            </article>
+
+            <article>
+                <h4>Электронная почта</h4>
+                <p>Общие вопросы: <a href="mailto:info@autorent.ru">info@autorent.ru</a></p>
+                <p>Служба поддержки: <a href="mailto:support@autorent.ru">support@autorent.ru</a></p>
+            </article>
+        {% endif %}
+
+        <h2>Наши сотрудники</h2>
+
+        {% if contacts %}
+            {% for contact in contacts %}
+                <article style="margin-bottom: 2em; display: flex;">
+                    {% if contact.photo %}
+                        <div style="margin-right: 1em;">
+                            <img src="{{ contact.photo.url }}" alt="{{ contact.get_full_name }}" style="max-width: 150px;">
+                        </div>
+                    {% endif %}
+                    <div>
+                        <h4>{{ contact.get_full_name }}</h4>
+                        <p>{{ contact.position }}{% if contact.department %}, {{ contact.department }}{% endif %}</p>
+                        <p><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a></p>
+                        <p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                        {% if contact.bio %}
+                            <p>{{ contact.bio|truncatewords:20 }}</p>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        {% else %}
+            <div>
+                <p>Информация о сотрудниках скоро появится!</p>
+            </div>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Свяжитесь с нами</h2>
+        <form action="" method="post">
+            <label for="name">Ваше имя:</label><br>
+            <input type="text" id="name" name="name" required><br>
+            <label for="email">Ваш Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            <label for="message">Сообщение:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea><br>
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
+{% endblock %}

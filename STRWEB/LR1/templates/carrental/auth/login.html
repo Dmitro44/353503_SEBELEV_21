@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход в систему - Автопрокат{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <h3>Вход в систему</h3>
+        </div>
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div>
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div>
+                        {% for error in form.username.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div>
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div>
+                <button type="submit">Войти</button>
+            </div>
+        </form>
+        <div style="text-align: center;">
+            <p>Еще нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+        </div>
+    </div>
+{% endblock %}
