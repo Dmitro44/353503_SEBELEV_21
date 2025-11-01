@@ -3,14 +3,14 @@
 {% block title %}Словарь терминов{% endblock %}
 
 {% block content %}
-<div>
+<div class="glossary-container">
     <h1>Словарь терминов</h1>
 
     {% if entries %}
         {% for entry in entries %}
             <details>
                 <summary><dfn>{{ entry.question }}</dfn></summary>
-                <div>
+                <div class="details-content">
                     <p>{{ entry.answer|linebreaks }}</p>
                     <small>Добавлено: {{ entry.created_at|date:"d.m.Y" }}</small>
                 </div>

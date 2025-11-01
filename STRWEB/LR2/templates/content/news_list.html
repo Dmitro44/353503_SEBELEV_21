@@ -3,35 +3,33 @@
 {% block title %}Новости - Автопрокат{% endblock %}
 
 {% block content %}
-<div>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="news-list-container">
+    <div class="news-header">
         <h1>Новости и акции</h1>
         {% if user.is_authenticated and is_staff_user or is_admin_user %}
-            <a href="{% url 'article_create' %}">Добавить новость</a>
+            <a href="{% url 'article_create' %}" class="btn btn-primary">Добавить новость</a>
         {% endif %}
     </div>
 
     {% if articles %}
-        <div style="display: flex; flex-wrap: wrap;">
+        <div class="news-grid">
             {% for article in articles %}
-                <div style="border: 1px solid #ccc; margin: 1em; padding: 1em; width: 45%;">
+                <div class="news-card">
                     {% if article.image %}
-                        <img src="{{ article.image.url }}" alt="{{ article.title }}" style="height: 200px; object-fit: cover; width: 100%;">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="news-card-image">
                     {% endif %}
-                    <div>
-                        <h5>{{ article.title }}</h5>
-                        <p>
+                    <div class="news-card-content">
+                        <h5 class="news-card-title">{{ article.title }}</h5>
+                        <p class="news-card-meta">
                             <small>Опубликовано: {{ article.published_at|date:"d.m.Y" }}</small>
                         </p>
-                        <p>{{ article.summary }}</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <a href="{% url 'news_detail' article.pk %}">Читать полностью</a>
+                        <p class="news-card-summary">{{ article.summary }}</p>
+                        <div class="news-card-footer">
+                            <a href="{% url 'news_detail' article.pk %}" class="btn btn-primary">Читать полностью</a>
 
                             {% if user.is_authenticated and is_staff_user or is_admin_user %}
-                                <div>
-                                    <a href="{% url 'article_edit' article.pk %}">Изменить</a>
-                                    <a href="{% url 'article_delete' article.pk %}">Удалить</a>
-                                </div>
+                                <a href="{% url 'article_edit' article.pk %}" class="btn btn-secondary">Изменить</a>
+                                <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Удалить</a>
                             {% endif %}
                         </div>
                     </div>
@@ -41,7 +39,7 @@
         
         {% if is_paginated %}
             <nav>
-                <ul>
+                <ul class="pagination">
                     {% if page_obj.has_previous %}
                         <li>
                             <a href="?page=1">&laquo;&laquo;</a>
@@ -49,11 +47,18 @@
                         <li>
                             <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
                         </li>
+                    {% else %}
+                        <li class="disabled"><span>&laquo;&laquo;</span></li>
+                        <li class="disabled"><span>&laquo;</span></li>
                     {% endif %}
                     
-                    <li>
-                        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
-                    </li>
+                    {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                            <li class="active"><span>{{ i }}</span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                     
                     {% if page_obj.has_next %}
                         <li>
@@ -62,13 +67,16 @@
                         <li>
                             <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a>
                         </li>
+                    {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        <li class="disabled"><span>&raquo;&raquo;</span></li>
                     {% endif %}
                 </ul>
             </nav>
         {% endif %}
     {% else %}
         <div>
-            В настоящее время нет опубликованных новостей.
+            <p>В настоящее время нет опубликованных новостей.</p>
         </div>
     {% endif %}
 </div>

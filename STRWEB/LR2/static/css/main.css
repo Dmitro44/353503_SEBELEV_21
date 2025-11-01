@@ -1,20 +1,27 @@
 /* Main CSS file - imports all other stylesheets */
 
-@import 'base/_variables.css';
-@import 'base/_base.css';
+@import url('base/_base.css');
+@import url('base/_variables.css');
 
-@import 'components/_buttons.css';
-@import 'components/_forms.css';
-@import 'components/_navbar.css';
-@import 'components/_cards.css';
+/* Layout */
+@import url('layout/_header.css');
+@import url('layout/_footer.css');
 
-@import 'layout/_header.css';
-@import 'layout/_footer.css';
+/* Components */
+@import url('components/_buttons.css');
+@import url('components/_navbar.css');
+@import url('components/_cards.css');
+@import url('components/_forms.css');
 
-@import 'pages/_home.css';
-@import 'pages/_vehicle_list.css';
-@import 'pages/_login.css';
-@import 'pages/_register.css';
-@import 'pages/_vehicle_detail.css';
-@import url("pages/_about.css");
-@import url("pages/_contacts.css");
+/* Pages */
+@import url('pages/_home.css');
+@import url('pages/_about.css');
+@import url('pages/_contacts.css');
+@import url('pages/_login.css');
+@import url('pages/_register.css');
+@import url('pages/_vehicle_list.css');
+@import url('pages/_vehicle_detail.css');
+@import url('pages/_glossary.css');
+@import url('pages/_about.css');
+@import url('pages/_contacts.css');
+@import url('pages/_news_list.css');
