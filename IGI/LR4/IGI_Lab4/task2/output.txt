@@ -1,0 +1,278 @@
+===== TEXT ANALYSIS RESULTS =====
+
+Analyzed line (#27):
+Is this working correctly? Check your results carefully!
+
+1. Found dates (format 2007):
+   - 2023
+   - 2019
+   - 2020
+   - 2021
+   - 2022
+   - 2024
+   - 2025
+   - 2026
+   - 2007
+   - 2018
+   - 2023
+   - 2007
+   - 2023
+   - 2025
+
+2. Selected line analysis:
+   - Total words in line: 8
+
+3. Words with consonant at 3rd from end and vowel at penultimate position:
+   - this
+
+4. Longest word and its position in line:
+   - Word: 'pneumonoultramicroscopicsilicovolcanoconiosis'
+   - Position: 84
+
+5. Odd-positioned words in line:
+   - This
+   - file
+   - created
+   - for
+   - text
+   - multiple
+   - It
+   - dates
+   - and
+   - dates
+   - to
+   - date
+   - functionality
+   - is
+   - capital
+   - Russia
+   - Storia
+   - an
+   - word
+   - matches
+   - pattern
+   - science
+   - a
+   - field
+   - uses
+   - methods
+   - and
+   - The
+   - runs
+   - on
+   - computers
+   - zebra
+   - are
+   - distinctive
+   - file
+   - help
+   - various
+   - and
+   - with
+   - snakes
+   - extra
+   - The
+   - is
+   - of
+   - longest
+   - words
+   - the
+   - Short
+   - like
+   - A
+   - The
+   - With
+   - frequently
+   - texts
+   - Programming
+   - University
+   - teach
+   - how
+   - handle
+   - processing
+   - and
+   - are
+   - long
+   - that
+   - spelling
+   - I
+   - happy
+   - this
+   - fun
+   - I
+   - t
+   - this
+   - More
+   - emoticons
+   - in
+   - communication
+   - as
+   - and
+   - or
+   - Some
+   - emoticons
+   - include
+   - don
+   - match
+   - pattern
+   - paragraph
+   - multiple
+   - designed
+   - test
+   - functionality
+   - has
+   - words
+   - a
+   - longer
+   - for
+   - statistics
+   - average
+   - length
+   - be
+   - as
+   - as
+   - average
+   - length
+   - this
+   - The
+   - was
+   - long
+   - but
+   - it
+   - grown
+   - kilometers
+   - to
+   - change
+   - zebra
+   - quickly
+   - the
+   - while
+   - programming
+   - popularity
+   - Do
+   - enjoy
+   - I
+   - do
+   - sure
+   - practice
+   - to
+   - your
+   - The
+   - is
+   - smoothly
+   - the
+   - slithers
+   - The
+   - shows
+   - patterns
+   - we
+   - to
+   - Is
+   - working
+   - Check
+   - results
+   - Words
+   - cobra
+   - extra
+   - storia
+   - programa
+   - match
+   - specific
+   - vowel
+   - at
+   - end
+   - algorithmic
+   - of
+   - analysis
+   - be
+   - high
+   - the
+   - provide
+   - insights
+   - language
+   - Some
+   - end
+   - periods
+   - end
+   - question
+   - And
+   - others
+   - with
+   - points
+   - variety
+   - us
+   - different
+   - types
+   - The
+   - showed
+   - results
+   - the
+   - reveals
+   - more
+   - patterns
+   - our
+   - Extra
+   - must
+   - taken
+   - analyzing
+   - in
+   - languages
+   - cobra
+   - a
+   - snake
+   - in
+   - parts
+   - Asia
+   - Africa
+   - zebra
+   - distinctive
+   - and
+   - stripes
+   - as
+   - against
+   - Programa
+   - is
+   - Spanish
+   - for
+   - program
+   - storia
+   - linguistics
+   - back
+   - ancient
+   - studying
+   - patterns
+   - driven
+   - dominate
+   - text
+   - methods
+   - Date
+   - The
+   - sentence
+   - just
+   - extra
+   - purposes
+
+===== GENERAL TEXT STATISTICS =====
+
+6. Sentence statistics:
+   - Total sentences: 41
+   - Declarative sentences: 35
+   - Interrogative sentences: 3
+   - Imperative sentences: 3
+
+7. Average values:
+   - Average sentence length: 10.76 words
+   - Average word length: 5.40 characters
+
+8. Emoticons:
+   - Number of emoticons: 10
+   - :)
+   - ;)
+   - :(
+   - :--)
+   - ;----)
+   - :-------(((((
+   - ;-]]]]]
+   - :-[[
+   - :)
+   - ;-(((
