@@ -5,193 +5,67 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <nav>
-            <ol>
-                <li><a href="{% url 'home' %}">Главная</a></li>
-                <li><a href="{% url 'vehicle_list' %}">Автомобили</a></li>
-                {% if is_update %}
-                    <li><a href="{% url 'vehicle_detail' pk=vehicle.pk %}">{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</a></li>
-                    <li>Редактирование</li>
-                {% else %}
-                    <li>Новый автомобиль</li>
-                {% endif %}
-            </ol>
-        </nav>
+<div class="content-container">
+    <nav class="breadcrumb-nav">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Главная</a></li>
+            <li><a href="{% url 'vehicle_list' %}">Автомобили</a></li>
+            {% if is_update %}
+                <li><a href="{% url 'vehicle_detail' pk=vehicle.pk %}">{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</a></li>
+                <li class="active">Редактирование</li>
+            {% else %}
+                <li class="active">Новый автомобиль</li>
+            {% endif %}
+        </ol>
+    </nav>
 
-        <div>
-            <div>
-                <h2>
-                    {% if is_update %}
-                        Редактирование автомобиля
-                    {% else %}
-                        Добавление нового автомобиля
+    <div class="form-container">
+        <h2>
+            {% if is_update %}
+                Редактирование автомобиля
+            {% else %}
+                Добавление нового автомобиля
+            {% endif %}
+        </h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="errorlist">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if is_update and vehicle.image %}
+                <div class="form-group">
+                    <label class="form-label">Текущее изображение</label>
+                    <img src="{{ vehicle.image.url }}" alt="Текущее изображение" class="form-image-preview">
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="form-group {% if field.field.widget.input_type == 'checkbox' %}form-group-checkbox{% endif %}">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
                     {% endif %}
-                </h2>
+                    {% for error in field.errors %}
+                        <div class="errorlist">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if is_update %}Сохранить изменения{% else %}Создать автомобиль{% endif %}
+                </button>
+                <a href="{% if is_update %}{% url 'vehicle_detail' pk=vehicle.pk %}{% else %}{% url 'vehicle_list' %}{% endif %}" class="btn btn-secondary">Отмена</a>
             </div>
-            <div>
-                <form method="post" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
-
-                    {% if form.non_field_errors %}
-                        <div>
-                            {% for error in form.non_field_errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    <div>
-
-                        <div>
-                            <label for="{{ form.image.id_for_label }}">{{ form.image.label|default:"Изображение автомобиля" }}</label>
-                            <div>
-                                {{ form.image }}
-                                {% if form.image.help_text %}
-                                    <div>{{ form.image.help_text }}</div>
-                                {% endif %}
-                                {% if form.image.errors %}
-                                    <div>
-                                        {% for error in form.image.errors %}
-                                            {{ error }}
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                            <!-- Предварительный просмотр изображения, если оно уже есть -->
-                            {% if is_update and vehicle.image %}
-                                <div>
-                                    <p>Текущее изображение:</p>
-                                    <img src="{{ vehicle.image.url }}" alt="Текущее изображение" style="max-height: 200px;">
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Гос. номер -->
-                        <div>
-                            <label for="{{ form.license_plate.id_for_label }}">{{ form.license_plate.label }}</label>
-                            {{ form.license_plate }}
-                            {% if form.license_plate.help_text %}
-                                <div>{{ form.license_plate.help_text }}</div>
-                            {% endif %}
-                            {% if form.license_plate.errors %}
-                                <div>
-                                    {% for error in form.license_plate.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Модель автомобиля -->
-                        <div>
-                            <label for="{{ form.car_model.id_for_label }}">{{ form.car_model.label }}</label>
-                            {{ form.car_model }}
-                            {% if form.car_model.help_text %}
-                                <div>{{ form.car_model.help_text }}</div>
-                            {% endif %}
-                            {% if form.car_model.errors %}
-                                <div>
-                                    {% for error in form.car_model.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Год выпуска -->
-                        <div>
-                            <label for="{{ form.year.id_for_label }}">{{ form.year.label }}</label>
-                            {{ form.year }}
-                            {% if form.year.help_text %}
-                                <div>{{ form.year.help_text }}</div>
-                            {% endif %}
-                            {% if form.year.errors %}
-                                <div>
-                                    {% for error in form.year.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Стоимость автомобиля -->
-                        <div>
-                            <label for="{{ form.car_price.id_for_label }}">{{ form.car_price.label }}</label>
-                            {{ form.car_price }}
-                            {% if form.car_price.help_text %}
-                                <div>{{ form.car_price.help_text }}</div>
-                            {% endif %}
-                            {% if form.car_price.errors %}
-                                <div>
-                                    {% for error in form.car_price.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Стоимость проката -->
-                        <div>
-                            <label for="{{ form.daily_rental_price.id_for_label }}">{{ form.daily_rental_price.label }}</label>
-                            {{ form.daily_rental_price }}
-                            {% if form.daily_rental_price.help_text %}
-                                <div>{{ form.daily_rental_price.help_text }}</div>
-                            {% endif %}
-                            {% if form.daily_rental_price.errors %}
-                                <div>
-                                    {% for error in form.daily_rental_price.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Автопарк -->
-                        <div>
-                            <label for="{{ form.car_park.id_for_label }}">{{ form.car_park.label }}</label>
-                            {{ form.car_park }}
-                            {% if form.car_park.help_text %}
-                                <div>{{ form.car_park.help_text }}</div>
-                            {% endif %}
-                            {% if form.car_park.errors %}
-                                <div>
-                                    {% for error in form.car_park.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- Доступность -->
-                        <div>
-                            <div>
-                                {{ form.is_available }}
-                                <label for="{{ form.is_available.id_for_label }}">{{ form.is_available.label }}</label>
-                                {% if form.is_available.help_text %}
-                                    <div>{{ form.is_available.help_text }}</div>
-                                {% endif %}
-                                {% if form.is_available.errors %}
-                                    <div>
-                                        {% for error in form.is_available.errors %}
-                                            {{ error }}
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <!-- Кнопки формы -->
-                        <div>
-                            <button type="submit">
-                                {% if is_update %}Сохранить изменения{% else %}Создать автомобиль{% endif %}
-                            </button>
-                            <a href="{% if is_update %}{% url 'vehicle_detail' pk=vehicle.pk %}{% else %}{% url 'vehicle_list' %}{% endif %}">Отмена</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        </form>
     </div>
+</div>
 {% endblock %}

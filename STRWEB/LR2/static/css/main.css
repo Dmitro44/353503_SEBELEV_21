@@ -12,6 +12,7 @@
 @import url('components/_navbar.css');
 @import url('components/_cards.css');
 @import url('components/_forms.css');
+@import url('components/_breadcrumbs.css');
 
 /* Pages */
 @import url('pages/_home.css');
@@ -25,3 +26,6 @@
 @import url('pages/_about.css');
 @import url('pages/_contacts.css');
 @import url('pages/_news_list.css');
+@import url('pages/_news_detail.css');
+@import url('pages/_news_confirm_delete.css');
+@import url('pages/_vehicle_form.css');

@@ -133,7 +133,7 @@ class NewsDetailView(DetailView):
 class ArticleCreateView(CreateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'content/article_form.html'
+    template_name = 'content/news_form.html'
     success_url = reverse_lazy('news_list')
 
     def form_valid(self, form):
@@ -153,7 +153,7 @@ class ArticleCreateView(CreateView):
 class ArticleUpdateView(UpdateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'content/article_form.html'
+    template_name = 'content/news_form.html'
 
     def get_success_url(self):
         return reverse_lazy('news_detail', kwargs={'pk': self.object.pk})
@@ -176,7 +176,7 @@ class ArticleUpdateView(UpdateView):
 @method_decorator(staff_required, name='dispatch')
 class ArticleDeleteView(DeleteView):
     model = Article
-    template_name = 'content/article_confirm_delete.html'
+    template_name = 'content/news_confirm_delete.html'
     success_url = reverse_lazy('news_list')
 
     def delete(self, request, *args, **kwargs):
