@@ -204,12 +204,20 @@ class ReviewListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        approved_reviews = Review.objects.filter(approved=True)
+        
         # Add average rating
-        avg_rating = Review.objects.filter(approved=True).aggregate(Avg('rating'))
+        avg_rating = approved_reviews.aggregate(Avg('rating'))
         context['avg_rating'] = avg_rating['rating__avg']
+        
         # Add rating counts
-        rating_counts = Review.objects.filter(approved=True).values('rating').annotate(count=Count('rating')).order_by('rating')
+        rating_counts = approved_reviews.values('rating').annotate(count=Count('rating')).order_by('-rating')
         context['rating_counts'] = rating_counts
+        
+        # Add total review count for the progress bar calculation
+        total_reviews = approved_reviews.count()
+        context['total_reviews'] = total_reviews
+        
         return context
 
 
