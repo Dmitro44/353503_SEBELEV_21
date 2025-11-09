@@ -1,0 +1,61 @@
+/* --- Base Filter Styles --- */
+.filter-container {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 0.25rem;
+    margin-bottom: 2rem;
+}
+
+.filter-container h5 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* --- Horizontal Layout --- */
+.filter-container-horizontal .filter-form .form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    align-items: flex-end;
+}
+
+.filter-container-horizontal .filter-form .form-group {
+    flex: 1;
+}
+
+.filter-container-horizontal .filter-form .form-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-top: 0;
+    border-top: 0;
+    margin-top: 0;
+    margin-bottom: 1rem; /* to align with inputs */
+}
+
+/* --- Vertical Layout --- */
+.filter-container-vertical .filter-section {
+    margin-bottom: 1.5rem;
+}
+
+.filter-container-vertical .filter-section:last-child {
+    margin-bottom: 0;
+}
+
+.filter-container-vertical .filter-section h5 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.filter-container-vertical .filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.filter-container-vertical .filter-buttons .btn {
+    flex: 1;
+}

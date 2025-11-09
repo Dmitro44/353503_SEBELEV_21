@@ -19,6 +19,17 @@
     margin-bottom: 1.5rem;
 }
 
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 200px; /* Prevent fields from getting too small */
+}
+
 /* Form label */
 .form-label {
     display: block;

@@ -16,45 +16,6 @@
     top: 20px;
 }
 
-.filters-container {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 20px;
-}
-
-.filter-section {
-    margin-bottom: 25px;
-}
-
-.filter-section:last-child {
-    margin-bottom: 0;
-}
-
-.filter-section h5 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    color: var(--primary-color);
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 10px;
-}
-
-.filter-section input[type="text"],
-.filter-section select {
-    margin-bottom: 15px;
-}
-
-.filter-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.filter-buttons .btn {
-    flex: 1;
-}
-
 /* --- Right Column: Vehicle List --- */
 .vehicle-list-column {
     flex: 1; /* Takes up the remaining space */

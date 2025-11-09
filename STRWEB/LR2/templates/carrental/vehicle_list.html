@@ -10,13 +10,15 @@
             
             <!-- Left Column: Filters -->
             <aside class="vehicle-filters-column">
-                <div class="filters-container">
+                <div class="filter-container filter-container-vertical">
                     
                     <!-- Search -->
                     <div class="filter-section">
                         <h5>Поиск</h5>
                         <form method="get" action="">
-                            <input type="text" placeholder="Марка, модель..." name="search" value="{{ search_query|default:'' }}">
+                            <div class="form-group">
+                                <input type="text" placeholder="Марка, модель..." name="search" value="{{ search_query|default:'' }}">
+                            </div>
                             <button type="submit" class="btn btn-primary">Искать</button>
                             {% if search_query %}
                                 <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Сбросить</a>
@@ -32,7 +34,7 @@
                                 <input type="hidden" name="search" value="{{ search_query }}">
                             {% endif %}
 
-                            <div>
+                            <div class="form-group">
                                 <label for="brand">Марка</label>
                                 <select id="brand" name="brand">
                                     <option value="">Все марки</option>
@@ -42,7 +44,7 @@
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="form-group">
                                 <label for="body_type">Тип кузова</label>
                                 <select id="body_type" name="body_type">
                                     <option value="">Все типы кузова</option>
@@ -52,7 +54,7 @@
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="form-group">
                                 <label for="year">Год выпуска</label>
                                 <select id="year" name="year">
                                     <option value="">Все годы</option>
@@ -62,7 +64,7 @@
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="form-group">
                                 <label for="is_available">Статус</label>
                                 <select id="is_available" name="is_available">
                                     <option value="">Все</option>
@@ -71,7 +73,7 @@
                                 </select>
                             </div>
 
-                            <div>
+                            <div class="form-group">
                                 <label for="car_park">Автопарк</label>
                                 <select id="car_park" name="car_park">
                                     <option value="">Все автопарки</option>
@@ -92,11 +94,11 @@
 
             <!-- Right Column: Vehicle List -->
             <main class="vehicle-list-column">
-                <div class="list-header">
+                <div class="list-header form-group">
                     <p>{{ vehicles|length }} автомобилей найдено</p>
                     <form method="get" class="sort-form">
                         <label for="ordering">Сортировать:</label>
-                        <select name="ordering" id="ordering" onchange="this.form.submit()">
+                        <select name="ordering" id="ordering" class="form-control" onchange="this.form.submit()">
                             <option value="daily_rental_price" {% if current_ordering == 'daily_rental_price' %}selected{% endif %}>Цена (по возрастанию)</option>
                             <option value="-daily_rental_price" {% if current_ordering == '-daily_rental_price' %}selected{% endif %}>Цена (по убыванию)</option>
                             <option value="year" {% if current_ordering == 'year' %}selected{% endif %}>Год (сначала новые)</option>
