@@ -3,9 +3,12 @@
 {% block title %}Оплата прошла успешно{% endblock %}
 
 {% block content %}
-<div>
+<div class="payment-success-container">
+    <div class="payment-success-icon">
+        &#10004; <!-- Simple checkmark character -->
+    </div>
     <h1>Оплата прошла успешно!</h1>
     <p>Ваши заказы на аренду были успешно созданы.</p>
-    <p><a href="{% url 'rental_list' %}">Посмотреть мои аренды</a></p>
+    <p><a href="{% url 'rental_list' %}" class="btn btn-primary">Посмотреть мои аренды</a></p>
 </div>
 {% endblock %}

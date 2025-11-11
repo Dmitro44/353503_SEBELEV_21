@@ -548,27 +548,3 @@ class PaymentSuccessView(View):
     @method_decorator(login_required)
     def get(self, request):
         return render(request, self.template_name)
-
-
-class UpdateCartItemView(View):
-    @method_decorator(login_required)
-    def post(self, request, item_id):
-        cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
-        quantity = int(request.POST.get("quantity", 1))
-        if quantity > 0:
-            cart_item.quantity = quantity
-            cart_item.save()
-            messages.success(request, "Количество обновлено.")
-        else:
-            messages.error(request, "Количество должно быть больше нуля.")
-        return redirect("cart")
-
-
-class RemoveFromCartView(View):
-    @method_decorator(login_required)
-    def post(self, request, item_id):
-        cart_item = get_object_or_404(CartItem, pk=item_id, cart__user=request.user)
-        cart_item.delete()
-        messages.success(request, "Товар удален из корзины.")
-        return redirect("cart")
-

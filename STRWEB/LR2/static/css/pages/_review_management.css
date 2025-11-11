@@ -29,7 +29,8 @@
 }
 
 .table-container {
-    overflow-x: auto; /* For responsive tables */
+    overflow-x: auto;
+    /* For responsive tables */
 }
 
 .management-table {

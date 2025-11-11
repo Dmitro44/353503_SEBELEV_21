@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from django.utils import timezone
 from .models import Rental, PenaltyType, PromoCode
 from vehicles.models import Vehicle
@@ -22,6 +23,18 @@ class RentalCreateForm(forms.ModelForm):
         
         # Only show available vehicles
         self.fields['vehicle'].queryset = Vehicle.objects.filter(is_available=True)
+        
+        # Only show valid promo codes
+        today = timezone.now().date()
+        self.fields['promo_code'].queryset = PromoCode.objects.filter(
+            is_active=True,
+            valid_from__lte=today,
+            valid_to__gte=today,
+            current_uses__lt=models.F('max_uses')
+        )
+        
+        # Add an empty choice for no promo code
+        self.fields['promo_code'].empty_label = "Нет промокода"
         
         # Add Bootstrap classes
         for field_name, field in self.fields.items():
