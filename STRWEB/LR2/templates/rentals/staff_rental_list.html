@@ -30,17 +30,17 @@
                     <input type="text" name="user" id="user" class="form-control"
                            value="{{ user_filter|default:'' }}" placeholder="Имя пользователя">
                 </div>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Применить</button>
-                <a href="{% url 'staff_rental_list' %}" class="btn btn-secondary">Сбросить</a>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Применить</button>
+                    <a href="{% url 'staff_rental_list' %}" class="btn btn-secondary">Сбросить</a>
+                </div>
             </div>
         </form>
     </div>
 
     {% if rentals %}
         <div class="table-container">
-            <table class="table rental-table">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>

@@ -5,7 +5,7 @@
     padding: 2rem;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .form-container h2 {
@@ -23,11 +23,13 @@
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
+    align-items: flex-end;
 }
 
 .form-row .form-group {
     flex: 1;
-    min-width: 200px; /* Prevent fields from getting too small */
+    /* Prevent fields from getting too small */
+    min-width: 200px;
 }
 
 /* Form label */
@@ -45,6 +47,7 @@
 .form-group input[type="number"],
 .form-group input[type="file"],
 .form-group input[type="url"],
+.form-group input[type="date"],
 .form-group textarea,
 .form-group select {
     width: 100%;
@@ -81,7 +84,8 @@
 }
 
 .form-group-checkbox label {
-    margin-bottom: 0; /* Override default label margin */
+    /* Override default label margin */
+    margin-bottom: 0;
 }
 
 .form-group-checkbox input[type="checkbox"] {

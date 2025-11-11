@@ -24,11 +24,11 @@
         <ul>
             <li><a href="{% url 'home' %}">Главная</a></li>
             <li><a href="{% url 'vehicle_list' %}">Автомобили</a></li>
-            {% if user.is_authenticated and not is_staff_user %}
+            {% if user.is_authenticated and not is_staff_user and not is_admin_user%}
                 <li><a href="{% url 'rental_list' %}">Мои аренды</a></li>
                 <li><a href="{% url 'cart' %}">Корзина</a></li>
             {% endif %}
-            {% if user.is_authenticated and is_staff_user %}
+            {% if user.is_authenticated and is_staff_user or is_admin_user%}
                 <li><a href="{% url 'staff_rental_list' %}">Управление арендами</a></li>
             {% endif %}
             <li><a href="{% url 'about' %}">О компании</a></li>

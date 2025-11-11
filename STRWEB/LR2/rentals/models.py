@@ -140,6 +140,10 @@ class Rental(models.Model):
             for penalty in self.penalties.all():
                 self.total_amount += penalty.penalty_type.amount
 
+        if self.actual_return_date and self.expected_return_date:
+            if self.actual_return_date > self.expected_return_date:
+                self.status = "overdue"
+
         super().save(*args, **kwargs)
 
     def __str__(self):

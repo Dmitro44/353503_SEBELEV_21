@@ -14,6 +14,7 @@
 @import url('components/_forms.css');
 @import url('components/_breadcrumbs.css');
 @import url('components/_filters.css');
+@import url('components/_tables.css');
 
 /* Pages */
 @import url('pages/_home.css');
@@ -35,4 +36,7 @@
 @import url('pages/_review_management.css');
 @import url('pages/_promocode_list.css');
 @import url('pages/_promocode_detail.css');
+@import url('pages/_rental_list.css');
+@import url('pages/_rental_detail.css');
 @import url('pages/_staff_rental_list.css');
+@import url('pages/_rental_return_form.css');
