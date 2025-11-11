@@ -7,7 +7,7 @@
     <div class="promocode-detail-container">
         <div class="page-header">
             <h1>Промокод: <span class="code-highlight">{{ promocode.code }}</span></h1>
-            {% if promocode.is_active and promocode.valid_to > now %}
+            {% if promocode.is_active %}
                 <span class="status-badge status-published">Активен</span>
             {% else %}
                 <span class="status-badge status-expired">Неактивен</span>
