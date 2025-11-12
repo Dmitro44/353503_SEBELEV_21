@@ -67,6 +67,27 @@
     {% block content %}{% endblock %}
 </main>
 
+<div class="preloader">
+    <div class="preloader-container">
+        <div class="preloader-arc"></div>
+        <div class="preloader-arc"></div>
+    </div>
+</div>
+
+<div class="animation-scene">
+    <div class="building"></div>
+    <div class="person">
+        <div class="person-head">
+            
+        </div>
+    </div>
+    <div class="car">
+        <div class="headlight"></div>
+        <div class="headlight"></div>
+    </div>
+    <div class="company-name">{{ company_info.name|default:'Автопрокат' }}</div>
+</div>
+
 <footer>
     <div>
         <a class="footer_ref" href="{% url 'vacancy_list' %}">Вакансии</a>

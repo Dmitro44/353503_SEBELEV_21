@@ -9,7 +9,7 @@
         <div class="home-column home-column-left">
             {% if latest_article %}
                 <section>
-                    <h3>Последняя новость</h3>
+                    <h1>Последняя новость</h1>
                     <article class="last_news">
                         {% if latest_article.image %}
                             <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" style="max-width: 100%; height: auto;">
@@ -42,7 +42,7 @@
 
         <div class="home-column home-column-right">
             <section>
-                <h3>Календарь</h3>
+                <h1>Календарь</h1>
                 {{ calendar|safe }}
             </section>
         </div>

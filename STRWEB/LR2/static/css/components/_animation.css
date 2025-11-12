@@ -1,0 +1,220 @@
+.animation-scene {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: #f0f0f0;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.building {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: #ccc;
+    border: 2px solid #999;
+}
+
+.building::before {
+    content: 'Прокат';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.building::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 160px;
+    background: #aaa;
+    border: 2px solid #999;
+}
+
+.person-head {}
+
+.person {
+    position: absolute;
+    bottom: 0;
+    left: -20px;
+    width: 20px;
+    height: 70px;
+    background: #333;
+    animation: walk-in 10s linear infinite;
+}
+
+.car {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 40px;
+    background: #c22;
+    border-radius: 10px 10px 0 0;
+    opacity: 0;
+    animation: drive-out 10s linear infinite;
+}
+
+.car::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 100px;
+    height: 20px;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+.headlight {
+    position: absolute;
+    top: 20px;
+    width: 15px;
+    height: 15px;
+    background: yellow;
+    border-radius: 50%;
+    opacity: 0;
+    animation: flash 10s linear infinite;
+}
+
+.headlight:first-child {
+    left: 5px;
+}
+
+.headlight:last-child {
+    right: 5px;
+}
+
+.company-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    color: #337ab7;
+    opacity: 0;
+    animation: show-name 10s linear infinite;
+}
+
+@keyframes walk-in {
+    0% {
+        left: -20px;
+    }
+
+    20% {
+        opacity: 1;
+        left: calc(50% - 60px);
+    }
+
+    /* walks to the door */
+    23% {
+        opacity: 0;
+    }
+
+    /* disappears into the building */
+    100% {
+        opacity: 0;
+        left: calc(50% - 60px);
+    }
+}
+
+@keyframes drive-out {
+    0% {
+        opacity: 0;
+        left: 50%;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    /* car appears at center */
+    35% {
+        opacity: 1;
+        left: 50%;
+    }
+
+    /* car drives to center and stops */
+    50% {
+        opacity: 1;
+        left: 50%;
+    }
+
+    /* car stays stopped */
+    60% {
+        opacity: 1;
+        left: 50%;
+    }
+
+    /* car drives off screen */
+    80% {
+        opacity: 1;
+        left: 110%;
+    }
+
+    100% {
+        opacity: 1;
+        left: 110%;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+
+    46% {
+        opacity: 0;
+    }
+
+    /* Flash 1 */
+    48% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    /* Flash 2 */
+    54% {
+        opacity: 1;
+    }
+
+    56% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes show-name {
+    0% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0;
+    }
+
+    86% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
