@@ -4,6 +4,29 @@
 
 {% block content %}
 <div class="content-container">
+    <div class="animation-scene">
+        <div class="building"></div>
+        <div class="person">
+            <div class="person-head"></div>
+            <div class="person-left-leg"></div>
+            <div class="person-right-leg"></div>
+            <div class="person-left-arm"></div>
+            <div class="person-right-arm"></div>
+        </div>
+        <div class="car">
+            <div class="headlight headlight-left"></div>
+            <div class="headlight headlight-right"></div>
+            <div class="left-wheel"></div>
+            <div class="right-wheel"></div>
+            <div class="car-person-head"></div>
+        </div>
+        <div class="car-side">
+            <div class="car-window-side"></div>
+            <div class="side-wheel-front"></div>
+            <div class="side-wheel-rear"></div>
+        </div>
+        <div class="company-name">{{ company_info.name|default:'Автопрокат' }}</div>
+    </div>
 
     <div class="home-top-layout">
         <div class="home-column home-column-left">
@@ -148,5 +171,13 @@
             </form>
         </section>
     </div>
-</div>
+
+    <div class="preloader">
+        <div class="preloader-container">
+            <div class="preloader-arc"></div>
+            <div class="preloader-arc"></div>
+        </div>
+    </div>
+
+    </div>
 {% endblock %}
