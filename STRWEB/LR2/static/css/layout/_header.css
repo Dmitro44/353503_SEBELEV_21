@@ -14,3 +14,10 @@
 .nav-logo:hover {
     transform: scale(1.1);
 }
+
+/* Отключаем "липкую" шапку на мобильных устройствах */
+@media (max-width: 768px) {
+    .nav-header {
+        position: static;
+    }
+}
