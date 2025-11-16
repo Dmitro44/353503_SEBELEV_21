@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load content_extras %}
 
 {% block title %}О компании - Автопрокат{% endblock %}
 
@@ -67,7 +68,7 @@
                 {% if company_info.history %}
                 <section id="history" class="history-section">
                     <h3>История компании</h3>
-                    <div>{{ company_info.history|linebreaks }}</div>
+                    <div>{{ company_info.history|linestolist }}</div>
                 </section>
                 {% endif %}
 

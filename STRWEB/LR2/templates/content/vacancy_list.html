@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
+{% load content_extras %}
 
 {% block title %}Вакансии - Автопрокат{% endblock %}
 
 {% block content %}
-    <section>
+    <section class="vacancy-list-page">
         <h1>Вакансии</h1>
 
-        {% if vacancies %}
+        <div class="vacancy-list-container">
             {% for vacancy in vacancies %}
-                <article style="margin-bottom: 2em;">
+                <article class="vacancy-item">
                     <h4>{{ vacancy.title }}</h4>
                     <p><strong>Описание:</strong> {{ vacancy.description }}</p>
-                    <p><strong>Требования:</strong> {{ vacancy.requirements|safe }}</p>
+                    <div><strong>Требования:</strong> {{ vacancy.requirements|linestolist }}</div>
                     <p><em>Опубликовано: {{ vacancy.published_at|date:"d.m.Y" }}</em></p>
                 </article>
+            {% empty %}
+                <p>На данный момент открытых вакансий нет.</p>
             {% endfor %}
-        {% else %}
-            <p>На данный момент открытых вакансий нет.</p>
-        {% endif %}
+        </div>
     </section>
 {% endblock %}
