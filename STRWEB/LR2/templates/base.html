@@ -16,7 +16,7 @@
     <nav>
         <a href="{% url 'home' %}">
             {% if company_info.logo %}
-                <img src="{{ company_info.logo.url }}" alt="{{ company_info.name }} Logo" height="100">
+                <img class="nav-logo" src="{{ company_info.logo.url }}" alt="{{ company_info.name }} Logo" height="100">
             {% else %}
                 {{ company_info.name|default:'Автопрокат' }}
             {% endif %}
