@@ -44,6 +44,18 @@
     font-size: 1.1rem;
     line-height: 1.7;
     color: #333;
+    text-align: justify;
+}
+
+/* Корректные стили для буквицы */
+.news-detail-content p:first-of-type::first-letter {
+    font-size: 4em;
+    font-weight: bold;
+    float: left;
+    color: var(--primary-color);
+    line-height: 0.8;
+    padding-right: 8px;
+    padding-left: 3px;
 }
 
 .back-link-container {
