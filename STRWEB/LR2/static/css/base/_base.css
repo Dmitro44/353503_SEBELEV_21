@@ -33,3 +33,11 @@ h2 {
     border-bottom: 1px solid #eee;
     padding-bottom: 0.5rem;
 }
+
+q:lang(ru) {
+    quotes: "«" "»";
+}
+
+q:lang(en) {
+    quotes: "“" "”";
+}

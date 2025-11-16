@@ -26,7 +26,7 @@
     align-items: flex-end;
 }
 
-.form-row .form-group {
+.form-row > .form-group {
     flex: 1;
     /* Prevent fields from getting too small */
     min-width: 200px;
