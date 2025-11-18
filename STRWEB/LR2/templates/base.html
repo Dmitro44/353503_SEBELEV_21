@@ -54,9 +54,9 @@
 </header>
 
 {% if messages %}
-    <div>
+    <div class="messages-container">
         {% for message in messages %}
-            <div>
+            <div class="message {{ message.tags }}">
                 {{ message }}
             </div>
         {% endfor %}

@@ -18,6 +18,7 @@
 @import url('components/_tables.css');
 @import url('components/_preloader.css');
 @import url('components/_animation.css');
+@import url('components/_messages.css');
 
 /* Pages */
 @import url('pages/_home.css');
