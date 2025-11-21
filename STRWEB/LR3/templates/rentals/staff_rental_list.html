@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}Управление арендами - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="page-header">
+        <h1>Управление арендами автомобилей</h1>
+        <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Список автомобилей</a>
+    </div>
+
+    <!-- Фильтры -->
+    <div class="filter-container filter-container-horizontal">
+        <h5>Фильтры</h5>
+        <form method="get" class="filter-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="status">Статус аренды</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="">Все статусы</option>
+                        {% for status_code, status_name in status_choices %}
+                            <option value="{{ status_code }}" {% if status_filter == status_code %}selected{% endif %}>
+                                {{ status_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="user">Поиск по клиенту</label>
+                    <input type="text" name="user" id="user" class="form-control"
+                           value="{{ user_filter|default:'' }}" placeholder="Имя пользователя">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Применить</button>
+                    <a href="{% url 'staff_rental_list' %}" class="btn btn-secondary">Сбросить</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% if rentals %}
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Клиент</th>
+                        <th>Автомобиль</th>
+                        <th>Статус</th>
+                        <th>Дата начала</th>
+                        <th>Ожидаемая дата возврата</th>
+                        <th>Фактическая дата возврата</th>
+                        <th>Сумма</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rental in rentals %}
+                        <tr>
+                            <td>{{ rental.pk }}</td>
+                            <td>{{ rental.user.get_full_name|default:rental.user.username }}</td>
+                            <td>{{ rental.vehicle }}</td>
+                            <td>
+                                <span class="status-badge status-{{ rental.status }}">{{ rental.get_status_display }}</span>
+                            </td>
+                            <td>{{ rental.rental_date|date:"d.m.Y" }}</td>
+                            <td>{{ rental.expected_return_date|date:"d.m.Y" }}</td>
+                            <td>{{ rental.actual_return_date|date:"d.m.Y"|default:"-" }}</td>
+                            <td>{{ rental.total_amount }} $</td>
+                            <td class="action-cell">
+                                <div class="action-group">
+                                    {% if rental.status == 'pending' %}
+                                        <form method="post" action="{% url 'rental_confirm' rental.pk %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="approve">
+                                            <button type="submit" class="btn btn-primary">Подтвердить</button>
+                                        </form>
+                                        <form method="post" action="{% url 'rental_confirm' rental.pk %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="reject">
+                                            <button type="submit" class="btn btn-danger">Отклонить</button>
+                                        </form>
+                                    {% endif %}
+
+                                    {% if rental.status == 'active' %}
+                                        <form method="get" action="{% url 'rental_return' rental.pk %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary">Оформить возврат</button>
+                                        </form>
+                                    {% endif %}
+
+                                    <a href="{% url 'rental_detail' rental.pk %}?next={% url 'staff_rental_list' %}" class="btn btn-secondary">Подробнее</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Нет аренд, соответствующих заданным критериям.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

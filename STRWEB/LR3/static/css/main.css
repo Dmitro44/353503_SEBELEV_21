@@ -1,0 +1,52 @@
+/* Main CSS file - imports all other stylesheets */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('base/_base.css');
+@import url('base/_variables.css');
+
+/* Layout */
+@import url('layout/_header.css');
+@import url('layout/_footer.css');
+
+/* Components */
+@import url('components/_buttons.css');
+@import url('components/_navbar.css');
+@import url('components/_cards.css');
+@import url('components/_forms.css');
+@import url('components/_breadcrumbs.css');
+@import url('components/_filters.css');
+@import url('components/_tables.css');
+@import url('components/_preloader.css');
+@import url('components/_animation.css');
+@import url('components/_messages.css');
+
+/* Pages */
+@import url('pages/_home.css');
+@import url('pages/_about.css');
+@import url('pages/_contacts.css');
+@import url('pages/_login.css');
+@import url('pages/_register.css');
+@import url('pages/_vehicle_list.css');
+@import url('pages/_vehicle_detail.css');
+@import url('pages/_glossary.css');
+@import url('pages/_about.css');
+@import url('pages/_contacts.css');
+@import url('pages/_news_list.css');
+@import url('pages/_news_detail.css');
+@import url('pages/_news_confirm_delete.css');
+@import url('pages/_vehicle_form.css');
+@import url('pages/_review_list.css');
+@import url('pages/_review_form.css');
+@import url('pages/_review_management.css');
+@import url('pages/_promocode_list.css');
+@import url('pages/_promocode_detail.css');
+@import url('pages/_rental_list.css');
+@import url('pages/_rental_detail.css');
+@import url('pages/_staff_rental_list.css');
+@import url('pages/_rental_return_form.css');
+@import url('pages/_rental_form.css');
+@import url('pages/_profile.css');
+@import url('pages/_payment.css');
+@import url('pages/_payment_success.css');
+@import url('pages/_privacy_policy.css');
+@import url('pages/_vacancy_list.css');

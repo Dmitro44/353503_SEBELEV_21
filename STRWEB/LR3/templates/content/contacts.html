@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="contacts-page content-container">
+    <h1>Контакты</h1>
+
+    <section class="contact-form-section">
+        <h2>Свяжитесь с нами</h2>
+        <form action="" method="post" class="contact-form">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Ваше имя и фамилия:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Ваш Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="message">Сообщение:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
+
+    <section class="company-info-section">
+        <div class="company-info-layout">
+            {% if company_info %}
+                <article>
+                    <h4>Наш офис</h4>
+                    <p>{{ company_info.address }}</p>
+                </article>
+
+                <article>
+                    <h4>Время работы</h4>
+                    <p>{{ company_info.working_hours }}</p>
+                </article>
+
+                <article>
+                    <h4>Телефоны</h4>
+                    <p>Общие вопросы: <a href="tel:{{ company_info.phone }}">{{ company_info.phone }}</a></p>
+                </article>
+
+                <article>
+                    <h4>Электронная почта</h4>
+                    <p>Общие вопросы: <a href="mailto:{{ company_info.email }}">{{ company_info.email }}</a></p>
+                </article>
+            {% else %}
+                <article>
+                    <h4>Наш офис</h4>
+                    <p>г. Москва, ул. Примерная, д. 123</p>
+                </article>
+
+                <article>
+                    <h4>Время работы</h4>
+                    <p>пн-пт с 9:00 до 20:00, сб-вс с 10:00 до 18:00</p>
+                </article>
+
+                <article>
+                    <h4>Телефоны</h4>
+                    <p>Общие вопросы: <a href="tel:+71234567890">+7 (123) 456-78-90</a></p>
+                    <p>Служба поддержки: <a href="tel:+70987654321">+7 (098) 765-43-21</a></p>
+                </article>
+
+                <article>
+                    <h4>Электронная почта</h4>
+                    <p>Общие вопросы: <a href="mailto:info@autorent.ru">info@autorent.ru</a></p>
+                    <p>Служба поддержки: <a href="mailto:support@autorent.ru">support@autorent.ru</a></p>
+                </article>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="employees-section">
+        <h2>Наши сотрудники</h2>
+        <div class="employees-layout">
+            {% if contacts %}
+                {% for contact in contacts %}
+                    <div class="card card-horizontal">
+                        {% if contact.photo %}
+                            <img class="card-img-left" src="{{ contact.photo.url }}" alt="{{ contact.get_full_name }}">
+                        {% else %}
+                            <div class="card-img-left-placeholder"></div>
+                        {% endif %}
+                        <div class="card-content">
+                            <div class="card-main-info">
+                                <h4>{{ contact.get_full_name }}</h4>
+                                <p>{{ contact.position }}{% if contact.department %}, {{ contact.department }}{% endif %}</p>
+                                <p><a href="tel:{{ contact.phone }}">{{ contact.phone }}</a> | <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                                {% if contact.bio %}
+                                    <p class="text-muted">{{ contact.bio}}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div>
+                    <p>Информация о сотрудниках скоро появится!</p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}

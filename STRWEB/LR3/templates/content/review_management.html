@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Модерация отзывов - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="page-header">
+        <h1>Модерация отзывов</h1>
+        <a href="{% url 'review_list' %}" class="btn btn-secondary">Просмотр на сайте</a>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <form method="get" class="filter-form">
+            <div class="form-group">
+                <label for="approved" class="form-label">Фильтр по статусу</label>
+                <select name="approved" id="approved">
+                    <option value="" {% if not approved_filter %}selected{% endif %}>Все отзывы</option>
+                    <option value="true" {% if approved_filter == 'true' %}selected{% endif %}>Опубликованные</option>
+                    <option value="false" {% if approved_filter == 'false' %}selected{% endif %}>Ожидающие проверки</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">Применить</button>
+                <a href="{% url 'review_management' %}" class="btn btn-secondary">Сбросить</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <p>Ожидают проверки: <strong>{{ pending_count }}</strong></p>
+    </div>
+
+    <!-- Reviews Table -->
+    <div class="table-container">
+        <table class="management-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Пользователь</th>
+                    <th>Рейтинг</th>
+                    <th>Текст</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.pk }}</td>
+                        <td>{{ review.user.get_full_name|default:review.user.username }}</td>
+                        <td class="rating-cell">{{ review.rating }}/5 ★</td>
+                        <td>{{ review.text|truncatechars:100 }}</td>
+                        <td>{{ review.created_at|date:"d.m.Y H:i" }}</td>
+                        <td>
+                            {% if review.approved %}
+                                <span class="status-badge status-published">Опубликован</span>
+                            {% else %}
+                                <span class="status-badge status-pending">Ожидает</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                {% if not review.approved %}
+                                    <form method="post" action="{% url 'review_approve' review.pk %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="approve">
+                                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                        <button type="submit" class="btn btn-primary btn-sm">Одобрить</button>
+                                    </form>
+                                    <form method="post" action="{% url 'review_approve' review.pk %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="reject">
+                                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите отклонить этот отзыв?');">Отклонить</button>
+                                    </form>
+                                {% else %}
+                                    <button class="btn btn-secondary btn-sm" disabled>Одобрен</button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="no-results">Нет отзывов, соответствующих заданным критериям.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

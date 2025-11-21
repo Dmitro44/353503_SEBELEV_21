@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Подтверждение удаления - {{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}
+{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <nav class="breadcrumb-nav">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'home' %}">Главная</a></li>
+            <li><a href="{% url 'vehicle_list' %}">Автомобили</a></li>
+            <li><a href="{% url 'vehicle_detail' pk=vehicle.pk %}">{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</a></li>
+            <li class="active">Удаление</li>
+        </ol>
+    </nav>
+
+    <div class="delete-confirmation-container">
+        <h2>Удаление автомобиля</h2>
+
+        <p class="confirmation-question">Вы уверены, что хотите удалить автомобиль <strong>"{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}"</strong>?</p>
+
+        <div class="article-details">
+            <p><strong>Гос. номер:</strong> {{ vehicle.license_plate }}</p>
+            <p><strong>Год выпуска:</strong> {{ vehicle.year }}</p>
+            {% if vehicle.image %}
+                <div class="article-image-preview">
+                    <img src="{{ vehicle.image.url }}" alt="Превью изображения: {{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}">
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="warning-message">
+            <p><strong>Внимание!</strong> Это действие необратимо. Автомобиль будет полностью удален из системы.</p>
+        </div>
+
+        <form method="post" class="confirmation-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <a href="{% url 'vehicle_detail' pk=vehicle.pk %}" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-danger">Да, удалить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

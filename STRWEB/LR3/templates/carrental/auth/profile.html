@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+    <div class="profile-header">
+        <h1>Профиль пользователя</h1>
+    </div>
+
+    <!-- Режим просмотра -->
+    <div id="view-mode" class="profile-section">
+        <div class="profile-section-header">
+            <h4>Информация о пользователе</h4>
+        </div>
+        <div>
+            <ul class="profile-info-list">
+                <li>
+                    <strong>Имя пользователя:</strong> <span>{{ user.username }}</span>
+                </li>
+                <li>
+                    <strong>Email:</strong> <span>{{ user.email }}</span>
+                </li>
+                <li>
+                    <strong>Имя:</strong> <span>{{ user.first_name }}</span>
+                </li>
+                <li>
+                    <strong>Фамилия:</strong> <span>{{ user.last_name }}</span>
+                </li>
+                <li>
+                    <strong>Отчество:</strong> <span>{{ user.middle_name|default:"Не указано" }}</span>
+                </li>
+                <li>
+                    <strong>Роль:</strong> <span>{{ user.role }}</span>
+                </li>
+                <li>
+                    <strong>Дата рождения:</strong> <span>{{ user.date_of_birth|date:"d.m.Y" }}</span>
+                </li>
+                <li>
+                    <strong>Адрес:</strong> <span>{{ user.address|default:"Не указан" }}</span>
+                </li>
+                <li>
+                    <strong>Телефон:</strong> <span>{{ user.phone|default:"Не указан" }}</span>
+                </li>
+            </ul>
+            <div class="profile-actions">
+                <button type="button" class="btn btn-primary" onclick="toggleEditMode()">Изменить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Режим редактирования -->
+    <div id="edit-mode" class="profile-section" hidden>
+        <div class="profile-section-header">
+            <h4>Редактирование профиля</h4>
+        </div>
+        <div>
+            <form method="post" novalidate class="profile-form">
+                {% csrf_token %}
+                <div class="form-row">
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                        {{ form.username }}
+                        {% if form.username.help_text %}
+                            <div class="form-text">{{ form.username.help_text }}</div>
+                        {% endif %}
+                   </div>
+                   
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                        {{ form.email }}
+                   </div>
+                </div>
+
+                <div class="form-row">
+                    <!-- Last name -->
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+                        {{ form.last_name }}
+                   </div>
+
+                    <!-- First name -->
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+                        {{ form.first_name }}
+                   </div>
+
+                    <!-- Middle name -->
+                    <div class="form-group">
+                        <label for="{{ form.middle_name.id_for_label }}" class="form-label">{{ form.middle_name.label }}</label>
+                        {{ form.middle_name }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.address.id_for_label }}" class="form-label">{{ form.address.label }}</label>
+                    {{ form.address }}
+               </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone.id_for_label }}" class="form-label">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+               </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script>
+        function toggleEditMode() {
+            const viewMode = document.getElementById('view-mode');
+            const editMode = document.getElementById('edit-mode');
+            viewMode.hidden = !viewMode.hidden;
+            editMode.hidden = !editMode.hidden;
+        }
+    </script>
+{% endblock %}

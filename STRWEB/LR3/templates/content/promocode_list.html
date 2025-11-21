@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Промокоды и купоны - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="page-header">
+        <h1>Промокоды и купоны</h1>
+        {% if is_staff_user or is_admin_user %}
+            <a href="{% url 'promocode_create' %}" class="btn btn-primary">Создать промокод</a>
+        {% endif %}
+    </div>
+
+    <p class="page-subheading">Используйте промокоды при оформлении аренды автомобиля для получения скидки.</p>
+
+    <div class="promocode-section">
+        <h2>Активные промокоды</h2>
+        <div class="table-container">
+            {% if promocodes.active %}
+                <table class="promocode-table">
+                    <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Скидка</th>
+                            <th>Срок действия</th>
+                            {% if is_staff_user or is_admin_user %}
+                                <th>Действия</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for code in promocodes.active %}
+                            <tr>
+                                <td class="code-cell">{{ code.code }}</td>
+                                <td class="discount-cell">{{ code.discount_percentage }}%</td>
+                                <td>до {{ code.valid_to|date:"d.m.Y" }}</td>
+                                {% if is_staff_user or is_admin_user %}
+                                    <td class="action-cell">
+                                        <a href="{% url 'promocode_detail' code.id %}" class="btn btn-sm btn-secondary">Подробнее</a>
+                                        <a href="{% url 'promocode_edit' code.id %}" class="btn btn-sm btn-primary">Изменить</a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>В настоящее время нет активных промокодов.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="promocode-section">
+        <h2>Архивные промокоды</h2>
+        <div class="table-container">
+            {% if promocodes.expired %}
+                <table class="promocode-table expired-table">
+                    <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Скидка</th>
+                            <th>Срок действия</th>
+                            {% if is_staff_user or is_admin_user %}
+                                <th>Действия</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for code in promocodes.expired %}
+                            <tr>
+                                <td class="code-cell">{{ code.code }}</td>
+                                <td class="discount-cell">{{ code.discount_percentage }}%</td>
+                                <td>до {{ code.valid_to|date:"d.m.Y" }}</td>
+                                {% if is_staff_user or is_admin_user %}
+                                    <td class="action-cell">
+                                        <a href="{% url 'promocode_detail' code.id %}" class="btn btn-sm btn-secondary">Подробнее</a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Нет архивных промокодов.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
