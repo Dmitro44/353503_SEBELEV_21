@@ -19,6 +19,7 @@
 @import url('components/_preloader.css');
 @import url('components/_animation.css');
 @import url('components/_messages.css');
+@import url('components/_slider.css');
 
 /* Pages */
 @import url('pages/_home.css');

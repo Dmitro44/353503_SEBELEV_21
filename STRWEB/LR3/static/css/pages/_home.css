@@ -94,36 +94,6 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Banner Carousel Styles */
-.banner-carousel {
-    width: 100%;
-}
-
-.carousel-viewport {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    border-radius: 8px;
-    /* Hide scrollbar for a cleaner look */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-.carousel-viewport::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-}
-
-.carousel-slide {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
 /* Calendar Styles */
 .home-column-right .month {
     width: 100%;

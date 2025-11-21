@@ -48,17 +48,37 @@
 
         <div class="home-column home-column-center">
             {% if banners %}
-            <section class="banner-carousel">
+            <section id="main-banner-slider" class="slider"
+                     data-loop="true"
+                     data-auto="true"
+                     data-delay="5000"
+                     data-navs="true"
+                     data-pags="true"
+                     data-stop-mouse-hover="true">
                 <h1>Рекламные баннеры</h1>
-                <div class="carousel-viewport">
-                    {% for banner in banners %}
-                    <div class="carousel-slide">
-                        <a href="{{ banner.link }}">
-                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
-                        </a>
+                <div class="slider-viewport">
+                    <div class="slider-track">
+                        {% for banner in banners %}
+                        <div class="slider-slide" data-title="{{ banner.title }}">
+                            <a href="{{ banner.link }}">
+                                <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
+                            </a>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
+
+                <div class="slider-controls">
+                    <button class="slider-nav-prev">&lt;</button>
+                    <button class="slider-nav-next">&gt;</button>
+                </div>
+
+                <div class="slider-pagination">
+                    <div class="slider-pagination-counter"></div>
+                    <div class="slider-pagination-dots"></div>
+                </div>
+
+                <div class="slider-caption"></div>
             </section>
             {% endif %}
         </div>
