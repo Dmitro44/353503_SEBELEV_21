@@ -16,5 +16,6 @@ urlpatterns = [
     path('reviews/', views.ReviewListView.as_view(), name='review_list'),
     path('reviews/add/', views.ReviewCreateView.as_view(), name='review_add'),
     path('staff/reviews/', views.ReviewManagementView.as_view(), name='review_management'),
-    path('staff/review/<int:pk>/approve', views.ReviewApproveView.as_view(), name='review_approve')
+    path('staff/review/<int:pk>/approve', views.ReviewApproveView.as_view(), name='review_approve'),
+    path('slider-settings/', views.SliderSettingsView.as_view(), name='slider_settings'),
 ]

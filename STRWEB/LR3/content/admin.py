@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, CompanyInfo, Review, Partner, Contact, GlossaryEntry, Vacancy, Banner, CertificateDetail
+from .models import Article, CompanyInfo, Review, Partner, Contact, GlossaryEntry, Vacancy, Banner, CertificateDetail, Slider
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
@@ -83,3 +83,11 @@ class BannerAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active', 'order')
     list_editable = ('is_active', 'order')
     search_fields = ('title', 'subtitle')
+
+@admin.register(Slider)
+class SliderAdmin(admin.ModelAdmin):
+    list_display = ('name', 'autoplay', 'autoplay_speed', 'arrows', 'dots')
+    list_editable = ('autoplay', 'autoplay_speed', 'arrows', 'dots')
+
+    def has_add_permission(self, request):
+        return Slider.objects.count() == 0

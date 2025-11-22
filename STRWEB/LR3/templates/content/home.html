@@ -48,24 +48,25 @@
 
         <div class="home-column home-column-center">
             {% if banners %}
+            <h1>Рекламные баннеры</h1>
             <section id="main-banner-slider" class="slider"
                      data-loop="true"
-                     data-auto="true"
-                     data-delay="5000"
-                     data-navs="true"
-                     data-pags="true"
+                     data-auto="{{ slider_settings.autoplay|yesno:'true,false' }}"
+                     data-delay="{{ slider_settings.autoplay_speed }}"
+                     data-navs="{{ slider_settings.arrows|yesno:'true,false' }}"
+                     data-pags="{{ slider_settings.dots|yesno:'true,false' }}"
                      data-stop-mouse-hover="true">
-                <h1>Рекламные баннеры</h1>
                 <div class="slider-viewport">
                     <div class="slider-track">
                         {% for banner in banners %}
                         <div class="slider-slide" data-title="{{ banner.title }}">
-                            <a href="{{ banner.link }}">
-                                <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
-                            </a>
+                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
                         </div>
                         {% endfor %}
                     </div>
+                    {% if is_staff_user or is_admin_user %}
+                        <a href="{% url 'slider_settings' %}" class="slider-settings-btn">⚙️</a>
+                    {% endif %}
                 </div>
 
                 <div class="slider-controls">

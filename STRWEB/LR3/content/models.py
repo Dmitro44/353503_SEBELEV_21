@@ -184,3 +184,19 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Slider(models.Model):
+    """Model for slider settings"""
+    name = models.CharField(max_length=100, verbose_name='Название слайдера', default='Main Slider')
+    autoplay = models.BooleanField(default=True, verbose_name='Автоматическая прокрутка')
+    autoplay_speed = models.PositiveIntegerField(default=3000, verbose_name='Скорость автоматической прокрутки (в мс)')
+    arrows = models.BooleanField(default=True, verbose_name='Показывать стрелки')
+    dots = models.BooleanField(default=True, verbose_name='Показывать точки')
+
+    class Meta:
+        verbose_name = 'Настройки слайдера'
+        verbose_name_plural = 'Настройки слайдеров'
+
+    def __str__(self):
+        return self.name
