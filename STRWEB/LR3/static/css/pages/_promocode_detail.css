@@ -4,9 +4,9 @@
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #fff;
+    background-color: var(--background-color);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .promocode-detail-container .page-header {
@@ -19,14 +19,14 @@
 .code-highlight {
     font-family: 'Courier New', Courier, monospace;
     color: var(--primary-color);
-    background-color: #e9ecef;
+    background-color: var(--secondary-color);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
 }
 
 /* Reusing status-badge from review management, adding expired style */
 .status-badge.status-expired {
-    background-color: #6c757d;
+    background-color: var(--text-muted-color);
 }
 
 .details-section {
@@ -41,11 +41,11 @@
 
 .details-list dt {
     font-weight: 600;
-    color: #333;
+    color: var(--text-color);
 }
 
 .details-list dd {
     margin: 0;
     padding-left: 1rem;
-    border-left: 3px solid #eee;
+    border-left: 3px solid var(--border-color);
 }

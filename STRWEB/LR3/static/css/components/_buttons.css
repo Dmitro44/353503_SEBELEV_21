@@ -25,37 +25,37 @@
 
 /* Primary Button */
 .btn-primary {
-    color: #fff;
+    color: var(--white-color);
     background-color: var(--primary-color);
     border-color: var(--primary-color);
 }
 
 .btn-primary:hover {
-    background-color: #2c69a3; /* A slightly darker shade of primary */
-    border-color: #2c69a3;
+    background-color: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
 }
 
 /* Secondary Button */
 .btn-secondary {
-    color: #333;
+    color: var(--text-color);
     background-color: transparent;
-    border-color: #ccc;
+    border-color: var(--border-color);
 }
 
 .btn-secondary:hover {
-    background-color: #f8f9fa;
-    border-color: #bbb;
+    background-color: var(--secondary-color);
+    border-color: var(--border-color);
 }
 
 /* Danger Button */
 .btn-danger {
-    color: #dc3545;
+    color: var(--danger-color);
     background-color: transparent;
-    border-color: #dc3545;
+    border-color: var(--danger-color);
 }
 
 .btn-danger:hover {
-    color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545;
+    color: var(--white-color);
+    background-color: var(--danger-color-hover);
+    border-color: var(--danger-color-hover);
 }

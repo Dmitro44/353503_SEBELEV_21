@@ -4,15 +4,15 @@
     max-width: 900px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #ffffff;
+    background-color: var(--background-color);
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .profile-header h1 {
     text-align: center;
     font-size: 2.2rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 2rem;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .profile-section-header {
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
 }
@@ -34,13 +34,14 @@
 .profile-info-list {
     list-style: none;
     padding: 0;
+    color: var(--dark-color);
 }
 
 .profile-info-list li {
     display: flex;
     justify-content: space-between;
     padding: 0.75rem 0;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .profile-info-list li:last-child {
@@ -48,7 +49,7 @@
 }
 
 .profile-info-list strong {
-    color: #555;
+    color: var(--text-muted-color);
 }
 
 .profile-actions {

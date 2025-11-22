@@ -3,7 +3,7 @@
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #fff;
+    background-color: var(--background-color);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -32,12 +32,16 @@
     min-width: 200px;
 }
 
+.form-group p {
+    color: var(--dark-color);
+}
+
 /* Form label */
 .form-label {
     display: block;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: var(--text-color);
 }
 
 /* General input styling */
@@ -54,10 +58,10 @@
     padding: 0.75rem 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
+    color: var(--text-color);
+    background-color: var(--white-color);
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     box-sizing: border-box;
@@ -97,7 +101,7 @@
 /* Help text */
 .form-text {
     font-size: 0.875em;
-    color: #6c757d;
+    color: var(--text-muted-color);
     margin-top: 0.25rem;
 }
 
@@ -106,7 +110,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0.5rem 0 0 0;
-    color: #dc3545;
+    color: var(--danger-color);
     font-size: 0.9rem;
 }
 
@@ -114,7 +118,7 @@
 .form-actions {
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: flex-end;
     gap: 1rem;

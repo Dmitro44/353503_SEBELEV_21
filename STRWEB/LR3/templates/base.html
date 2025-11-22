@@ -42,6 +42,7 @@
             {% endif %}
         </ul>
         <ul>
+            <li><a href="#" id="theme-toggle">Сменить тему</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'profile' %}">{{ user.username }}</a></li>
                 <li><a href="{% url 'logout' %}">Выйти</a></li>

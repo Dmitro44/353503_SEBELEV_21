@@ -5,15 +5,15 @@
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
-    background-color: #f4f4f4;
+    background-color: var(--secondary-color);
     flex: 1;
 }
 
 .register-container {
-    background-color: #fff;
+    background-color: var(--background-color);
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
     width: 100%;
     max-width: 600px; /* A bit wider for more fields */
 }
@@ -33,7 +33,7 @@
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #555;
+    color: var(--text-color);
 }
 
 .register-container input[type="text"],
@@ -42,7 +42,7 @@
 .register-container input[type="date"] {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     box-sizing: border-box;
     transition: border-color 0.3s;
@@ -70,7 +70,7 @@
 
 .register-container .help-text {
     font-size: 0.85rem;
-    color: #6c757d;
+    color: var(--text-muted-color);
     margin-top: 5px;
 }
 
@@ -81,7 +81,7 @@
 
 .register-footer p {
     margin: 0;
-    color: #666;
+    color: var(--text-muted-color);
 }
 
 .register-footer a {

@@ -4,27 +4,27 @@
     max-width: 800px;
     margin: 4rem auto;
     padding: 3rem;
-    background-color: #ffffff;
+    background-color: var(--background-color);
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px var(--shadow-color);
     text-align: center;
 }
 
 .payment-success-icon {
     font-size: 4rem;
-    color: #28a745; /* A success green */
+    color: var(--success-color); /* A success green */
     margin-bottom: 1.5rem;
 }
 
 .payment-success-container h1 {
     font-size: 2.5rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 1rem;
 }
 
 .payment-success-container p {
     font-size: 1.2rem;
-    color: #555;
+    color: var(--text-muted-color);
     margin-bottom: 2rem;
 }
 

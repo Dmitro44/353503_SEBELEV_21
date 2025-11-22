@@ -5,7 +5,7 @@
     margin-top: -1.5rem;
     margin-bottom: 2rem;
     font-size: 1rem;
-    color: #6c757d;
+    color: var(--text-muted-color);
 }
 
 /* Star Rating Widget */
@@ -21,7 +21,7 @@
 
 .star-rating-widget label {
     font-size: 2rem;
-    color: #ccc;
+    color: var(--border-color);
     cursor: pointer;
     transition: color 0.2s;
     padding: 0 0.1em;
@@ -30,21 +30,21 @@
 /* Hover effect: all stars to the right of the hovered one turn yellow */
 .star-rating-widget label:hover,
 .star-rating-widget label:hover ~ label {
-    color: #ffc107;
+    color: var(--warning-color);
 }
 
 /* Checked effect: all stars to the right of the checked one stay yellow */
 .star-rating-widget input[type="radio"]:checked ~ label {
-    color: #ffc107;
+    color: var(--warning-color);
 }
 
 .form-info-message {
     text-align: center;
     padding: 1rem;
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background-color: var(--light-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     margin-top: 1.5rem;
     font-size: 0.9rem;
-    color: #6c757d;
+    color: var(--text-muted-color);
 }

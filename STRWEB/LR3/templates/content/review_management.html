@@ -34,7 +34,7 @@
 
     <!-- Reviews Table -->
     <div class="table-container">
-        <table class="management-table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -56,7 +56,7 @@
                         <td>{{ review.created_at|date:"d.m.Y H:i" }}</td>
                         <td>
                             {% if review.approved %}
-                                <span class="status-badge status-published">Опубликован</span>
+                                <span class="status-badge status-active">Опубликован</span>
                             {% else %}
                                 <span class="status-badge status-pending">Ожидает</span>
                             {% endif %}

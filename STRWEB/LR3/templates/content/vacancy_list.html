@@ -4,7 +4,7 @@
 {% block title %}Вакансии - Автопрокат{% endblock %}
 
 {% block content %}
-    <section class="vacancy-list-page">
+    <section class="content-container vacancy-list-page">
         <h1>Вакансии</h1>
 
         <div class="vacancy-list-container">
@@ -12,7 +12,7 @@
                 <article class="vacancy-item">
                     <h4>{{ vacancy.title }}</h4>
                     <p><strong>Описание:</strong> {{ vacancy.description }}</p>
-                    <div><strong>Требования:</strong> {{ vacancy.requirements|linestolist }}</div>
+                    <div class="requirements"><strong>Требования:</strong> {{ vacancy.requirements|linestolist }}</div>
                     <p><em>Опубликовано: {{ vacancy.published_at|date:"d.m.Y" }}</em></p>
                 </article>
             {% empty %}

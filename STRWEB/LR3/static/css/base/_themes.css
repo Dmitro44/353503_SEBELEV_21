@@ -1,0 +1,93 @@
+/* Light Theme */
+:root {
+    --primary-color: #337ab7;
+    --primary-color-hover: #2c69a3;
+    --secondary-color: #f4f4f4;
+    --success-color: #28a745;
+    --success-color-hover: #218838;
+    --success-color-light: #d4edda;
+    --success-color-border: #c3e6cb;
+    --danger-color: #dc3545;
+    --danger-color-hover: #c82333;
+    --danger-color-light: #f8d7da;
+    --danger-color-border: #f5c6cb;
+    --warning-color: #ffc107;
+    --warning-color-hover: #e0a800;
+    --warning-color-light: #fff3cd;
+    --warning-color-border: #ffeeba;
+    --info-color: #17a2b8;
+    --info-color-hover: #138496;
+    --info-color-light: #d1ecf1;
+    --info-color-border: #bee5eb;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --white-color: #fff;
+    --black-color: #000;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.5);
+    --overlay-color-dark: rgba(0, 0, 0, 0.7);
+
+    --certificate-background: #fdfdf0;
+    --certificate-border-gold: #c0a060;
+    --certificate-shadow-gold: #a08040;
+    --certificate-text-gold: #806030;
+    --certificate-text-color: #333;
+
+    --text-color: #333;
+    --text-muted-color: #6c757d;
+    --background-color: #fff;
+    --border-color: #dee2e6;
+    --font-family: "Montserrat Medium", sans-serif;
+}
+
+/* Dark Theme - Modern Automotive */
+[data-theme="dark"] {
+    --primary-color: #4dabf7; 
+    --primary-color-hover: #339af0;
+    
+    --secondary-color: #1f1f1f; 
+
+    --success-color: #2ea043;
+    --success-color-hover: #3fb950;
+    --success-color-light: #112916;
+    --success-color-border: #238636;
+    
+    --danger-color: #f85149;
+    --danger-color-hover: #da3633;
+    --danger-color-light: #381313;
+    --danger-color-border: #6e2525;
+    
+    --warning-color: #d29922;
+    --warning-color-hover: #bb8800;
+    --warning-color-light: #372b0a;
+    --warning-color-border: #684e13;
+    
+    --info-color: #58a6ff;
+    --info-color-hover: #388bfd;
+    --info-color-light: #102a4c;
+    --info-color-border: #1f6feb;
+
+    --light-color: #21262d;
+    --dark-color: #c9d1d9;
+
+    --white-color: #0d1117;
+    --black-color: #f0f6fc;
+
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --overlay-color: rgba(0, 0, 0, 0.6);
+    --overlay-color-dark: rgba(0, 0, 0, 0.85);
+
+    --certificate-background: #1e1b15;
+    --certificate-border-gold: #9e8040;
+    --certificate-shadow-gold: #5c481f;
+    --certificate-text-gold: #e0c070;
+    --certificate-text-color: #f0f6fc;
+
+    --text-color: #e6edf3;
+    --text-muted-color: #8b949e;
+
+    --background-color: #0d1117;
+    --border-color: #30363d;
+    --font-family: "Montserrat Medium", sans-serif;
+}
+

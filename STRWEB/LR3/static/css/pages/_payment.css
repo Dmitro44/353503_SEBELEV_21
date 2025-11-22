@@ -15,17 +15,17 @@
 .payment-header h1 {
     text-align: center;
     font-size: 2.5rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 1rem;
     /* Adjusted margin */
 }
 
 .order-summary,
 .payment-form-section {
-    background-color: #ffffff;
+    background-color: var(--background-color);
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px var(--shadow-color);
     width: 100%;
     /* Ensure they take full width of the container */
     box-sizing: border-box;
@@ -37,7 +37,7 @@
     color: var(--primary-color);
     margin-top: 0;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 0.75rem;
 }
 
@@ -46,7 +46,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 1.5rem;
-    color: #333;
+    color: var(--text-color);
 }
 
 .payment-form .form-row {

@@ -2,25 +2,26 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: var(--background-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 .table th,
 .table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
+    color: var(--dark-color);
 }
 
 .table th {
-    background-color: #f8f9fa;
+    background-color: var(--light-color);
     font-weight: 600;
 }
 
 .table tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: var(--secondary-color);
 }
 
 .table .action-cell {
@@ -33,28 +34,28 @@
     border-radius: 0.25rem;
     font-weight: 600;
     font-size: 0.8rem;
-    color: #fff;
+    color: var(--white-color);
     text-transform: uppercase;
 }
 
 .status-pending {
-    background-color: #ffc107;
+    background-color: var(--warning-color);
     /* Warning */
-    color: #212529;
+    color: var(--dark-color);
 }
 
 .status-active {
-    background-color: #28a745;
+    background-color: var(--success-color);
     /* Success */
 }
 
 .status-returned,
 .status-overdue {
-    background-color: #6c757d;
+    background-color: var(--text-muted-color);
     /* Secondary */
 }
 
 .status-cancelled {
-    background-color: #dc3545;
+    background-color: var(--danger-color);
     /* Danger */
 }

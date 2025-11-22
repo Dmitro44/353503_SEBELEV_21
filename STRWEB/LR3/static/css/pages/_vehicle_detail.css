@@ -27,7 +27,7 @@
 
 .breadcrumb li {
     font-size: 0.9rem;
-    color: #555;
+    color: var(--text-muted-color);
 }
 
 .breadcrumb li a {
@@ -42,7 +42,7 @@
 .breadcrumb li:not(:last-child)::after {
     content: '>';
     margin-left: 8px;
-    color: #888;
+    color: var(--text-muted-color);
 }
 
 /* Main content layout */
@@ -64,7 +64,7 @@
 .vehicle-image-container img {
     width: 100%;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .vehicle-header h2 {
@@ -74,37 +74,12 @@
 
 .vehicle-license-plate {
     font-size: 1.2rem;
-    color: #6c757d;
+    color: var(--text-muted-color);
     margin-bottom: 20px;
     display: inline-block;
-    background: #f8f9fa;
+    background: var(--light-color);
     padding: 5px 10px;
     border-radius: 4px;
-}
-
-/* Details Table */
-.vehicle-details-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.vehicle-details-table th,
-.vehicle-details-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.vehicle-details-table th {
-    font-weight: bold;
-    color: #333;
-    width: 30%;
-}
-
-.vehicle-details-table tr:last-child th,
-.vehicle-details-table tr:last-child td {
-    border-bottom: none;
 }
 
 /* Staff Actions */
@@ -121,11 +96,12 @@
 }
 
 .rental-box {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background-color: var(--light-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 25px;
     text-align: center;
+    color: var(--dark-color);
 }
 
 .rental-box h5 {
@@ -136,7 +112,7 @@
 
 .rental-box hr {
     border: 0;
-    border-top: 1px solid #e9ecef;
+    border-top: 1px solid var(--border-color);
     margin: 0 auto 15px auto;
 }
 
@@ -161,20 +137,20 @@
 .api-example-section {
     margin-top: 40px;
     padding: 20px;
-    background-color: #2d2d2d;
-    color: #f1f1f1;
+    background-color: var(--dark-color);
+    color: var(--white-color);
     border-radius: 8px;
 }
 
 .api-example-section h3 {
-    color: #fff;
-    border-bottom: 1px solid #555;
+    color: var(--white-color);
+    border-bottom: 1px solid var(--text-muted-color);
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
 
 .api-example-section pre {
-    background-color: #222;
+    background-color: var(--black-color);
     padding: 15px;
     border-radius: 4px;
     white-space: pre-wrap;

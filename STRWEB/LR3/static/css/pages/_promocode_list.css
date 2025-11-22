@@ -2,7 +2,7 @@
 
 .page-subheading {
     font-size: 1.1rem;
-    color: #6c757d;
+    color: var(--text-muted-color);
     margin-bottom: 2rem;
     text-align: center;
 }
@@ -12,7 +12,7 @@
 }
 
 .promocode-section h2 {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
 }
@@ -24,8 +24,8 @@
 .promocode-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: var(--background-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
     table-layout: fixed;
 }
 
@@ -33,16 +33,16 @@
 .promocode-table td {
     padding: 1rem;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .promocode-table th {
-    background-color: #f8f9fa;
+    background-color: var(--light-color);
     font-weight: 600;
 }
 
 .promocode-table tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: var(--secondary-color);
 }
 
 .promocode-table .code-cell {
@@ -73,5 +73,5 @@
 
 .expired-table .code-cell,
 .expired-table .discount-cell {
-    color: #6c757d;
+    color: var(--text-muted-color);
 }

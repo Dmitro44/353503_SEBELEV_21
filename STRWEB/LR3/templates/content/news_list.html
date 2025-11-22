@@ -3,7 +3,7 @@
 {% block title %}Новости - Автопрокат{% endblock %}
 
 {% block content %}
-<div class="news-list-container">
+<div class="content-container news-list-container">
     <div class="news-header">
         <h1>Новости и акции</h1>
         {% if user.is_authenticated and is_staff_user or is_admin_user %}

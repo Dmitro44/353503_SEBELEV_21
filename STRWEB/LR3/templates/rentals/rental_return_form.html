@@ -28,7 +28,7 @@
                 {% csrf_token %}
                 
                 <div class="form-group">
-                    <label for="{{ form.actual_return_date.id_for_label }}">{{ form.actual_return_date.label|default:"Фактическая дата возврата" }}</label>
+                    <label class="form-label" for="{{ form.actual_return_date.id_for_label }}">{{ form.actual_return_date.label|default:"Фактическая дата возврата" }}</label>
                     {{ form.actual_return_date }}
                     {% if form.actual_return_date.help_text %}
                         <small class="form-text text-muted">{{ form.actual_return_date.help_text }}</small>
@@ -36,7 +36,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="{{ form.condition_notes.id_for_label }}">{{ form.condition_notes.label|default:"Примечания о состоянии автомобиля" }}</label>
+                    <label class="form-label" for="{{ form.condition_notes.id_for_label }}">{{ form.condition_notes.label|default:"Примечания о состоянии автомобиля" }}</label>
                     {{ form.condition_notes }}
                     {% if form.condition_notes.help_text %}
                         <small class="form-text text-muted">{{ form.condition_notes.help_text }}</small>
@@ -45,7 +45,7 @@
                 
                 <div class="form-group">
                     <div class="form-group">
-                        <label>{{ form.penalty_types.label|default:"Типы штрафов" }}</label>
+                        <label class="form-label">{{ form.penalty_types.label|default:"Типы штрафов" }}</label>
                         <p>Выберите штрафы, если автомобиль возвращен в ненадлежащем состоянии:</p>
                         <div class="penalty-types-list">
                             {{ form.penalty_types }}
@@ -53,7 +53,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="{{ form.penalty_notes.id_for_label }}">{{ form.penalty_notes.label|default:"Примечания к штрафам" }}</label>
+                        <label class="form-label" for="{{ form.penalty_notes.id_for_label }}">{{ form.penalty_notes.label|default:"Примечания к штрафам" }}</label>
                         {{ form.penalty_notes }}
                     </div>
                 </div>

@@ -27,7 +27,7 @@
                 <div class="rental-detail-body">
                     <div class="rental-info">
                         <h4>Информация об аренде</h4>
-                        <table class="rental-detail-table">
+                        <table class="table">
                             <tr>
                                 <th>Клиент:</th>
                                 <td>{{ rental.user.last_name }} {{ rental.user.first_name}}</td>
@@ -75,7 +75,7 @@
                             {% endif %}
                         </div>
                         <h4>Информация об автомобиле</h4>
-                        <table class="rental-detail-table">
+                        <table class="table">
                             <tr>
                                 <th>Автомобиль:</th>
                                 <td>{{ rental.vehicle }}</td>
@@ -112,7 +112,7 @@
                 {% if penalties %}
                 <div class="penalties">
                     <h5>Штрафы</h5>
-                    <table class="penalties-table">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Тип штрафа</th>

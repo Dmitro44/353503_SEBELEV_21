@@ -1,5 +1,6 @@
 // static/js/main.js
 import { Slider } from "./slider.js";
+import "./theme_switcher.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Main JS script loaded as module");

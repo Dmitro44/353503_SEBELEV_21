@@ -14,25 +14,25 @@
 }
 
 .message.success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+    color: var(--success-color);
+    background-color: var(--success-color-light); /* Assuming a light variant for background */
+    border-color: var(--success-color-border); /* Assuming a border variant */
 }
 
 .message.info {
-    color: #0c5460;
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
+    color: var(--info-color);
+    background-color: var(--info-color-light);
+    border-color: var(--info-color-border);
 }
 
 .message.warning {
-    color: #856404;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
+    color: var(--warning-color);
+    background-color: var(--warning-color-light);
+    border-color: var(--warning-color-border);
 }
 
 .message.error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+    color: var(--danger-color);
+    background-color: var(--danger-color-light);
+    border-color: var(--danger-color-border);
 }

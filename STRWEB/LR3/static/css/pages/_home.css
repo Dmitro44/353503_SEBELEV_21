@@ -33,14 +33,15 @@
 }
 
 .info-card {
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
     text-align: center;
     width: 300px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px var(--shadow-color);
     display: flex;
     flex-direction: column;
+    color: var(--dark-color);
 }
 
 .info-card a.btn {
@@ -52,13 +53,14 @@
 
 
 .last_news {
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    color: var(--black-color)
 }
 
 
@@ -81,17 +83,18 @@
     justify-content: space-around;
     margin: 20px 0;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
+    color: var(--dark-color);
 }
 
 .misc-section section {
     flex: 1;
     min-width: 250px;
     padding: 20px;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 /* Calendar Styles */
@@ -106,22 +109,23 @@
 .home-column-right .month td {
     text-align: center;
     padding: 8px;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     height: 40px;
+    color: var(--dark-color);
 }
 
 .home-column-right .month th {
-    background-color: #f8f8f8;
+    background-color: var(--light-color);
     font-weight: bold;
     color: var(--primary-color);
 }
 
 .home-column-right .month .noday {
-    background-color: #fdfdfd;
-    color: #ccc;
+    background-color: var(--secondary-color);
+    color: var(--text-muted-color);
 }
 
 .home-column-right .month td:hover {
-    background-color: #f0f0f0;
+    background-color: var(--secondary-color);
     cursor: pointer;
 }

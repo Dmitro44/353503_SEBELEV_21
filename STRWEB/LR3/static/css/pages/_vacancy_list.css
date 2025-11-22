@@ -1,5 +1,4 @@
 .vacancy-list-page {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -26,12 +25,13 @@
     width: calc(50% - 2rem);
     margin: 1rem;
     padding: 1.5rem;
-    background-color: #fff;
-    border: 1px solid #eee;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px var(--shadow-color);
     box-sizing: border-box;
     min-height: 390px;
+    color: var(--dark-color);
 }
 
 .vacancy-item h4 {
@@ -51,7 +51,11 @@
 
 .vacancy-item em {
     font-size: 0.9rem;
-    color: #6c757d;
+    color: var(--text-muted-color);
+}
+
+.requirements {
+    color: var(--dark-color);
 }
 
 @media (max-width: 800px) {
