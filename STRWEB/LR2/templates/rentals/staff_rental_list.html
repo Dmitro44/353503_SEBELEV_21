@@ -15,7 +15,7 @@
         <form method="get" class="filter-form">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="status">Статус аренды</label>
+                    <label class="form-label" for="status">Статус аренды</label>
                     <select name="status" id="status" class="form-control">
                         <option value="">Все статусы</option>
                         {% for status_code, status_name in status_choices %}
@@ -26,7 +26,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="user">Поиск по клиенту</label>
+                    <label class="form-label" for="user">Поиск по клиенту</label>
                     <input type="text" name="user" id="user" class="form-control"
                            value="{{ user_filter|default:'' }}" placeholder="Имя пользователя">
                 </div>

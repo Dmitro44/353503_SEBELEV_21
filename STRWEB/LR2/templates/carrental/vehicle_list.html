@@ -35,7 +35,7 @@
                             {% endif %}
 
                             <div class="form-group">
-                                <label for="brand">Марка</label>
+                                <label class="form-label" for="brand">Марка</label>
                                 <select id="brand" name="brand">
                                     <option value="">Все марки</option>
                                     {% for brand_option in brands %}
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="body_type">Тип кузова</label>
+                                <label class="form-label" for="body_type">Тип кузова</label>
                                 <select id="body_type" name="body_type">
                                     <option value="">Все типы кузова</option>
                                     {% for body_type_option in body_types %}
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="year">Год выпуска</label>
+                                <label class="form-label" for="year">Год выпуска</label>
                                 <select id="year" name="year">
                                     <option value="">Все годы</option>
                                     {% for year_option in years %}
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="is_available">Статус</label>
+                                <label class="form-label" for="is_available">Статус</label>
                                 <select id="is_available" name="is_available">
                                     <option value="">Все</option>
                                     <option value="true" {% if selected_is_available == True %}selected{% endif %}>Доступные</option>
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="car_park">Автопарк</label>
+                                <label class="form-label" for="car_park">Автопарк</label>
                                 <select id="car_park" name="car_park">
                                     <option value="">Все автопарки</option>
                                     {% for car_park_option in car_parks %}

@@ -7,6 +7,10 @@
     text-align: center;
 }
 
+.promocode-table {
+    table-layout: fixed;
+}
+
 .promocode-section {
     margin-bottom: 3rem;
 }
@@ -17,54 +21,10 @@
     margin-bottom: 1.5rem;
 }
 
-.table-container {
-    overflow-x: auto;
-}
-
-.promocode-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    table-layout: fixed;
-}
-
-.promocode-table th,
-.promocode-table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-.promocode-table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
-}
-
-.promocode-table tbody tr:hover {
-    background-color: #f8f9fa;
-}
-
-.promocode-table .code-cell {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: var(--primary-color);
-}
-
-.promocode-table .discount-cell {
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-.promocode-table .action-cell {
-    display: flex;
-    gap: 0.5rem;
-}
-
 /* Expired table styles */
 .expired-table {
     opacity: 0.7;
+    table-layout: fixed;
 }
 
 .expired-table tbody tr:hover {

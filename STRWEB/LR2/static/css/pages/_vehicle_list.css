@@ -43,6 +43,10 @@
     padding: 10px 0 10px 0;
 }
 
+.sort-form .form-label {
+    margin-bottom: 0;
+}
+
 /* Vehicle Grid */
 .vehicle-list {
     display: grid;
