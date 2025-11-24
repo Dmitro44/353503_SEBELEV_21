@@ -33,6 +33,10 @@
     color: #333;
 }
 
+.info-list {
+    list-style-type: upper-roman;
+}
+
 .privacy-policy-page p {
     margin-bottom: 1rem;
 }
@@ -40,6 +44,7 @@
 .privacy-policy-page ul {
     padding-left: 20px;
     margin-bottom: 1rem;
+    list-style-position: inside;
 }
 
 .privacy-policy-page li {
