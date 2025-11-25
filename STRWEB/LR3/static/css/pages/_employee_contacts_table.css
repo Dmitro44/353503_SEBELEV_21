@@ -28,7 +28,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     background-color: var(--white-color);
     border-radius: 8px;
-    overflow: hidden; /* Ensures rounded corners apply to children */
+    overflow: hidden;
 }
 
 .data-table th,
@@ -44,8 +44,8 @@
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.9rem;
-    position: relative; /* For sort indicators */
-    cursor: pointer; /* Indicate sortable */
+    position: relative;
+    cursor: pointer;
 }
 
 .data-table tbody tr:last-child td {
@@ -58,13 +58,15 @@
 
 /* Sort Indicators */
 .data-table th.sort-asc::after {
-    content: ' \25B2'; /* Up arrow */
+    content: ' \25B2';
+    /* Up arrow */
     font-size: 0.7em;
     margin-left: 5px;
 }
 
 .data-table th.sort-desc::after {
-    content: ' \25BC'; /* Down arrow */
+    content: ' \25BC';
+    /* Down arrow */
     font-size: 0.7em;
     margin-left: 5px;
 }
@@ -100,7 +102,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     border: 1px solid var(--border-color);
-    display: none; /* Hidden by default */
+    display: none;
 }
 
 .employee-details h3 {
@@ -130,37 +132,54 @@
 
 /* Bonus Message Container */
 .bonus-message {
+    font-size: 1.2rem;
     margin-top: 2rem;
     padding: 1.5rem;
     background-color: var(--success-color-light);
     border: 1px solid var(--success-color);
     color: var(--success-color-dark);
     border-radius: 8px;
-    display: none; /* Hidden by default */
+    display: none;
+}
+
+/* Add form group styles for validation message alignment */
+.form-group {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.form-group .form-text {
+    position: absolute;
+    bottom: 0.25rem;
+    left: 0;
+    font-size: 0.875em;
 }
 
 /* Form Validation Feedback */
-.form-group input.is-invalid, 
-.form-group textarea.is-invalid, 
+.form-group input.is-invalid,
+.form-group textarea.is-invalid,
 .form-group select.is-invalid {
     border-color: var(--danger-color) !important;
-    background-color: var(--danger-color-light) !important; /* Light pink */
+    background-color: var(--danger-color-light) !important;
 }
 
-.form-group input.is-valid, 
-.form-group textarea.is-valid, 
+.form-group input.is-valid,
+.form-group textarea.is-valid,
 .form-group select.is-valid {
     border-color: var(--success-color) !important;
-    background-color: var(--success-color-light) !important; /* Light green */
+    background-color: var(--success-color-light) !important;
 }
 
 /* Responsive Table */
 @media (max-width: 768px) {
     .data-table thead {
-        display: none; /* Hide table headers on small screens */
+        display: none;
     }
 
-    .data-table, .data-table tbody, .data-table tr, .data-table td {
+    .data-table,
+    .data-table tbody,
+    .data-table tr,
+    .data-table td {
         display: block;
         width: 100%;
     }

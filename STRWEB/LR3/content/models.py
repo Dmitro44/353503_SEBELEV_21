@@ -122,6 +122,12 @@ class Contact(models.Model):
     def get_full_name(self):
         return f"{self.last_name} {self.first_name}"
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            max_order = Contact.objects.aggregate(models.Max('order'))['order__max']
+            self.order = (max_order or 0) + 1
+        super().save(*args, **kwargs)
+
 class Partner(models.Model):
     """Model for partner companies"""
     name = models.CharField(max_length=100, verbose_name='Название компании')

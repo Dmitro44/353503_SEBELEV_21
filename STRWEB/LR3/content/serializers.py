@@ -16,6 +16,7 @@ class ContactSerializer(serializers.ModelSerializer):
             'department', 
             'email', 
             'phone', 
+            'photo',
             'photo_url',
             'bio', 
         ]
