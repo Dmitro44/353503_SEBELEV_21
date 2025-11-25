@@ -64,42 +64,9 @@
     margin-top: 0;
 }
 
-.contacts-page .contact-form {
-    background-color: var(--light-color);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    margin-bottom: 2rem;
-}
-
-.contacts-page .contact-form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: var(--text-color);
-}
-
-.contacts-page .contact-form input,
-.contacts-page .contact-form textarea {
-    width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-}
-
-.contacts-page .contact-form button {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.contacts-page .contact-form button:hover {
-    background-color: var(--secondary-color);
+.contact-form-section .form-container {
+    max-width: 100%;
+    margin: 2rem auto;
 }
 
 .contacts-page .company-info-layout {

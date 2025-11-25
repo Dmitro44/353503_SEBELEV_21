@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакты сотрудников - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container employee-contacts-table-page">
+    <h1>Контакты сотрудников</h1>
+
+    <div class="table-responsive">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all-employees"></th>
+                    <th>Фото</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Описание работы</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td><input type="checkbox" name="employee_id" value="{{ employee.id }}"></td>
+                    <td>
+                        {% if employee.photo %}
+                            <img src="{{ employee.photo.url }}" alt="{{ employee.get_full_name }}" class="employee-photo">
+                        {% else %}
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar" class="employee-photo">
+                        {% endif %}
+                    </td>
+                    <td>{{ employee.get_full_name }}</td>
+                    <td>{{ employee.position }}</td>
+                    <td>{{ employee.phone }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.bio|default:"Нет описания" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">Сотрудники не найдены.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-buttons">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-secondary">&laquo;&laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">&laquo;</a>
+        {% else %}
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&laquo;&laquo;</a>
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&laquo;</a>
+        {% endif %}
+
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <a href="?page={{ i }}" class="btn btn-primary">{{ i }}</a>
+            {% else %}
+                <a href="?page={{ i }}" class="btn btn-secondary">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">&raquo;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">&raquo;&raquo;</a>
+        {% else %}
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&raquo;</a>
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&raquo;&raquo;</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/employee_contacts.js' %}" defer></script>
+{% endblock %}

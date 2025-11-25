@@ -353,6 +353,17 @@ class ContactsView(View):
         return render(request, self.template_name, context)
 
 
+class EmployeeContactsTableView(ListView):
+    model = Contact
+    template_name = "content/employee_contacts_table.html"
+    context_object_name = "employees"
+    paginate_by = 3
+
+    def get_queryset(self):
+        # Initial queryset, can be extended with sorting and filtering later
+        return Contact.objects.all().order_by("last_name", "first_name")
+
+
 class GlossaryView(ListView):
     model = GlossaryEntry
     template_name = "content/glossary.html"
@@ -389,3 +400,4 @@ class SliderSettingsView(UpdateView):
     def form_valid(self, form):
         messages.success(self.request, "Настройки слайдера успешно обновлены")
         return super().form_valid(form)
+
