@@ -13,7 +13,7 @@
 
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr));
     gap: 2rem;
 }
 
@@ -65,14 +65,6 @@
     color: var(--dark-color);
 }
 
-.news-card-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-}
-
 .pagination {
     list-style: none;
     padding: 0;
@@ -83,7 +75,8 @@
     gap: 0.5rem;
 }
 
-.pagination li a, .pagination li span {
+.pagination li a,
+.pagination li span {
     display: inline-block;
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);

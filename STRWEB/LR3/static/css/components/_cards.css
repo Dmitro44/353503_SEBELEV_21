@@ -6,24 +6,25 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     background-color: var(--background-color);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Modifier for horizontal layout */
 .card.card-horizontal {
     flex-direction: row;
-    align-items: stretch; 
+    align-items: stretch;
 }
 
 .card-horizontal .card-img-left {
-    width: 200px; /* Fixed width for the image */
+    width: 200px;
+    /* Fixed width for the image */
     flex-shrink: 0;
     object-fit: cover;
     border-right: 1px solid var(--border-color);
@@ -66,4 +67,5 @@
     display: flex;
     gap: 10px;
     justify-content: flex-end;
+    flex-wrap: wrap;
 }

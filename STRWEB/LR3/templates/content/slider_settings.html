@@ -3,11 +3,13 @@
 {% block title %}Настройки слайдера - Автопрокат{% endblock %}
 
 {% block content %}
-<div class="content-container">
+<div class="slider-page-container">
     <h1>Настройки слайдера</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
 </div>

@@ -37,11 +37,11 @@
     display: grid;
     grid-template-columns: max-content 1fr;
     gap: 1rem 1.5rem;
+    color: var(--text-color);
 }
 
 .details-list dt {
     font-weight: 600;
-    color: var(--text-color);
 }
 
 .details-list dd {

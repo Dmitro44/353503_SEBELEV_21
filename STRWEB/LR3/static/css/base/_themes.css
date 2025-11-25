@@ -42,26 +42,26 @@
 
 /* Dark Theme - Modern Automotive */
 [data-theme="dark"] {
-    --primary-color: #4dabf7; 
+    --primary-color: #4dabf7;
     --primary-color-hover: #339af0;
-    
-    --secondary-color: #1f1f1f; 
+
+    --secondary-color: #1f1f1f;
 
     --success-color: #2ea043;
     --success-color-hover: #3fb950;
     --success-color-light: #112916;
     --success-color-border: #238636;
-    
+
     --danger-color: #f85149;
     --danger-color-hover: #da3633;
     --danger-color-light: #381313;
     --danger-color-border: #6e2525;
-    
+
     --warning-color: #d29922;
     --warning-color-hover: #bb8800;
     --warning-color-light: #372b0a;
     --warning-color-border: #684e13;
-    
+
     --info-color: #58a6ff;
     --info-color-hover: #388bfd;
     --info-color-light: #102a4c;
@@ -90,4 +90,3 @@
     --border-color: #30363d;
     --font-family: "Montserrat Medium", sans-serif;
 }
-

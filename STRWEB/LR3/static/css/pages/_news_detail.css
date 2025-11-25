@@ -19,7 +19,7 @@
 .news-detail-actions {
     display: flex;
     gap: 10px;
-    padding-top: 0.5rem; /* Align with title baseline */
+    padding-top: 0.5rem;
 }
 
 .news-detail-meta {
@@ -45,6 +45,7 @@
     line-height: 1.7;
     color: var(--text-color);
     text-align: justify;
+    columns: 150px 3;
 }
 
 /* Корректные стили для буквицы */
@@ -83,7 +84,7 @@
     }
 
     .news-detail-actions .btn {
-        flex-grow: 1; /* Make buttons fill the width */
+        flex-grow: 1;
         text-align: center;
     }
 }
