@@ -21,6 +21,54 @@
     margin-top: 20px;
 }
 
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background-color: var(--white-color);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners apply to children */
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table thead th {
+    background-color: var(--light-background-color);
+    color: var(--heading-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    position: relative; /* For sort indicators */
+    cursor: pointer; /* Indicate sortable */
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Sort Indicators */
+.data-table th.sort-asc::after {
+    content: ' \25B2'; /* Up arrow */
+    font-size: 0.7em;
+    margin-left: 5px;
+}
+
+.data-table th.sort-desc::after {
+    content: ' \25BC'; /* Down arrow */
+    font-size: 0.7em;
+    margin-left: 5px;
+}
+
 .employee-photo {
     width: 50px;
     height: 50px;
@@ -36,4 +84,109 @@
     align-items: center;
     margin-top: 20px;
     gap: 10px;
+}
+
+/* Selected row style */
+.data-table tbody tr.selected {
+    background-color: var(--primary-color-light) !important;
+    color: var(--primary-color-dark);
+}
+
+/* Details Container */
+.employee-details {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    display: none; /* Hidden by default */
+}
+
+.employee-details h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.details-content {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.details-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.details-content p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+/* Bonus Message Container */
+.bonus-message {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--success-color-light);
+    border: 1px solid var(--success-color);
+    color: var(--success-color-dark);
+    border-radius: 8px;
+    display: none; /* Hidden by default */
+}
+
+/* Form Validation Feedback */
+.form-group input.is-invalid, 
+.form-group textarea.is-invalid, 
+.form-group select.is-invalid {
+    border-color: var(--danger-color) !important;
+    background-color: var(--danger-color-light) !important; /* Light pink */
+}
+
+.form-group input.is-valid, 
+.form-group textarea.is-valid, 
+.form-group select.is-valid {
+    border-color: var(--success-color) !important;
+    background-color: var(--success-color-light) !important; /* Light green */
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .data-table thead {
+        display: none; /* Hide table headers on small screens */
+    }
+
+    .data-table, .data-table tbody, .data-table tr, .data-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .data-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .data-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .data-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: 600;
+        color: var(--heading-color);
+    }
 }

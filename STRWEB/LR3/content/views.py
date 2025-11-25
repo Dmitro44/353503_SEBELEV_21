@@ -34,6 +34,18 @@ from .models import (
 )
 from .utils import create_html_calendar
 
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .serializers import ContactSerializer
+
+
+# API Views
+class ContactListViewAPI(generics.ListCreateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    permission_classes = [AllowAny]
+
+
 # Set up logging
 logger = logging.getLogger(__name__)
 
