@@ -4,7 +4,6 @@
     height: 500px;
     background: #f0f0f0;
     overflow: hidden;
-    margin-top: 2rem;
 }
 
 .building {
@@ -257,8 +256,13 @@
 @keyframes walk-left-arm {
 
     0%,
-    100% { transform: rotate(-40deg); }
-    50% { transform: rotate(40deg); }
+    100% {
+        transform: rotate(-40deg);
+    }
+
+    50% {
+        transform: rotate(40deg);
+    }
 }
 
 @keyframes walk-right-arm {
@@ -330,7 +334,8 @@
         opacity: 0;
     }
 
-    23.1%, 60% {
+    23.1%,
+    60% {
         opacity: 0;
         left: calc(50% - 60px);
     }
@@ -351,14 +356,23 @@
         z-index: 1;
     }
 
-    81%, 100% {
+    81%,
+    100% {
         opacity: 0;
     }
 }
 
 @keyframes arm-leg-visibility {
-    0%, 22% { opacity: 1; }
-    23%, 100% { opacity: 0; }
+
+    0%,
+    22% {
+        opacity: 1;
+    }
+
+    23%,
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes drive-out {
@@ -434,30 +448,73 @@
 }
 
 @keyframes flash {
-    0% { opacity: 0; }
-    46% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    46% {
+        opacity: 0;
+    }
 
     /* Flash 1 */
-    48% { opacity: 1; }
-    50% { opacity: 0; }
+    48% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 
     /* Flash 2 */
-    54% { opacity: 1; }
-    56% { opacity: 0; }
-    100% { opacity: 0; }
+    54% {
+        opacity: 1;
+    }
+
+    56% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes show-name {
-    0% { opacity: 0; }
-    75% { opacity: 0; }
-    86% { opacity: 1; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0;
+    }
+
+    86% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes person-in-car {
-    0% { opacity: 0; }
-    35% { opacity: 1; }
-    60% { opacity: 1; }
-    61% { opacity: 0; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    61% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }

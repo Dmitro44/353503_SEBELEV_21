@@ -22,7 +22,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
 
 .news-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .news-card-image {
@@ -61,6 +61,9 @@
 .news-card-summary {
     flex-grow: 1;
     margin-bottom: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .news-card-footer {
@@ -81,7 +84,8 @@
     gap: 0.5rem;
 }
 
-.pagination li a, .pagination li span {
+.pagination li a,
+.pagination li span {
     display: inline-block;
     padding: 0.5rem 1rem;
     border: 1px solid #ddd;

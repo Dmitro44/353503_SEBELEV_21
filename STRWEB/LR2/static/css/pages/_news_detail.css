@@ -19,7 +19,8 @@
 .news-detail-actions {
     display: flex;
     gap: 10px;
-    padding-top: 0.5rem; /* Align with title baseline */
+    padding-top: 0.5rem;
+    /* Align with title baseline */
 }
 
 .news-detail-meta {
@@ -37,7 +38,7 @@
     height: auto;
     border-radius: 8px;
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .news-detail-content {
@@ -45,6 +46,7 @@
     line-height: 1.7;
     color: #333;
     text-align: justify;
+    columns: 150px 3;
 }
 
 /* Корректные стили для буквицы */
@@ -83,7 +85,8 @@
     }
 
     .news-detail-actions .btn {
-        flex-grow: 1; /* Make buttons fill the width */
+        flex-grow: 1;
+        /* Make buttons fill the width */
         text-align: center;
     }
 }

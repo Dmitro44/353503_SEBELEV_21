@@ -15,7 +15,6 @@
     transform: rotate(1turn);
 }
 
-/* Отключаем "липкую" шапку на мобильных устройствах */
 @media (max-width: 768px) {
     .nav-header {
         position: static;

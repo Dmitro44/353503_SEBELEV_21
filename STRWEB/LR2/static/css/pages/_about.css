@@ -171,6 +171,7 @@
 /* Certificate Styling */
 .certificate {
     background-image: url(../../images/cream_leather.jpg);
+    background-size: cover;
     /* background: #fdfdf0; */
     border: 10px solid #c0a060;
     padding: 1rem;

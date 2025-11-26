@@ -29,7 +29,7 @@
     background-color: #fff;
     border: 1px solid #eee;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     min-height: 390px;
 }

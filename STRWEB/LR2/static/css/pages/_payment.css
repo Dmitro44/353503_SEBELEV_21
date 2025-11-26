@@ -2,14 +2,10 @@
 
 .payment-container {
     max-width: 800px;
-    /* More appropriate width */
     margin: 2rem auto;
     display: flex;
-    /* Changed from grid to flex */
     flex-direction: column;
-    /* Stack items vertically */
     gap: 2rem;
-    /* Space between summary and form */
 }
 
 .payment-header h1 {
@@ -17,7 +13,6 @@
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 1rem;
-    /* Adjusted margin */
 }
 
 .order-summary,
@@ -27,7 +22,6 @@
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     width: 100%;
-    /* Ensure they take full width of the container */
     box-sizing: border-box;
 }
 

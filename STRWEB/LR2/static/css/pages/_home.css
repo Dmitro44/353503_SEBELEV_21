@@ -9,7 +9,8 @@
     flex: 2;
 }
 
-.home-column-left, .home-column-right {
+.home-column-left,
+.home-column-right {
     flex: 1;
 }
 
@@ -38,16 +39,16 @@
     padding: 20px;
     text-align: center;
     width: 300px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
 }
 
 .info-card a.btn {
     display: inline-block;
-    margin-top: auto; /* Pushes button to the bottom */
-    padding: 5px 10px; /* Adds space above the button */
-    align-self: center; /* Prevent stretching */
+    margin-top: auto;
+    padding: 5px 10px;
+    align-self: center;
 }
 
 
@@ -58,7 +59,7 @@
     text-align: center;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -91,7 +92,7 @@
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Banner Carousel Styles */
@@ -104,13 +105,15 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     border-radius: 8px;
-    /* Hide scrollbar for a cleaner look */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .carousel-viewport::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
+    /* Chrome, Safari, Opera */
 }
 
 .carousel-slide {
@@ -132,7 +135,7 @@
     table-layout: fixed;
 }
 
-.home-column-right .month th, 
+.home-column-right .month th,
 .home-column-right .month td {
     text-align: center;
     padding: 8px;

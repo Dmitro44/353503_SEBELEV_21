@@ -11,12 +11,12 @@
 /* Star Rating Widget */
 .star-rating-widget {
     display: flex;
-    flex-direction: row-reverse; /* Important for the hover effect */
+    flex-direction: row-reverse;
     justify-content: flex-end;
 }
 
 .star-rating-widget input[type="radio"] {
-    display: none; /* Hide the actual radio buttons */
+    display: none;
 }
 
 .star-rating-widget label {
@@ -29,12 +29,12 @@
 
 /* Hover effect: all stars to the right of the hovered one turn yellow */
 .star-rating-widget label:hover,
-.star-rating-widget label:hover ~ label {
+.star-rating-widget label:hover~label {
     color: #ffc107;
 }
 
 /* Checked effect: all stars to the right of the checked one stay yellow */
-.star-rating-widget input[type="radio"]:checked ~ label {
+.star-rating-widget input[type="radio"]:checked~label {
     color: #ffc107;
 }
 
