@@ -1,0 +1,134 @@
+/* static/css/pages/_contacts.css */
+
+.contacts-page.content-container {
+    padding: 2rem;
+}
+
+.contacts-page h1,
+.contacts-page h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+.contacts-page h4 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.contacts-page article {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contacts-page p {
+    line-height: 1.6;
+    color: #333;
+}
+
+.contacts-page a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.contacts-page a:hover {
+    text-decoration: underline;
+}
+
+.contacts-page .contact-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contacts-page .contact-card img {
+    max-width: 120px;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+}
+
+.contacts-page .contact-card-info h4 {
+    margin-top: 0;
+}
+
+.contacts-page .contact-form {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.contacts-page .contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.contacts-page .contact-form input,
+.contacts-page .contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contacts-page .contact-form button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.contacts-page .contact-form button:hover {
+    background-color: var(--secondary-color);
+}
+
+.contacts-page .company-info-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    font-size: 1.2rem;
+    margin-bottom: 3.5rem;
+}
+
+.contacts-page .employees-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.contacts-page .form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.contacts-page .form-group {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .contacts-page .employees-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .contacts-page .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

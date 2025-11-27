@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container news-detail-page">
+    <div class="news-detail-header">
+        <h2 class="news-detail-title">{{ article.title }}</h2>
+        {% if user.is_authenticated and is_staff_user or is_admin_user %}
+            <div class="news-detail-actions">
+                <a href="{% url 'article_edit' article.pk %}" class="btn btn-secondary">Редактировать</a>
+                <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Удалить</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="news-detail-meta">
+        <small>
+            Опубликовано: <time datetime="{{ article.published_at|date:"Y-m-d\TH:i" }}">{{ article.published_at|date:"d.m.Y H:i" }}</time>
+            {% if article.author %}
+                <span class="author-name">
+                    Автор: {{ article.author.get_full_name|default:article.author.username }}
+                </span>
+            {% endif %}
+        </small>
+    </div>
+
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="news-detail-image">
+    {% endif %}
+
+    <div class="news-detail-content">
+        {{ article.content|linebreaks }}
+    </div>
+
+    <div class="back-link-container">
+        <a href="{% url 'news_list' %}" class="btn btn-secondary">К списку новостей</a>
+    </div>
+</div>
+{% endblock %}

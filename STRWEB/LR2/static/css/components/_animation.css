@@ -1,0 +1,520 @@
+.animation-scene {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: #f0f0f0;
+    overflow: hidden;
+}
+
+.building {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: #ccc;
+    border: 2px solid #999;
+}
+
+.building::before {
+    content: 'Прокат';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.building::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 160px;
+    background: #aaa;
+    border: 2px solid #999;
+}
+
+.person {
+    position: absolute;
+    bottom: 25px;
+    width: 20px;
+    height: 40px;
+    background: #333;
+    border-radius: 5px;
+    animation: person-journey 10s linear infinite;
+}
+
+.person-left-arm,
+.person-right-arm {
+    position: absolute;
+    top: 5px;
+    width: 6px;
+    height: 28px;
+    background: #333;
+    transform-origin: top center;
+    z-index: -1;
+    animation: walk-left-arm 0.4s linear infinite, arm-leg-visibility 10s linear infinite;
+}
+
+.person-left-arm {
+    left: 0px;
+    animation: walk-left-arm 0.4s linear infinite, arm-leg-visibility 10s linear infinite;
+}
+
+.person-right-arm {
+    right: 0px;
+    animation: walk-right-arm 0.4s linear infinite, arm-leg-visibility 10s linear infinite;
+}
+
+.person-head {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 2.5px;
+    width: 15px;
+    height: 15px;
+    background: #333;
+    border-radius: 50%;
+}
+
+.right-wheel,
+.left-wheel {
+    position: absolute;
+    width: 25px;
+    height: 20px;
+    background: #222;
+    bottom: -15px;
+    border-radius: 3px;
+}
+
+.left-wheel {
+    left: 10px;
+}
+
+.right-wheel {
+    right: 10px;
+}
+
+.person-left-leg {
+    content: '';
+    position: absolute;
+    top: 37px;
+    left: 0;
+    width: 8px;
+    height: 30px;
+    background: #333;
+    transform-origin: top center;
+    animation: walk-left-leg 0.4s linear infinite, arm-leg-visibility 10s linear infinite;
+}
+
+.person-right-leg {
+    content: '';
+    position: absolute;
+    top: 37px;
+    left: 12px;
+    width: 8px;
+    height: 30px;
+    background: #333;
+    transform-origin: top center;
+    animation: walk-right-leg 0.4s linear infinite, arm-leg-visibility 10s linear infinite;
+}
+
+.car {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    width: 120px;
+    height: 40px;
+    border-radius: 10px 10px 0 0;
+    opacity: 0;
+    animation: drive-out 10s linear infinite;
+}
+
+.car::after {
+    /* Body */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #c22;
+    border-radius: 10px 10px 0 0;
+    z-index: 2;
+}
+
+.car::before {
+    /* Window */
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    width: 100px;
+    height: 20px;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+    z-index: 3;
+}
+
+.car-side {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 45px;
+    background: #c22;
+    border-radius: 10px 10px 0 0;
+    opacity: 0;
+    animation: drive-off-right 10s linear infinite;
+    z-index: 2;
+}
+
+.car-window-side {
+    content: '';
+    position: absolute;
+    top: -17px;
+    left: 30px;
+    width: 60px;
+    height: 0;
+    border-bottom: 17px solid white;
+    border-left: 15px solid transparent;
+    z-index: 2;
+}
+
+.side-wheel-front,
+.side-wheel-rear {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #222;
+    border-radius: 50%;
+    border: 4px solid #444;
+    bottom: -10px;
+    animation: spin 0.5s linear infinite;
+}
+
+.side-wheel-front {
+    left: 80px;
+}
+
+.side-wheel-rear {
+    left: 10px;
+}
+
+.headlight {
+    position: absolute;
+    top: 20px;
+    width: 15px;
+    height: 15px;
+    background: yellow;
+    border-radius: 50%;
+    opacity: 0;
+    animation: flash 10s linear infinite;
+    z-index: 4;
+}
+
+.headlight-left {
+    left: 5px;
+}
+
+.headlight-right {
+    right: 5px;
+}
+
+.company-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    opacity: 0;
+    animation: show-name 10s linear infinite;
+}
+
+.car-person-head {
+    position: absolute;
+    top: -25px;
+    left: 70%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: #333;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    animation: person-in-car 10s linear infinite;
+}
+
+@keyframes walk-left-arm {
+
+    0%,
+    100% {
+        transform: rotate(-40deg);
+    }
+
+    50% {
+        transform: rotate(40deg);
+    }
+}
+
+@keyframes walk-right-arm {
+
+    0%,
+    100% {
+        transform: rotate(40deg);
+    }
+
+    50% {
+        transform: rotate(-40deg);
+    }
+}
+
+@keyframes walk-left-leg {
+
+    0%,
+    100% {
+        transform: rotate(40deg);
+    }
+
+    50% {
+        transform: rotate(-40deg);
+    }
+}
+
+@keyframes walk-right-leg {
+
+    0%,
+    100% {
+        transform: rotate(-40deg);
+    }
+
+    50% {
+        transform: rotate(40deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes person-journey {
+    0% {
+        left: -20px;
+        opacity: 1;
+        height: 40px;
+        bottom: 25px;
+        transform: translateX(0);
+        z-index: 0;
+    }
+
+    20% {
+        left: calc(50% - 60px);
+        opacity: 1;
+        height: 40px;
+        bottom: 25px;
+        transform: translateX(0);
+        z-index: 0;
+    }
+
+    23% {
+        opacity: 0;
+    }
+
+    23.1%,
+    60% {
+        opacity: 0;
+        left: calc(50% - 60px);
+    }
+
+    61% {
+        opacity: 1;
+        left: calc(50% + 10px);
+        bottom: 50px;
+        height: 25px;
+        z-index: 1;
+    }
+
+    80% {
+        opacity: 1;
+        left: calc(110% + 10px);
+        bottom: 50px;
+        height: 25px;
+        z-index: 1;
+    }
+
+    81%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes arm-leg-visibility {
+
+    0%,
+    22% {
+        opacity: 1;
+    }
+
+    23%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes drive-out {
+    0% {
+        opacity: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    30% {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+
+    /* car appears at center */
+    35% {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* car stays stopped */
+    60% {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* car disappears */
+    61% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes drive-off-right {
+    0% {
+        opacity: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    60% {
+        opacity: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* side car appears */
+    61% {
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* car drives off screen */
+    80% {
+        opacity: 1;
+        left: 110%;
+        transform: translateX(-50%);
+    }
+
+    100% {
+        opacity: 1;
+        left: 110%;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0;
+    }
+
+    46% {
+        opacity: 0;
+    }
+
+    /* Flash 1 */
+    48% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    /* Flash 2 */
+    54% {
+        opacity: 1;
+    }
+
+    56% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes show-name {
+    0% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0;
+    }
+
+    86% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes person-in-car {
+    0% {
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    61% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

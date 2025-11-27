@@ -1,0 +1,45 @@
+/* Styles for the review management page */
+
+.filter-bar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.filter-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-form .form-group {
+    margin-bottom: 0;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.stats-bar {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-buttons .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}

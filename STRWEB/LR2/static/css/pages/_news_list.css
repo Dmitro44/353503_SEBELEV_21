@@ -1,0 +1,113 @@
+/* /static/css/pages/_news_list.css */
+
+.news-list-container {
+    padding: 2rem;
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(530px, 1fr));
+    gap: 2rem;
+}
+
+.news-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.news-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.news-card-title {
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.news-card-meta {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.news-card-summary {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.news-card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.pagination {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination li a,
+.pagination li span {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.pagination li a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.pagination li.active span {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.pagination li.disabled span {
+    color: #ccc;
+    border-color: #eee;
+}

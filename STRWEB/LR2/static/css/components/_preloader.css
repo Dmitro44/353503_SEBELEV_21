@@ -1,0 +1,47 @@
+.preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #000;
+}
+
+.preloader-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    animation: rotate 2s linear infinite;
+}
+
+.preloader-arc {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-top: 5px solid;
+    border-image: linear-gradient(to right, #8A2BE2, #FF1493) 1;
+    animation: spin 1.5s linear infinite;
+}
+
+.preloader-arc:nth-child(2) {
+    transform: rotate(180deg);
+    animation-delay: -0.75s;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

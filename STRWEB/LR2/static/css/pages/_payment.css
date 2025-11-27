@@ -1,0 +1,61 @@
+/* Payment Page Specific Styles */
+
+.payment-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.payment-header h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.order-summary,
+.payment-form-section {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.order-summary h2,
+.payment-form-section h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.75rem;
+}
+
+.total-price {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    color: #333;
+}
+
+.payment-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.payment-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.payment-form .btn-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}

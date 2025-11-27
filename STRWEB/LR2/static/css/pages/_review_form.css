@@ -1,0 +1,50 @@
+/* Styles for the review form page */
+
+.form-subheading {
+    text-align: center;
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Star Rating Widget */
+.star-rating-widget {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.star-rating-widget input[type="radio"] {
+    display: none;
+}
+
+.star-rating-widget label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 0.1em;
+}
+
+/* Hover effect: all stars to the right of the hovered one turn yellow */
+.star-rating-widget label:hover,
+.star-rating-widget label:hover~label {
+    color: #ffc107;
+}
+
+/* Checked effect: all stars to the right of the checked one stay yellow */
+.star-rating-widget input[type="radio"]:checked~label {
+    color: #ffc107;
+}
+
+.form-info-message {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}

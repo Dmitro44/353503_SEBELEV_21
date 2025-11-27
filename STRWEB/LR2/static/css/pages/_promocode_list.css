@@ -1,0 +1,37 @@
+/* Styles for the promocode list page */
+
+.page-subheading {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.promocode-table {
+    table-layout: fixed;
+}
+
+.promocode-section {
+    margin-bottom: 3rem;
+}
+
+.promocode-section h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Expired table styles */
+.expired-table {
+    opacity: 0.7;
+    table-layout: fixed;
+}
+
+.expired-table tbody tr:hover {
+    background-color: transparent;
+}
+
+.expired-table .code-cell,
+.expired-table .discount-cell {
+    color: #6c757d;
+}
