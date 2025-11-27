@@ -24,7 +24,7 @@
                             <small>Опубликовано: {{ article.published_at|date:"d.m.Y" }}</small>
                         </p>
                         <p class="news-card-summary">{{ article.summary }}</p>
-                        <div class="news-card-footer">
+                        <div class="card-actions">
                             <a href="{% url 'news_detail' article.pk %}" class="btn btn-primary">Читать полностью</a>
 
                             {% if user.is_authenticated and is_staff_user or is_admin_user %}

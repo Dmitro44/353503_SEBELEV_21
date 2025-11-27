@@ -20,7 +20,6 @@
     display: flex;
     gap: 10px;
     padding-top: 0.5rem;
-    /* Align with title baseline */
 }
 
 .news-detail-meta {
@@ -46,7 +45,7 @@
     line-height: 1.7;
     color: #333;
     text-align: justify;
-    columns: 150px 3;
+    column-count: 2;
 }
 
 /* Корректные стили для буквицы */

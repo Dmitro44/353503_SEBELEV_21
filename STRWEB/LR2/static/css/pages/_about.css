@@ -80,6 +80,10 @@
     color: var(--text-color);
 }
 
+.company-description p {
+    text-indent: 1.5rem;
+}
+
 .content-row {
     display: flex;
     gap: 2rem;
@@ -143,6 +147,10 @@
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     margin-bottom: 2rem;
+}
+
+.history-section ul {
+    list-style-type: '\2665';
 }
 
 .history-section div {
