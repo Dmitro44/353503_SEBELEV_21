@@ -10,7 +10,7 @@
 }
 
 .employee-contacts-table-page h1 {
-    color: var(--color-heading);
+    color: var(--text-color);
     text-align: center;
     margin-bottom: 30px;
     font-size: 2.5em;
@@ -21,53 +21,51 @@
     margin-top: 20px;
 }
 
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    background-color: var(--white-color);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.data-table th,
-.data-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.data-table thead th {
-    background-color: var(--light-background-color);
-    color: var(--heading-color);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    position: relative;
-    cursor: pointer;
-}
-
-.data-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.data-table tbody tr:hover {
-    background-color: var(--secondary-color);
-}
+/* .data-table { */
+/*     width: 100%; */
+/*     border-collapse: collapse; */
+/*     margin-bottom: 1.5rem; */
+/*     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); */
+/*     background-color: var(--white-color); */
+/*     border-radius: 8px; */
+/*     overflow: hidden; */
+/* } */
+/**/
+/* .data-table th, */
+/* .data-table td { */
+/*     padding: 12px 15px; */
+/*     text-align: left; */
+/*     border-bottom: 1px solid var(--border-color); */
+/* } */
+/**/
+/* .data-table thead th { */
+/*     background-color: var(--light-background-color); */
+/*     color: var(--heading-color); */
+/*     font-weight: 600; */
+/*     text-transform: uppercase; */
+/*     font-size: 0.9rem; */
+/*     position: relative; */
+/*     cursor: pointer; */
+/* } */
+/**/
+/* .data-table tbody tr:last-child td { */
+/*     border-bottom: none; */
+/* } */
+/**/
+/* .data-table tbody tr:hover { */
+/*     background-color: var(--secondary-color); */
+/* } */
 
 /* Sort Indicators */
 .data-table th.sort-asc::after {
     content: ' \25B2';
-    /* Up arrow */
-    font-size: 0.7em;
+    font-size: 1em;
     margin-left: 5px;
 }
 
 .data-table th.sort-desc::after {
     content: ' \25BC';
-    /* Down arrow */
-    font-size: 0.7em;
+    font-size: 1em;
     margin-left: 5px;
 }
 
@@ -116,6 +114,7 @@
     display: flex;
     gap: 2rem;
     align-items: flex-start;
+    color: var(--text-color);
 }
 
 .details-photo {

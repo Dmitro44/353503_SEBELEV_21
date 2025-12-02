@@ -1,5 +1,6 @@
 import logging
 
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -17,34 +18,35 @@ logger = logging.getLogger("vehicles")
 
 class VehicleView(View):
     template_name = "carrental/vehicle_list.html"
+    paginate_by = 3
 
     def get(self, request):
-        vehicles = Vehicle.objects.all()
+        vehicles_list = Vehicle.objects.all()
 
         brand = request.GET.get("brand")
         if brand:
-            vehicles = vehicles.filter(car_model__brand=brand)
+            vehicles_list = vehicles_list.filter(car_model__brand=brand)
 
         body_type = request.GET.get("body_type")
         if body_type:
-            vehicles = vehicles.filter(car_model__body_type=body_type)
+            vehicles_list = vehicles_list.filter(car_model__body_type=body_type)
 
         year = request.GET.get("year")
         if year:
-            vehicles = vehicles.filter(year=year)
+            vehicles_list = vehicles_list.filter(year=year)
 
         is_available = request.GET.get("is_available")
         if is_available is not None and is_available != "":
             is_available = is_available.lower() == "true"
-            vehicles = vehicles.filter(is_available=is_available)
+            vehicles_list = vehicles_list.filter(is_available=is_available)
 
         car_park = request.GET.get("car_park")
         if car_park:
-            vehicles = vehicles.filter(car_park=car_park)
+            vehicles_list = vehicles_list.filter(car_park=car_park)
 
         search = request.GET.get("search")
         if search:
-            vehicles = vehicles.filter(
+            vehicles_list = vehicles_list.filter(
                 Q(license_plate__icontains=search)
                 | Q(car_model__brand__icontains=search)
                 | Q(car_model__body_type__name__icontains=search)
@@ -59,9 +61,13 @@ class VehicleView(View):
             "car_price",
             "-car_price",
         ]:
-            vehicles = vehicles.order_by(ordering)
+            vehicles_list = vehicles_list.order_by(ordering)
         else:
-            vehicles = vehicles.order_by("daily_rental_price")
+            vehicles_list = vehicles_list.order_by("daily_rental_price")
+
+        paginator = Paginator(vehicles_list, 3)  # Show 3 vehicles per page.
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
 
         brands = CarModel.objects.values_list("brand", flat=True).distinct()
         body_types = BodyType.objects.all()
@@ -73,7 +79,8 @@ class VehicleView(View):
         form = VehicleForm()
 
         context = {
-            "vehicles": vehicles,
+            "vehicles": page_obj,
+            "page_obj": page_obj,
             "brands": brands,
             "body_types": body_types,
             "car_parks": car_parks,

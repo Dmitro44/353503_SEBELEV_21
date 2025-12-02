@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const tableBody = document.querySelector(".data-table tbody");
+
+    // If the main table for this script doesn't exist, do nothing.
+    if (!tableBody) {
+        return;
+    }
+
     // Preloader elements
     const preloaderOverlay = document.getElementById("preloader");
     const preloaderText = document.getElementById("preloader-text");
@@ -41,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Element references
-    const tableBody = document.querySelector(".data-table tbody");
     const paginationContainer = document.querySelector(".pagination-buttons");
     const tableHeaders = document.querySelectorAll(".data-table th[data-sort]");
     const filterInput = document.getElementById("filter-input");

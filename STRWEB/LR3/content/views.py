@@ -413,3 +413,7 @@ class SliderSettingsView(UpdateView):
         messages.success(self.request, "Настройки слайдера успешно обновлены")
         return super().form_valid(form)
 
+
+class FormGeneratorView(TemplateView):
+    template_name = "content/form_generator.html"
+

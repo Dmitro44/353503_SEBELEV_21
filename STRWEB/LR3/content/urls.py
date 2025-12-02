@@ -19,5 +19,6 @@ urlpatterns = [
     path('staff/reviews/', views.ReviewManagementView.as_view(), name='review_management'),
     path('staff/review/<int:pk>/approve', views.ReviewApproveView.as_view(), name='review_approve'),
     path('slider-settings/', views.SliderSettingsView.as_view(), name='slider_settings'),
+    path('form-generator/', views.FormGeneratorView.as_view(), name='form_generator'),
     path('employee-contacts/', views.EmployeeContactsTableView.as_view(), name='employee_contacts_table'),
 ]
