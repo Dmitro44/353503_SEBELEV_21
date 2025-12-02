@@ -1,4 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Preloader elements
+    const preloaderOverlay = document.getElementById("preloader");
+    const preloaderText = document.getElementById("preloader-text");
+
+    // Preloader functions
+    function showPreloader(text = "Загрузка") {
+        if (preloaderText) preloaderText.textContent = text;
+        if (preloaderOverlay) {
+            preloaderOverlay.classList.add("active");
+            preloaderOverlay.setAttribute("aria-hidden", "false");
+            document.documentElement.classList.add("preloader-active");
+            document.body.classList.add("preloader-active");
+        }
+    }
+
+    function hidePreloader() {
+        if (preloaderOverlay) {
+            preloaderOverlay.classList.remove("active");
+            preloaderOverlay.setAttribute("aria-hidden", "true");
+            document.documentElement.classList.remove("preloader-active");
+            document.body.classList.remove("preloader-active");
+        }
+    }
+
+    // Минимальное время показа прелоадера (один цикл анимации)
+    const MIN_PRELOADER_TIME = 2500;
+    let preloaderStartTime = 0;
+
+    function showPreloaderWithMinTime(text = "Загрузка") {
+        preloaderStartTime = Date.now();
+        showPreloader(text);
+    }
+
+    async function hidePreloaderWithMinTime() {
+        const elapsed = Date.now() - preloaderStartTime;
+        if (elapsed < MIN_PRELOADER_TIME) {
+            await new Promise(resolve => setTimeout(resolve, MIN_PRELOADER_TIME - elapsed));
+        }
+        hidePreloader();
+    }
+
     // Element references
     const tableBody = document.querySelector(".data-table tbody");
     const paginationContainer = document.querySelector(".pagination-buttons");
@@ -55,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- DATA FETCHING ---
     async function fetchContacts() {
+        showPreloader("Загрузка сотрудников");
         try {
             const response = await fetch("/api/contacts/");
             if (!response.ok)
@@ -65,6 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Could not fetch contacts:", error);
             tableBody.innerHTML = `<tr><td colspan="7">Ошибка загрузки данных.</td></tr>`;
+        } finally {
+            // DEBUG: задержка 3 секунды для отладки прелоадера
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            hidePreloader();
         }
     }
 
@@ -398,6 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (submitAddBtn.disabled) return;
 
         submitAddBtn.disabled = true;
+        showPreloaderWithMinTime("Добавление сотрудника");
 
         const formData = new FormData(addForm);
 
@@ -417,16 +464,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     "Ошибка при добавлении сотрудника. Проверьте консоль для деталей.",
                 );
                 submitAddBtn.disabled = false;
+                await hidePreloaderWithMinTime();
                 return;
             }
 
             addForm.reset();
             addFormContainer.style.display = "none";
+            phoneInput.classList.remove("is-valid", "is-invalid");
+            phoneValidationMsg.textContent = "";
+            submitAddBtn.disabled = true;
             await fetchContacts();
         } catch (error) {
             console.error("Network error:", error);
             alert("Сетевая ошибка при добавлении сотрудника.");
             submitAddBtn.disabled = false;
+            await hidePreloaderWithMinTime();
         }
     });
 
