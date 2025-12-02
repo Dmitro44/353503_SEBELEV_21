@@ -417,3 +417,8 @@ class SliderSettingsView(UpdateView):
 class FormGeneratorView(TemplateView):
     template_name = "content/form_generator.html"
 
+
+class EmployeesTaskView(TemplateView):
+    """Задание 8: Сведения о служащих учреждения (Вариант 23)"""
+
+    template_name = "content/employees_task.html"

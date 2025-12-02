@@ -21,4 +21,5 @@ urlpatterns = [
     path('slider-settings/', views.SliderSettingsView.as_view(), name='slider_settings'),
     path('form-generator/', views.FormGeneratorView.as_view(), name='form_generator'),
     path('employee-contacts/', views.EmployeeContactsTableView.as_view(), name='employee_contacts_table'),
+    path('employees-task/', views.EmployeesTaskView.as_view(), name='employees_task'),
 ]

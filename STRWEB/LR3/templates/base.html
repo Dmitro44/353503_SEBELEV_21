@@ -38,6 +38,7 @@
             <li><a href="{% url 'review_list' %}">Отзывы</a></li>
             <li><a href="{% url 'promocode_list' %}">Промокоды</a></li>
             <li><a href="{% url 'form_generator' %}">Генератор Форм</a></li>
+            <li><a href="{% url 'employees_task' %}">Задание ООП</a></li>
             {% if is_staff_user or is_admin_user %}
                 <li><a href="{% url 'review_management' %}">Модерация отзывов</a></li>
             {% endif %}
@@ -76,6 +77,8 @@
         <p>&copy; 2025 {{ company_info.name|default:'Автопрокат' }}. Все права защищены.</p>
     </div>
 </footer>
+
+{% block extra_js %}{%endblock%}
 
 <script src="{% static 'js/main.js' %}" type="module" defer></script>
 </body>
