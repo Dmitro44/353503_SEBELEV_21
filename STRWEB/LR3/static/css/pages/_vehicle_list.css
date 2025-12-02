@@ -61,3 +61,80 @@
     background-color: var(--light-color);
     border-radius: 8px;
 }
+
+/* ===== 3D ЭФФЕКТ ОБЪЕМА ДЛЯ КАРТОЧЕК АВТОМОБИЛЕЙ ===== */
+
+.vehicle-list .card {
+    --glare-x: 50%;
+    --glare-y: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Световой блик, следующий за курсором */
+.vehicle-list .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at var(--glare-x) var(--glare-y),
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 20%,
+        rgba(255, 255, 255, 0) 50%
+    );
+    pointer-events: none;
+    z-index: 2;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.vehicle-list .card:hover::before {
+    opacity: 1;
+}
+
+/* Тень под карточкой */
+.vehicle-list .card::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10%;
+    right: 10%;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+    filter: blur(10px);
+    transition: all 0.4s ease;
+    z-index: -1;
+    opacity: 0;
+    transform: scaleX(0.8);
+}
+
+.vehicle-list .card:hover::after {
+    opacity: 1;
+    bottom: -20px;
+    transform: scaleX(1);
+}
+
+/* Эффект для изображения */
+.vehicle-list .card .card-img-top {
+    transition: transform 0.4s ease;
+}
+
+.vehicle-list .card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Контент карточки поднимается над фоном */
+.vehicle-list .card .card-content {
+    position: relative;
+    z-index: 1;
+    transform: translateZ(30px);
+}

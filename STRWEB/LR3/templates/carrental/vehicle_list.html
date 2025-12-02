@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Список автомобилей{% endblock %}
 
@@ -168,4 +169,8 @@
             </main>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/vehicle_cards_3d.js' %}" defer></script>
 {% endblock %}
