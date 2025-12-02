@@ -2,6 +2,7 @@
 import { Slider } from "./slider.js";
 import "./theme_switcher.js";
 import "./employee_contacts.js";
+import "./age_verification.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Main JS script loaded as module");
