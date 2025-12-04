@@ -136,12 +136,11 @@
     padding: 1.5rem;
     background-color: var(--success-color-light);
     border: 1px solid var(--success-color);
-    color: var(--success-color-dark);
+    color: var(--success-color);
     border-radius: 8px;
     display: none;
 }
 
-/* Add form group styles for validation message alignment */
 .form-group {
     position: relative;
     padding-bottom: 1.5rem;

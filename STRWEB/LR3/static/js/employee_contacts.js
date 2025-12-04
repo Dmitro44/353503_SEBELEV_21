@@ -6,11 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Preloader elements
     const preloaderOverlay = document.getElementById("preloader");
     const preloaderText = document.getElementById("preloader-text");
 
-    // Preloader functions
     function showPreloader(text = "Загрузка") {
         if (preloaderText) preloaderText.textContent = text;
         if (preloaderOverlay) {
@@ -30,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Минимальное время показа прелоадера (один цикл анимации)
     const MIN_PRELOADER_TIME = 2500;
     let preloaderStartTime = 0;
 
@@ -42,7 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     async function hidePreloaderWithMinTime() {
         const elapsed = Date.now() - preloaderStartTime;
         if (elapsed < MIN_PRELOADER_TIME) {
-            await new Promise(resolve => setTimeout(resolve, MIN_PRELOADER_TIME - elapsed));
+            await new Promise((resolve) =>
+                setTimeout(resolve, MIN_PRELOADER_TIME - elapsed),
+            );
         }
         hidePreloader();
     }
@@ -81,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedContactId = null;
     let checkedContactIds = new Set();
 
-    // --- UTILS ---
+    // UTILS
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== "") {
@@ -100,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const csrftoken = getCookie("csrftoken");
 
-    // --- DATA FETCHING ---
+    // DATA FETCHING
     async function fetchContacts() {
         showPreloader("Загрузка сотрудников");
         try {
@@ -114,8 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Could not fetch contacts:", error);
             tableBody.innerHTML = `<tr><td colspan="7">Ошибка загрузки данных.</td></tr>`;
         } finally {
-            // DEBUG: задержка 3 секунды для отладки прелоадера
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             hidePreloader();
         }
     }
@@ -342,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submitAddBtn.disabled = !(allRequiredFilled && isPhoneValid);
     }
 
-    // --- UTILS ---
+    // UTILS
     function createPaginationButton(
         text,
         page,
@@ -390,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
             allFilteredChecked && filteredContacts.length > 0;
     }
 
-    // --- EVENT LISTENERS ---
+    // EVENT LISTENERS
     tableHeaders.forEach((header) => {
         header.addEventListener("click", () => {
             const newSortColumn = header.getAttribute("data-sort");

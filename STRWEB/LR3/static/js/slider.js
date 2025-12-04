@@ -5,7 +5,6 @@ export class Slider {
         this.slider = sliderElement;
         if (!this.slider) return;
 
-        // --- 1. SELECT ELEMENTS ---
         this.track = this.slider.querySelector(".slider-track");
         this.slides = Array.from(this.track.children);
         this.nextBtn = this.slider.querySelector(".slider-nav-next");
@@ -18,7 +17,6 @@ export class Slider {
         );
         this.captionEl = this.slider.querySelector(".slider-caption");
 
-        // --- 2. CONFIGURATION ---
         const dataset = this.slider.dataset;
         this.loop = dataset.loop === "true";
         this.auto = dataset.auto === "true";
@@ -27,7 +25,6 @@ export class Slider {
         this.showPags = dataset.pags === "true";
         this.stopOnHover = dataset.stopMouseHover === "true";
 
-        // --- 3. STATE ---
         this.currentIndex = 0;
         this.slideCount = this.slides.length;
         this.autoPlayInterval = null;

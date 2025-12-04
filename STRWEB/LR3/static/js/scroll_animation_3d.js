@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scene.add(directionalLight);
 
     // Объекты сцены
-    const roadGeometry = new THREE.PlaneGeometry(1000, 80);
+    const roadGeometry = new THREE.PlaneGeometry(1500, 80);
     const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x444444 });
     const road = new THREE.Mesh(roadGeometry, roadMaterial);
     road.rotation.x = -Math.PI / 2;
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentScroll = window.scrollY;
         const scrollFraction = currentScroll / maxScroll;
 
-        const startX = -200;
+        const startX = -250;
         const endX = 100;
         carModel.position.x = startX + (endX - startX) * scrollFraction;
         carModel.position.y = 0;

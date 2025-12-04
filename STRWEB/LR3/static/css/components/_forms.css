@@ -89,8 +89,8 @@
 }
 
 .form-group-checkbox label {
-    /* Override default label margin */
     margin-bottom: 0;
+    color: var(--text-color);
 }
 
 .form-group-checkbox input[type="checkbox"] {
