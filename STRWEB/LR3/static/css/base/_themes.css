@@ -20,6 +20,7 @@
     --info-color-light: #d1ecf1;
     --info-color-border: #bee5eb;
     --light-color: #f8f9fa;
+    --light-color-rgb: 248, 249, 250;
     --dark-color: #343a40;
     --white-color: #fff;
     --black-color: #000;
@@ -68,6 +69,7 @@
     --info-color-border: #1f6feb;
 
     --light-color: #21262d;
+    --light-color-rgb: 33, 38, 45;
     --dark-color: #c9d1d9;
 
     --white-color: #0d1117;

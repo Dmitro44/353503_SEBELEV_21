@@ -422,3 +422,15 @@ class EmployeesTaskView(TemplateView):
     """Задание 8: Сведения о служащих учреждения (Вариант 23)"""
 
     template_name = "content/employees_task.html"
+
+
+class ApiDemoView(TemplateView):
+    """Задание 9: Демонстрация дополнительных Web API"""
+
+    template_name = "content/api_demo.html"
+
+
+class ChartDemoView(TemplateView):
+    """Задание 10: Демонстрация Chart.js"""
+
+    template_name = "content/chart_demo.html"

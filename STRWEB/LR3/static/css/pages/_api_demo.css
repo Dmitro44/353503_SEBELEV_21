@@ -1,6 +1,6 @@
-/* Styles for the OOP Employees Task page */
+/* Styles for the API Demo page */
 
-.oop-section {
+.api-section {
     margin-bottom: 2rem;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
@@ -9,7 +9,7 @@
     color: var(--text-color);
 }
 
-.oop-section h2 {
+.api-section h2 {
     margin-top: 0;
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
@@ -17,29 +17,11 @@
     margin-bottom: 1.5rem;
 }
 
-.display-area {
+.result-area {
+    margin-top: 1rem;
     padding: 1rem;
     background-color: var(--background-color);
     border-radius: 4px;
     min-height: 50px;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-}
-
-.display-area ul {
-    padding-left: 20px;
-    margin: 0;
-}
-
-.display-area li {
-    margin-bottom: 0.5rem;
-}
-
-.result-area {
-    padding: 1rem;
-    background-color: var(--secondary-color);
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-align: center;
+    line-height: 1.6;
 }

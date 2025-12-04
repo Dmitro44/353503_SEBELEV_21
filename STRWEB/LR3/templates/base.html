@@ -39,6 +39,8 @@
             <li><a href="{% url 'promocode_list' %}">Промокоды</a></li>
             <li><a href="{% url 'form_generator' %}">Генератор Форм</a></li>
             <li><a href="{% url 'employees_task' %}">Задание ООП</a></li>
+            <li><a href="{% url 'api_demo' %}">Демо API</a></li>
+            <li><a href="{% url 'chart_demo' %}">Графики</a></li>
             {% if is_staff_user or is_admin_user %}
                 <li><a href="{% url 'review_management' %}">Модерация отзывов</a></li>
             {% endif %}

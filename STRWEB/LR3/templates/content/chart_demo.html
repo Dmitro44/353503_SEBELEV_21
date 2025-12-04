@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Демонстрация Chart.js{% endblock %}
+
+{% block content %}
+<div class="chart-page content-container">
+    <h1>Графики функции и ее разложения в ряд</h1>
+    <p>
+        Демонстрация сравнения функции <code>f(x) = 1 / (1 - x)</code> и ее разложения в ряд Тейлора (геометрическая прогрессия) <code>S(x) = 1 + x + x² + ... + xⁿ</code>.
+    </p>
+    <p>
+        Используйте ползунок, чтобы изменить количество членов ряда (n) и посмотреть, как график аппроксимации приближается к графику исходной функции в диапазоне <code>|x| < 1</code>.
+    </p>
+
+    <div class="chart-container form-container">
+        <div class="chart-controls">
+            <div class="form-group">
+                <label for="n-slider" class="form-label">Количество членов ряда (n): <span id="n-value">10</span></label>
+                <input type="range" id="n-slider" name="n-slider" min="0" max="50" value="10" class="form-control-range">
+            </div>
+            <div class="form-actions">
+                <button id="save-chart-btn" class="btn btn-primary">Сохранить график</button>
+            </div>
+        </div>
+        <canvas id="function-chart"></canvas>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<script src="{% static 'js/chart_demo.js' %}"></script>
+{% endblock %}
