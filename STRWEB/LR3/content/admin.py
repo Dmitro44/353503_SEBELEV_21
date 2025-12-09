@@ -57,9 +57,9 @@ class ReviewAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('get_full_name', 'position', 'email', 'phone', 'order', 'is_main_contact')
+    list_display = ('get_full_name', 'position', 'email', 'phone', 'website_url', 'order', 'is_main_contact')
     list_filter = ('department', 'is_main_contact')
-    search_fields = ('first_name', 'last_name', 'position', 'email')
+    search_fields = ('first_name', 'last_name', 'position', 'email', 'website_url')
     list_editable = ('order', 'is_main_contact')
 
 @admin.register(Partner)

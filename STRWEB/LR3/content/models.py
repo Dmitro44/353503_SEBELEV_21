@@ -106,6 +106,7 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20, verbose_name='Телефон')
     photo = models.ImageField(upload_to='contacts/', blank=True, null=True, verbose_name='Фотография')
     bio = models.TextField(blank=True, null=True, verbose_name='Биография')
+    website_url = models.URLField(max_length=200, blank=True, null=True, verbose_name="Ссылка")
     is_main_contact = models.BooleanField(default=False, verbose_name='Основной контакт')
     order = models.PositiveIntegerField(default=0, verbose_name='Порядок отображения')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')

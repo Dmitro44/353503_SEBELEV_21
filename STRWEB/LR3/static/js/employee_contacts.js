@@ -39,9 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function hidePreloaderWithMinTime() {
         const elapsed = Date.now() - preloaderStartTime;
         if (elapsed < MIN_PRELOADER_TIME) {
-            await new Promise((resolve) =>
-                setTimeout(resolve, MIN_PRELOADER_TIME - elapsed),
-            );
+            await new Promise((resolve) => setTimeout(resolve, MIN_PRELOADER_TIME - elapsed));
         }
         hidePreloader();
     }
@@ -51,22 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const tableHeaders = document.querySelectorAll(".data-table th[data-sort]");
     const filterInput = document.getElementById("filter-input");
     const filterBtn = document.getElementById("filter-btn");
-    const detailsContainer = document.getElementById(
-        "employee-details-container",
-    );
+    const detailsContainer = document.getElementById("employee-details-container");
     const addEmployeeBtn = document.getElementById("add-employee-btn");
-    const addFormContainer = document.getElementById(
-        "add-employee-form-container",
-    );
+    const addFormContainer = document.getElementById("add-employee-form-container");
     const addForm = document.getElementById("add-employee-form");
     const cancelAddBtn = document.getElementById("cancel-add-btn");
     const submitAddBtn = document.getElementById("submit-add-btn");
     const phoneInput = document.getElementById("phone");
     const phoneValidationMsg = document.getElementById("phone-validation-msg");
+    const websiteUrlInput = document.getElementById("website_url"); // New element reference
+    const urlValidationMsg = document.getElementById("url-validation-msg"); // New element reference
     const bonusBtn = document.getElementById("bonus-btn");
-    const bonusMessageContainer = document.getElementById(
-        "bonus-message-container",
-    );
+    const bonusMessageContainer = document.getElementById("bonus-message-container");
     const selectAllCheckbox = document.getElementById("select-all-employees");
 
     // State
@@ -88,9 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let i = 0; i < cookies.length; i++) {
                 const cookie = cookies[i].trim();
                 if (cookie.substring(0, name.length + 1) === name + "=") {
-                    cookieValue = decodeURIComponent(
-                        cookie.substring(name.length + 1),
-                    );
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
                 }
             }
@@ -104,14 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
         showPreloader("Загрузка сотрудников");
         try {
             const response = await fetch("/api/contacts/");
-            if (!response.ok)
-                throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             allContacts = await response.json();
             filteredContacts = [...allContacts];
             renderPage();
         } catch (error) {
             console.error("Could not fetch contacts:", error);
-            tableBody.innerHTML = `<tr><td colspan="7">Ошибка загрузки данных.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="8">Ошибка загрузки данных.</td></tr>`;
         } finally {
             await new Promise((resolve) => setTimeout(resolve, 2000));
             hidePreloader();
@@ -126,9 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPagination();
         updateHeaderSortIndicators();
         updateSelectAllCheckboxState(); // Update select all checkbox state
-        const selectedContact = filteredContacts.find(
-            (c) => c.id === selectedContactId,
-        );
+        const selectedContact = filteredContacts.find((c) => c.id === selectedContactId);
         renderDetails(selectedContact);
     }
 
@@ -145,16 +134,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (paginatedContacts.length === 0) {
-            tableBody.innerHTML =
-                '<tr><td colspan="7">Сотрудники не найдены.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="8">Сотрудники не найдены.</td></tr>';
             return;
         }
 
         paginatedContacts.forEach((employee) => {
             const row = document.createElement("tr");
             row.dataset.employeeId = employee.id;
-            if (employee.id === selectedContactId)
-                row.classList.add("selected");
+            if (employee.id === selectedContactId) row.classList.add("selected");
 
             const isChecked = checkedContactIds.has(employee.id);
 
@@ -165,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td data-label="Должность">${employee.position}</td>
                 <td data-label="Телефон">${employee.phone}</td>
                 <td data-label="Email">${employee.email}</td>
+                <td data-label="Ссылка">${employee.website_url ? `<a href="${employee.website_url}" target="_blank">${employee.website_url}</a>` : "—"}</td>
                 <td data-label="Описание">${employee.bio || "Нет описания"}</td>
             `;
             tableBody.appendChild(row);
@@ -177,34 +165,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const pageCount = Math.ceil(filteredContacts.length / rowsPerPage);
         if (pageCount <= 1) return;
 
-        const firstBtn = createPaginationButton(
-            "&laquo;&laquo;",
-            1,
-            currentPage > 1,
-        );
-        const prevBtn = createPaginationButton(
-            "&laquo;",
-            currentPage - 1,
-            currentPage > 1,
-        );
+        const firstBtn = createPaginationButton("&laquo;&laquo;", 1, currentPage > 1);
+        const prevBtn = createPaginationButton("&laquo;", currentPage - 1, currentPage > 1);
         paginationContainer.appendChild(firstBtn);
         paginationContainer.appendChild(prevBtn);
 
         for (let i = 1; i <= pageCount; i++) {
-            const pageBtn = createPaginationButton(
-                i,
-                i,
-                true,
-                currentPage === i,
-            );
+            const pageBtn = createPaginationButton(i, i, true, currentPage === i);
             paginationContainer.appendChild(pageBtn);
         }
 
-        const nextBtn = createPaginationButton(
-            "&raquo;",
-            currentPage + 1,
-            currentPage < pageCount,
-        );
+        const nextBtn = createPaginationButton("&raquo;", currentPage + 1, currentPage < pageCount);
         const lastBtn = createPaginationButton(
             "&raquo;&raquo;",
             pageCount,
@@ -231,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p><strong>Отдел:</strong> ${contact.department || "N/A"}</p>
                     <p><strong>Email:</strong> <a href="mailto:${contact.email}">${contact.email}</a></p>
                     <p><strong>Телефон:</strong> <a href="tel:${contact.phone}">${contact.phone}</a></p>
+                    <p><strong>Веб-сайт:</strong> ${contact.website_url ? `<a href="${contact.website_url}" target="_blank">${contact.website_url}</a>` : "Нет информации"}</p>
                     <p><strong>Биография:</strong> ${contact.bio || "Нет информации."}</p>
                 </div>
             </div>
@@ -310,8 +282,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
     }
 
+    function validateUrl(url) {
+        if (!url) return true;
+        const startsWithHttp = url.startsWith("http://") || url.startsWith("https://");
+        const endsWithExtension = url.endsWith(".php") || url.endsWith(".html");
+        return startsWithHttp && endsWithExtension;
+    }
+
     function validateAddForm() {
         const isPhoneValid = validatePhone(phoneInput.value);
+        const isUrlValid = validateUrl(websiteUrlInput.value);
         const requiredFields = addForm.querySelectorAll("[required]");
         let allRequiredFilled = true;
         requiredFields.forEach((field) => {
@@ -320,6 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // Phone validation display
         if (phoneInput.value) {
             if (isPhoneValid) {
                 phoneInput.classList.remove("is-invalid");
@@ -337,16 +318,29 @@ document.addEventListener("DOMContentLoaded", () => {
             phoneValidationMsg.textContent = "";
         }
 
-        submitAddBtn.disabled = !(allRequiredFilled && isPhoneValid);
+        // URL validation display
+        if (websiteUrlInput.value) {
+            if (isUrlValid) {
+                websiteUrlInput.classList.remove("is-invalid");
+                websiteUrlInput.classList.add("is-valid");
+                urlValidationMsg.textContent = "URL валиден.";
+                urlValidationMsg.style.color = "green";
+            } else {
+                websiteUrlInput.classList.remove("is-valid");
+                websiteUrlInput.classList.add("is-invalid");
+                urlValidationMsg.textContent = "Неверный формат URL.";
+                urlValidationMsg.style.color = "red";
+            }
+        } else {
+            websiteUrlInput.classList.remove("is-valid", "is-invalid");
+            urlValidationMsg.textContent = "";
+        }
+
+        submitAddBtn.disabled = !(allRequiredFilled && isPhoneValid && isUrlValid); // Update submit button state
     }
 
     // UTILS
-    function createPaginationButton(
-        text,
-        page,
-        enabled = true,
-        isActive = false,
-    ) {
+    function createPaginationButton(text, page, enabled = true, isActive = false) {
         const button = document.createElement("a");
         button.href = "#";
         button.innerHTML = text;
@@ -372,20 +366,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const key = header.getAttribute("data-sort");
             header.classList.remove("sort-asc", "sort-desc");
             if (key === sortColumn) {
-                header.classList.add(
-                    sortDirection === "asc" ? "sort-asc" : "sort-desc",
-                );
+                header.classList.add(sortDirection === "asc" ? "sort-asc" : "sort-desc");
             }
         });
     }
 
     function updateSelectAllCheckboxState() {
         const allFilteredIds = new Set(filteredContacts.map((c) => c.id));
-        const allFilteredChecked = filteredContacts.every((c) =>
-            checkedContactIds.has(c.id),
-        );
-        selectAllCheckbox.checked =
-            allFilteredChecked && filteredContacts.length > 0;
+        const allFilteredChecked = filteredContacts.every((c) => checkedContactIds.has(c.id));
+        selectAllCheckbox.checked = allFilteredChecked && filteredContacts.length > 0;
     }
 
     // EVENT LISTENERS
@@ -423,8 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const row = target.closest("tr");
             if (!row || !row.dataset.employeeId) return;
             const employeeId = parseInt(row.dataset.employeeId, 10);
-            selectedContactId =
-                selectedContactId === employeeId ? null : employeeId;
+            selectedContactId = selectedContactId === employeeId ? null : employeeId;
             renderPage();
         }
     });
@@ -438,6 +426,8 @@ document.addEventListener("DOMContentLoaded", () => {
         addForm.reset();
         phoneInput.classList.remove("is-valid", "is-invalid");
         phoneValidationMsg.textContent = "";
+        websiteUrlInput.classList.remove("is-valid", "is-invalid"); // Clear URL validation
+        urlValidationMsg.textContent = ""; // Clear URL validation message
         submitAddBtn.disabled = true;
     });
 
@@ -464,9 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Form submission error:", errorData);
-                alert(
-                    "Ошибка при добавлении сотрудника. Проверьте консоль для деталей.",
-                );
+                alert("Ошибка при добавлении сотрудника. Проверьте консоль для деталей.");
                 submitAddBtn.disabled = false;
                 await hidePreloaderWithMinTime();
                 return;
@@ -476,6 +464,8 @@ document.addEventListener("DOMContentLoaded", () => {
             addFormContainer.style.display = "none";
             phoneInput.classList.remove("is-valid", "is-invalid");
             phoneValidationMsg.textContent = "";
+            websiteUrlInput.classList.remove("is-valid", "is-invalid"); // Clear URL validation
+            urlValidationMsg.textContent = ""; // Clear URL validation message
             submitAddBtn.disabled = true;
             await fetchContacts();
         } catch (error) {
@@ -491,13 +481,9 @@ document.addEventListener("DOMContentLoaded", () => {
     selectAllCheckbox.addEventListener("change", (e) => {
         const isChecked = e.target.checked;
         if (isChecked) {
-            filteredContacts.forEach((contact) =>
-                checkedContactIds.add(contact.id),
-            );
+            filteredContacts.forEach((contact) => checkedContactIds.add(contact.id));
         } else {
-            filteredContacts.forEach((contact) =>
-                checkedContactIds.delete(contact.id),
-            );
+            filteredContacts.forEach((contact) => checkedContactIds.delete(contact.id));
         }
         renderTable(); // Re-render table to update checkboxes
     });
