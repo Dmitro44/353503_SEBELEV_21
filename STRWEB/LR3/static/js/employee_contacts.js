@@ -57,8 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitAddBtn = document.getElementById("submit-add-btn");
     const phoneInput = document.getElementById("phone");
     const phoneValidationMsg = document.getElementById("phone-validation-msg");
-    const websiteUrlInput = document.getElementById("website_url"); // New element reference
-    const urlValidationMsg = document.getElementById("url-validation-msg"); // New element reference
+    const websiteUrlInput = document.getElementById("website_url");
+    const urlValidationMsg = document.getElementById("url-validation-msg");
     const bonusBtn = document.getElementById("bonus-btn");
     const bonusMessageContainer = document.getElementById("bonus-message-container");
     const selectAllCheckbox = document.getElementById("select-all-employees");
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p><strong>Отдел:</strong> ${contact.department || "N/A"}</p>
                     <p><strong>Email:</strong> <a href="mailto:${contact.email}">${contact.email}</a></p>
                     <p><strong>Телефон:</strong> <a href="tel:${contact.phone}">${contact.phone}</a></p>
-                    <p><strong>Веб-сайт:</strong> ${contact.website_url ? `<a href="${contact.website_url}" target="_blank">${contact.website_url}</a>` : "Нет информации"}</p>
+                    <p><strong>Ссылка:</strong> ${contact.website_url ? `<a href="${contact.website_url}" target="_blank">${contact.website_url}</a>` : "Нет информации"}</p>
                     <p><strong>Биография:</strong> ${contact.bio || "Нет информации."}</p>
                 </div>
             </div>
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
             urlValidationMsg.textContent = "";
         }
 
-        submitAddBtn.disabled = !(allRequiredFilled && isPhoneValid && isUrlValid); // Update submit button state
+        submitAddBtn.disabled = !(allRequiredFilled && isPhoneValid && isUrlValid);
     }
 
     // UTILS
