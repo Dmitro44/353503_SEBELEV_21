@@ -16,7 +16,7 @@
                     <!-- Search -->
                     <div class="filter-section">
                         <h5>Поиск</h5>
-                        <form method="get" action="">
+                        <form method="get" action="" id="search-form">
                             <div class="form-group">
                                 <input type="text" placeholder="Марка, модель..." name="search" value="{{ search_query|default:'' }}">
                             </div>
@@ -30,7 +30,7 @@
                     <!-- Filters -->
                     <div class="filter-section">
                         <h5>Фильтры</h5>
-                        <form method="get">
+                        <form method="get" id="filters-form">
                             {% if search_query %}
                                 <input type="hidden" name="search" value="{{ search_query }}">
                             {% endif %}
@@ -86,7 +86,7 @@
 
                             <div class="filter-buttons">
                                 <button type="submit" class="btn btn-primary">Применить</button>
-                                <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Сбросить все</a>
+                                <a href="{% url 'vehicle_list' %}" class="btn btn-secondary" id="reset-filters-btn">Сбросить все</a>
                             </div>
                         </form>
                     </div>
@@ -96,10 +96,10 @@
             <!-- Right Column: Vehicle List -->
             <main class="vehicle-list-column">
                 <div class="list-header form-group">
-                    <p>{{ vehicles|length }} автомобилей найдено</p>
+                    <p><span id="vehicle-count">0</span> автомобилей найдено</p>
                     <form method="get" class="sort-form">
                         <label class="form-label" for="ordering">Сортировать:</label>
-                        <select name="ordering" id="ordering" class="form-control" onchange="this.form.submit()">
+                        <select name="ordering" id="ordering" class="form-control">
                             <option value="daily_rental_price" {% if current_ordering == 'daily_rental_price' %}selected{% endif %}>Цена (по возрастанию)</option>
                             <option value="-daily_rental_price" {% if current_ordering == '-daily_rental_price' %}selected{% endif %}>Цена (по убыванию)</option>
                             <option value="year" {% if current_ordering == 'year' %}selected{% endif %}>Год (сначала новые)</option>
@@ -108,69 +108,23 @@
                     </form>
                 </div>
 
-                {% if vehicles %}
-                    <div class="vehicle-list">
-                        {% for vehicle in vehicles %}
-                            <div class="card">
-                                <img class="card-img-top" src="{{ vehicle.image.url }}" alt="{{ vehicle.car_model }}">
-                                <div class="card-content">
-                                    <div class="card-main-info">
-                                        <h5>{{ vehicle.car_model.brand }} {{ vehicle.car_model.model }}</h5>
-                                        <p><strong>{{ vehicle.daily_rental_price }} $</strong>/день</p>
-                                        <p>{{ vehicle.year }} г. | {{ vehicle.car_model.body_type }}</p>
-                                    </div>
-                                    <div class="card-actions">
-                                        <a href="{% url 'vehicle_detail' pk=vehicle.pk %}" class="btn btn-primary">Подробнее</a>
-                                        {% if user.is_authenticated and is_staff_user or user.is_authenticated and is_admin_user %}
-                                            <a href="{% url 'vehicle_update' pk=vehicle.pk %}" class="btn btn-secondary">Изм.</a>
-                                            <a href="{% url 'vehicle_delete' pk=vehicle.pk %}" class="btn btn-danger">Удал.</a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="no-vehicles-found">
-                        <p>По вашему запросу не найдено ни одного автомобиля.</p>
-                        {% if search_query or selected_brand or selected_body_type or selected_year or selected_is_available or selected_car_park %}
-                            <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Сбросить все фильтры</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                <div class="vehicle-list">
+                    <!-- Vehicle cards will be inserted here by JavaScript -->
+                </div>
+                <div class="no-vehicles-found" style="display: none;">
+                    <p>По вашему запросу не найдено ни одного автомобиля.</p>
+                    <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Сбросить все фильтры</a>
+                </div>
 
-                {% if page_obj %}
-                    <div class="pagination-buttons">
-                        {% if page_obj.has_previous %}
-                            <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}{% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="btn btn-secondary">&laquo;&laquo;</a>
-                            <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}{% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="btn btn-secondary">&laquo;</a>
-                        {% else %}
-                            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&laquo;&laquo;</a>
-                            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&laquo;</a>
-                        {% endif %}
-
-                        {% for i in page_obj.paginator.page_range %}
-                            {% if page_obj.number == i %}
-                                <a href="?page={{ i }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}{% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="btn btn-primary">{{ i }}</a>
-                            {% else %}
-                                <a href="?page={{ i }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}{% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="btn btn-secondary">{{ i }}</a>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}{% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="btn btn-secondary">&raquo;</a>
-                            <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if selected_body_type %}&body_type={{ selected_body_type }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_is_available %}&is_available={{ selected_is_available }}{% endif %}{% if selected_car_park %}&car_park={{ selected_car_park }}{% endif %}{% if current_ordering %}&ordering={{ current_ordering }}{% endif %}" class="btn btn-secondary">&raquo;&raquo;</a>
-                        {% else %}
-                            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&raquo;</a>
-                            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&raquo;&raquo;</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                <div class="pagination-buttons">
+                    <!-- Pagination will be inserted here by JavaScript -->
+                </div>
             </main>
         </div>
     </div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/vehicle_cards_3d.js' %}" defer></script>
+<script src="{% static 'js/vehicle_cards_paralax.js' %}" defer></script>
+<script src="{% static 'js/vehicle_list_pagination.js' %}" defer></script>
 {% endblock %}

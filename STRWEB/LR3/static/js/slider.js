@@ -9,12 +9,8 @@ export class Slider {
         this.slides = Array.from(this.track.children);
         this.nextBtn = this.slider.querySelector(".slider-nav-next");
         this.prevBtn = this.slider.querySelector(".slider-nav-prev");
-        this.dotsContainer = this.slider.querySelector(
-            ".slider-pagination-dots",
-        );
-        this.counterEl = this.slider.querySelector(
-            ".slider-pagination-counter",
-        );
+        this.dotsContainer = this.slider.querySelector(".slider-pagination-dots");
+        this.counterEl = this.slider.querySelector(".slider-pagination-counter");
         this.captionEl = this.slider.querySelector(".slider-caption");
 
         const dataset = this.slider.dataset;
@@ -75,12 +71,8 @@ export class Slider {
         }
 
         if (this.auto && this.stopOnHover) {
-            this.slider.addEventListener("mouseenter", () =>
-                this.stopAutoPlay(),
-            );
-            this.slider.addEventListener("mouseleave", () =>
-                this.startAutoPlay(),
-            );
+            this.slider.addEventListener("mouseenter", () => this.stopAutoPlay());
+            this.slider.addEventListener("mouseleave", () => this.startAutoPlay());
         }
     }
 
@@ -117,12 +109,10 @@ export class Slider {
     }
 
     updatePagination() {
-        // Update counter
         if (this.counterEl) {
             this.counterEl.textContent = `${this.currentIndex + 1} / ${this.slideCount}`;
         }
 
-        // Update active dot
         if (this.showPags && this.dots) {
             this.dots.forEach((dot, index) => {
                 dot.classList.toggle("active", index === this.currentIndex);
@@ -143,8 +133,7 @@ export class Slider {
                 this.prevBtn.disabled = this.currentIndex === 0;
             }
             if (this.nextBtn) {
-                this.nextBtn.disabled =
-                    this.currentIndex === this.slideCount - 1;
+                this.nextBtn.disabled = this.currentIndex === this.slideCount - 1;
             }
         }
     }

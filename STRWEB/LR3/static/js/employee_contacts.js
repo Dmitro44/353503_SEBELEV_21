@@ -109,14 +109,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- RENDERING ---
+    // RENDERING
     function renderPage() {
         applyFilter();
         sortContacts();
         renderTable();
         renderPagination();
         updateHeaderSortIndicators();
-        updateSelectAllCheckboxState(); // Update select all checkbox state
+        updateSelectAllCheckboxState();
         const selectedContact = filteredContacts.find((c) => c.id === selectedContactId);
         renderDetails(selectedContact);
     }
@@ -218,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         filteredContacts = allContacts.filter((c) =>
             Object.entries(c).some(([key, val]) => {
-                // Exclude 'photo' and 'photo_url' fields from filtering
                 if (key === "photo" || key === "photo_url") {
                     return false;
                 }
@@ -256,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
         bonusMessageContainer.style.display = "block";
     }
 
-    // --- FORM VALIDATION ---
     function validatePhone(phone) {
         // Allow digits, +, (, ), -, and spaces.
         if (/[^0-9+()-\s]/.test(phone)) {
@@ -407,7 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 checkedContactIds.delete(employeeId);
             }
-            updateSelectAllCheckboxState(); // Update select all checkbox state
+            updateSelectAllCheckboxState();
         } else {
             const row = target.closest("tr");
             if (!row || !row.dataset.employeeId) return;

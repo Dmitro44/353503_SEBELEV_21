@@ -36,9 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!employeeArray || employeeArray.length === 0) {
             return "Нет данных для анализа.";
         }
-        const marriedCount = employeeArray.filter(
-            (emp) => emp.maritalStatus === "В браке",
-        ).length;
+        const marriedCount = employeeArray.filter((emp) => emp.maritalStatus === "В браке").length;
         const probability = (marriedCount / employeeArray.length) * 100;
         return `Процент сотрудников в браке: ${probability.toFixed(2)}%`;
     };
@@ -102,9 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             addObject: function (form) {
                 const fullName = form.querySelector('[name="fullname"]').value;
                 const gender = form.querySelector('[name="gender"]').value;
-                const maritalStatus = form.querySelector(
-                    '[name="marital-status"]',
-                ).value;
+                const maritalStatus = form.querySelector('[name="marital-status"]').value;
 
                 if (!fullName.trim()) {
                     alert("Пожалуйста, введите ФИО.");
@@ -133,11 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
 
             updateUI: function () {
-                const displayAllContainer =
-                    document.getElementById("proto-display-all");
-                const displayResultContainer = document.getElementById(
-                    "proto-display-result",
-                );
+                const displayAllContainer = document.getElementById("proto-display-all");
+                const displayResultContainer = document.getElementById("proto-display-result");
                 this.displayAll(displayAllContainer);
                 this.displayResult(displayResultContainer);
             },
@@ -185,12 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             init: function () {
                 this.employees = initialEmployeesData.map(
-                    (d) =>
-                        new EmployeeClass(
-                            d.fullName,
-                            d.gender,
-                            d.maritalStatus,
-                        ),
+                    (d) => new EmployeeClass(d.fullName, d.gender, d.maritalStatus),
                 );
                 const classForm = document.getElementById("class-form");
                 classForm.addEventListener("submit", (e) => {
@@ -203,20 +191,14 @@ document.addEventListener("DOMContentLoaded", () => {
             addObject: function (form) {
                 const fullName = form.querySelector('[name="fullname"]').value;
                 const gender = form.querySelector('[name="gender"]').value;
-                const maritalStatus = form.querySelector(
-                    '[name="marital-status"]',
-                ).value;
+                const maritalStatus = form.querySelector('[name="marital-status"]').value;
 
                 if (!fullName.trim()) {
                     alert("Пожалуйста, введите ФИО.");
                     return;
                 }
 
-                const employee = new EmployeeClass(
-                    fullName,
-                    gender,
-                    maritalStatus,
-                );
+                const employee = new EmployeeClass(fullName, gender, maritalStatus);
                 this.employees.push(employee);
                 form.reset();
                 this.updateUI();
@@ -238,11 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
             },
 
             updateUI: function () {
-                const displayAllContainer =
-                    document.getElementById("class-display-all");
-                const displayResultContainer = document.getElementById(
-                    "class-display-result",
-                );
+                const displayAllContainer = document.getElementById("class-display-all");
+                const displayResultContainer = document.getElementById("class-display-result");
                 this.displayAll(displayAllContainer);
                 this.displayResult(displayResultContainer);
             },
@@ -251,4 +230,3 @@ document.addEventListener("DOMContentLoaded", () => {
         classManager.init();
     }
 });
-

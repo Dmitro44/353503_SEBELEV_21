@@ -1,115 +1,29 @@
 import logging
 
-from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
-from rest_framework.views import View
-
-from vehicles.forms import VehicleForm
-from vehicles.models import Vehicle, CarModel, BodyType, CarPark
-
+from django.views import View # Добавлен импорт View
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import VehicleSerializer
+from .models import Vehicle, CarModel, BodyType, CarPark
+from .forms import VehicleForm
 from authentication.decorators import staff_required
-
 from django.contrib import messages
 
 logger = logging.getLogger("vehicles")
 
+class VehicleListAPI(APIView):
+    def get(self, request):
+        vehicles = Vehicle.objects.all()
+        serializer = VehicleSerializer(vehicles, many=True)
+        return Response(serializer.data)
 
-class VehicleView(View):
+class VehicleView(APIView):
     template_name = "carrental/vehicle_list.html"
-    paginate_by = 3
 
     def get(self, request):
-        vehicles_list = Vehicle.objects.all()
-
-        brand = request.GET.get("brand")
-        if brand:
-            vehicles_list = vehicles_list.filter(car_model__brand=brand)
-
-        body_type = request.GET.get("body_type")
-        if body_type:
-            vehicles_list = vehicles_list.filter(car_model__body_type=body_type)
-
-        year = request.GET.get("year")
-        if year:
-            vehicles_list = vehicles_list.filter(year=year)
-
-        is_available = request.GET.get("is_available")
-        if is_available is not None and is_available != "":
-            is_available = is_available.lower() == "true"
-            vehicles_list = vehicles_list.filter(is_available=is_available)
-
-        car_park = request.GET.get("car_park")
-        if car_park:
-            vehicles_list = vehicles_list.filter(car_park=car_park)
-
-        search = request.GET.get("search")
-        if search:
-            vehicles_list = vehicles_list.filter(
-                Q(license_plate__icontains=search)
-                | Q(car_model__brand__icontains=search)
-                | Q(car_model__body_type__name__icontains=search)
-            )
-
-        ordering = request.GET.get("ordering")
-        if ordering and ordering in [
-            "daily_rental_price",
-            "-daily_rental_price",
-            "year",
-            "-year",
-            "car_price",
-            "-car_price",
-        ]:
-            vehicles_list = vehicles_list.order_by(ordering)
-        else:
-            vehicles_list = vehicles_list.order_by("daily_rental_price")
-
-        paginator = Paginator(vehicles_list, 3)  # Show 3 vehicles per page.
-        page_number = request.GET.get("page")
-        page_obj = paginator.get_page(page_number)
-
-        brands = CarModel.objects.values_list("brand", flat=True).distinct()
-        body_types = BodyType.objects.all()
-        car_parks = CarPark.objects.all()
-        years = (
-            Vehicle.objects.values_list("year", flat=True).distinct().order_by("-year")
-        )
-
-        form = VehicleForm()
-
-        context = {
-            "vehicles": page_obj,
-            "page_obj": page_obj,
-            "brands": brands,
-            "body_types": body_types,
-            "car_parks": car_parks,
-            "years": years,
-            "form": form,
-            "selected_brand": brand,
-            "selected_body_type": body_type,
-            "selected_year": year,
-            "selected_is_available": is_available,
-            "selected_car_park": car_park,
-            "search_query": search,
-            "current_ordering": ordering or "daily_rental_price",
-        }
-
-        return render(request, self.template_name, context)
-
-    @method_decorator(staff_required)
-    def post(self, request):
-        form = VehicleForm(request.POST)
-
-        if form.is_valid():
-            vehicle = form.save()
-            messages.success(
-                request,
-                f"Автомобиль {vehicle.car_model.brand} {vehicle.car_model.model} успешно добавлен!",
-            )
-            return redirect("vehicle_list")
-
-        vehicles = Vehicle.objects.all().order_by("daily_rental_price")
         brands = CarModel.objects.values_list("brand", flat=True).distinct()
         body_types = BodyType.objects.all()
         car_parks = CarPark.objects.all()
@@ -118,13 +32,10 @@ class VehicleView(View):
         )
 
         context = {
-            "vehicles": vehicles,
             "brands": brands,
             "body_types": body_types,
             "car_parks": car_parks,
             "years": years,
-            "form": form,
-            "form_errors": form.errors,
         }
 
         return render(request, self.template_name, context)

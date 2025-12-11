@@ -1,10 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const cards = document.querySelectorAll(".vehicle-list .card");
-
-    if (!cards.length) return;
+function initializeVehicleCardParallax(cards) {
+    if (!cards || !cards.length) return;
 
     cards.forEach((card) => {
-        // Настройки эффекта
         const maxRotation = 30; // Максимальный угол наклона в градусах
         const perspective = 1000; // Перспектива
         const scale = 1.02; // Масштаб при наведении
@@ -18,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
-            
+
             // Позиция курсора относительно центра карточки (-0.5 до 0.5)
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -66,4 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         });
     });
+}
+
+// Для обратной совместимости, если скрипт будет вызван на странице со статической версткой
+document.addEventListener("DOMContentLoaded", () => {
+    const staticCards = document.querySelectorAll(".vehicle-list .card");
+    if (staticCards.length > 0) {
+        initializeVehicleCardParallax(staticCards);
+    }
 });
