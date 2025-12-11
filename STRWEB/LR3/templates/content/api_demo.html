@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Демонстрация Web API{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <h1>Демонстрация дополнительных Web API</h1>
+
+    <hr>
+
+    <div class="api-section form-container">
+        <h2>1. Geolocation API</h2>
+        <p>Получение географических координат пользователя. Для работы требуется разрешение пользователя.</p>
+        <div class="form-actions">
+            <button id="geo-btn" class="btn btn-primary">Определить местоположение</button>
+        </div>
+        <div id="geo-result" class="result-area"></div>
+    </div>
+
+    <div class="api-section form-container">
+        <h2>2. Battery Status API</h2>
+        <p>Отображение информации о состоянии батареи устройства.</p>
+        <div class="form-actions">
+            <button id="battery-btn" class="btn btn-primary">Получить статус батареи</button>
+        </div>
+        <div id="battery-result" class="result-area"></div>
+    </div>
+
+    <!-- <div class="api-section form-container"> -->
+    <!--     <h2>3. Speech Synthesis API</h2> -->
+    <!--     <p>Преобразование текста в речь. Введите текст и нажмите кнопку, чтобы браузер его произнес.</p> -->
+    <!--     <div class="form-group"> -->
+    <!--         <label for="speech-text" class="form-label">Текст для синтеза:</label> -->
+    <!--         <textarea id="speech-text" class="form-control" rows="3">Hello world</textarea> -->
+    <!--     </div> -->
+    <!--     <div class="form-actions"> -->
+    <!--         <button id="speech-btn" class="btn btn-primary">Произнести</button> -->
+    <!--     </div> -->
+    <!-- </div> -->
+    <!---->
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/api_demo.js' %}"></script>
+{% endblock %}

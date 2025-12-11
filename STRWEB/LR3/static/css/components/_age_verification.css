@@ -1,0 +1,141 @@
+.age-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.age-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.age-modal {
+    background: var(--bg-color, #fff);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.age-modal-overlay.active .age-modal {
+    transform: scale(1) translateY(0);
+}
+
+.age-modal__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.age-modal__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-color, #333);
+}
+
+.age-modal__subtitle {
+    color: var(--text-muted-color, #666);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.age-modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.age-modal__input {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.age-modal__input:focus {
+    outline: none;
+    border-color: var(--primary-color, #007bff);
+}
+
+.age-modal__btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.age-modal__btn--primary {
+    background: var(--primary-color, #007bff);
+    color: #fff;
+}
+
+.age-modal__btn--primary:hover {
+    background: var(--primary-hover-color, #0056b3);
+    transform: translateY(-2px);
+}
+
+.age-modal__btn--primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Результат проверки */
+.age-modal__result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    display: none;
+}
+
+.age-modal__result.show {
+    display: block;
+}
+
+.age-modal__result--success {
+    background: rgba(40, 167, 69, 0.1);
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    color: #28a745;
+}
+
+.age-modal__result--warning {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    color: #856404;
+}
+
+.age-modal__result-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.age-modal__result-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.age-modal__result-age {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.age-modal__result-day {
+    font-style: italic;
+    margin-top: 0.5rem;
+}

@@ -1,0 +1,61 @@
+/* --- Generic Table Styles --- */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--background-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    color: var(--dark-color);
+}
+
+.table th {
+    background-color: var(--light-color);
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: var(--secondary-color);
+}
+
+.table .action-cell {
+    min-width: 220px;
+}
+
+/* --- Status Badges --- */
+.status-badge {
+    padding: 0.3em 0.6em;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--white-color);
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: var(--warning-color);
+    /* Warning */
+    color: var(--dark-color);
+}
+
+.status-active {
+    background-color: var(--success-color);
+    /* Success */
+}
+
+.status-returned,
+.status-overdue {
+    background-color: var(--text-muted-color);
+    /* Secondary */
+}
+
+.status-cancelled {
+    background-color: var(--danger-color);
+    /* Danger */
+}

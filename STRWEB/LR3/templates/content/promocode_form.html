@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}Редактирование промокода{% else %}Создание промокода{% endif %} - Автопрокат
+{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="form-container">
+        <h2>{% if object %}Редактирование промокода{% else %}Создание нового промокода{% endif %}</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="errorlist">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.code.id_for_label }}" class="form-label">Код промокода*</label>
+                {{ form.code }}
+                {% if form.code.errors %}<div class="errorlist">{{ form.code.errors }}</div>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="form-label">Описание</label>
+                {{ form.description }}
+                <small class="form-text text-muted">Опишите акцию или цель промокода</small>
+                {% if form.description.errors %}<div class="errorlist">{{ form.description.errors }}</div>{% endif %}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.discount_percentage.id_for_label }}" class="form-label">Процент скидки*</label>
+                    {{ form.discount_percentage }}
+                    <small class="form-text text-muted">От 1 до 100</small>
+                    {% if form.discount_percentage.errors %}<div class="errorlist">{{ form.discount_percentage.errors }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.max_uses.id_for_label }}" class="form-label">Макс. использований</label>
+                    {{ form.max_uses }}
+                    {% if form.max_uses.errors %}<div class="errorlist">{{ form.max_uses.errors }}</div>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.valid_from.id_for_label }}" class="form-label">Действует с*</label>
+                    {{ form.valid_from }}
+                    {% if form.valid_from.errors %}<div class="errorlist">{{ form.valid_from.errors }}</div>{% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.valid_to.id_for_label }}" class="form-label">Действует до*</label>
+                    {{ form.valid_to }}
+                    {% if form.valid_to.errors %}<div class="errorlist">{{ form.valid_to.errors }}</div>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-group form-group-checkbox">
+                {{ form.is_active }}
+                <label for="{{ form.is_active.id_for_label }}" class="form-label">Активен</label>
+                {% if form.is_active.errors %}<div class="errorlist">{{ form.is_active.errors }}</div>{% endif %}
+            </div>
+
+            <div class="form-actions">
+                <a href="{% url 'promocode_list' %}" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-primary">{% if object %}Сохранить изменения{% else %}Создать промокод{% endif %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

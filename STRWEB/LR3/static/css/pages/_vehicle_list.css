@@ -1,0 +1,133 @@
+/* General Page Layout */
+.vehicle-list-page h1 {
+    margin-bottom: 20px;
+}
+
+.vehicle-list-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+/* --- Left Column: Filters --- */
+.vehicle-filters-column {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 20px;
+}
+
+/* --- Right Column: Vehicle List --- */
+.vehicle-list-column {
+    flex: 1;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: var(--light-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.list-header p {
+    margin: 0;
+    color: var(--text-muted-color);
+}
+
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 10px 0;
+}
+
+.sort-form .form-label {
+    margin-bottom: 0;
+}
+
+/* Vehicle Grid */
+.vehicle-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 20px;
+}
+
+/* No Vehicles Found Message */
+.no-vehicles-found {
+    padding: 40px;
+    text-align: center;
+    background-color: var(--light-color);
+    border-radius: 8px;
+}
+
+
+.vehicle-list .card {
+    --glare-x: 50%;
+    --glare-y: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.vehicle-list .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at var(--glare-x) var(--glare-y),
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.1) 20%,
+            rgba(255, 255, 255, 0) 50%);
+    pointer-events: none;
+    z-index: 2;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.vehicle-list .card:hover::before {
+    opacity: 1;
+}
+
+.vehicle-list .card::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10%;
+    right: 10%;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+    filter: blur(10px);
+    transition: all 0.4s ease;
+    z-index: -1;
+    opacity: 0;
+    transform: scaleX(0.8);
+}
+
+.vehicle-list .card:hover::after {
+    opacity: 1;
+    bottom: -20px;
+    transform: scaleX(1);
+}
+
+.vehicle-list .card .card-img-top {
+    transition: transform 0.4s ease;
+}
+
+.vehicle-list .card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.vehicle-list .card .card-content {
+    position: relative;
+    z-index: 1;
+    transform: translateZ(30px);
+}

@@ -1,0 +1,143 @@
+/* static/css/components/_slider.css */
+
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border-radius: 8px;
+}
+
+.slider-viewport {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slider-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    position: relative;
+}
+
+.slider-slide img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.slider-nav-prev,
+.slider-nav-next {
+    pointer-events: all;
+    background-color: var(--overlay-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 0 10px;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-nav-prev:hover,
+.slider-nav-next:hover {
+    background-color: var(--overlay-color-dark);
+}
+
+.slider-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--overlay-color-dark);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.slider-pagination {
+    position: absolute;
+    bottom: 40px; /* Adjust to be above the caption */
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.slider-pagination-counter {
+    background-color: var(--overlay-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.slider-pagination-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.slider-pagination-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.slider-pagination-dot.active,
+.slider-pagination-dot:hover {
+    background-color: white;
+}
+
+.slider-settings-btn {
+    pointer-events: all;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--overlay-color);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    font-size: 24px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.slider-settings-btn:hover {
+    background-color: var(--overlay-color-dark);
+    cursor: pointer;
+}
+

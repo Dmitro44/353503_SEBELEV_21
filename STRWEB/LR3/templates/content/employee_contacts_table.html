@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакты сотрудников - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container employee-contacts-table-page">
+    <h1>Контакты сотрудников</h1>
+
+    <div class="table-controls">
+        <div class="filter-container form-group">
+            <input type="text" id="filter-input" placeholder="Поиск по таблице...">
+            <button id="filter-btn" class="btn btn-primary">Найти</button>
+        </div>
+        <div class="add-container">
+            <button id="add-employee-btn" class="btn btn-primary">Добавить сотрудника</button>
+            <button id="bonus-btn" class="btn btn-secondary">Премировать</button>
+        </div>
+    </div>
+
+    <div id="add-employee-form-container" class="form-container" style="display: none;">
+        <h3>Добавить нового сотрудника</h3>
+        <form id="add-employee-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name" class="form-label">Имя</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name" class="form-label">Фамилия</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="position" class="form-label">Должность</label>
+                <input type="text" id="position" name="position" required>
+            </div>
+            <div class="form-group">
+                <label for="department" class="form-label">Отдел</label>
+                <input type="text" id="department" name="department" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Телефон</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <small id="phone-validation-msg" class="form-text"></small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="website_url" class="form-label">Ссылка</label>
+                <input type="url" id="website_url" name="website_url">
+                <small id="url-validation-msg" class="form-text"></small>
+            </div>
+            <div class="form-group">
+                <label for="bio" class="form-label">Описание работы</label>
+                <textarea id="bio" name="bio" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="photo" class="form-label">Фото</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="cancel-add-btn" class="btn btn-secondary">Отмена</button>
+                <button type="submit" id="submit-add-btn" class="btn btn-primary" disabled>Добавить в таблицу</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all-employees"></th>
+                    <th>Фото</th>
+                    <th data-sort="full_name">ФИО</th>
+                    <th data-sort="position">Должность</th>
+                    <th data-sort="phone">Телефон</th>
+                    <th data-sort="email">Email</th>
+                    <th>Сайт</th>
+                    <th>Описание работы</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td><input type="checkbox" name="employee_id" value="{{ employee.id }}"></td>
+                    <td>
+                        {% if employee.photo %}
+                            <img src="{{ employee.photo.url }}" alt="{{ employee.get_full_name }}" class="employee-photo">
+                        {% else %}
+                            <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar" class="employee-photo">
+                        {% endif %}
+                    </td>
+                    <td>{{ employee.get_full_name }}</td>
+                    <td>{{ employee.position }}</td>
+                    <td>{{ employee.phone }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{% if employee.website_url %}<a href="{{ employee.website_url }}" target="_blank">{{ employee.website_url }}</a>{% else %}—{% endif %}</td>
+                    <td>{{ employee.bio|default:"Нет описания" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">Сотрудники не найдены.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="employee-details-container" class="employee-details"></div>
+
+    <div id="bonus-message-container" class="bonus-message"></div>
+
+
+
+    <div class="pagination-buttons">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-secondary">&laquo;&laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">&laquo;</a>
+        {% else %}
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&laquo;&laquo;</a>
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&laquo;</a>
+        {% endif %}
+
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <a href="?page={{ i }}" class="btn btn-primary">{{ i }}</a>
+            {% else %}
+                <a href="?page={{ i }}" class="btn btn-secondary">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">&raquo;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">&raquo;&raquo;</a>
+        {% else %}
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&raquo;</a>
+            <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">&raquo;&raquo;</a>
+        {% endif %}
+    </div>
+
+    <div class="preloader-overlay" id="preloader" aria-hidden="true" role="status">
+        <div class="preloader-container">
+            <svg class="infinity-svg" viewBox="-90 -30 160 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <defs>
+                    <linearGradient id="infinityGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#8A2BE2"/>
+                        <stop offset="50%" stop-color="#FF1493"/>
+                        <stop offset="100%" stop-color="#8A2BE2"/>
+                    </linearGradient>
+                </defs>
+                <path class="infinity-path-line" d="M.486-5.975C-57.947-69.121-154.29-189.4395-165.2025-72.4755-170.9985-4.275-89.1585 88.818-33.9165 103.482 51.486 134.418 122.196 11.793 135.6795-12.5985 165.3465-62.586 173.0685-186.5385 81.555-107.9385 30.741-51.3435-9.492 22.215-72.7605 87.1155-134.799 151.506-163.611 90.402-149.6805 35.6295-117.1785-78.8955-44.994-108.3405-18.0825-112.4565 95.5785-129.2355 158.2665-1.962 165.231 50.9115 168.5985 154.839 104.3865 108.102 74.313 73.965L3.314-2.205"/>
+            </svg>
+            <div class="preloader-text" id="preloader-text">Загрузка</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/employee_contacts.js' %}" defer></script>
+{% endblock %}
