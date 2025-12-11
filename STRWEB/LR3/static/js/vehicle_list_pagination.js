@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const paginationContainer = document.querySelector(".pagination-buttons");
     const vehicleCountSpan = document.getElementById("vehicle-count");
 
-    // Filter and sort controls
     const searchInput = document.querySelector('input[name="search"]');
     const brandSelect = document.getElementById("brand");
     const bodyTypeSelect = document.getElementById("body_type");
@@ -12,19 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const isAvailableSelect = document.getElementById("is_available");
     const carParkSelect = document.getElementById("car_park");
     const orderingSelect = document.getElementById("ordering");
-    
+    const pageSizeInput = document.getElementById("page-size-input");
+
     const searchForm = document.getElementById("search-form");
     const filtersForm = document.getElementById("filters-form");
     const resetFiltersBtn = document.getElementById("reset-filters-btn");
 
-
-    // State
     let allVehicles = [];
     let filteredVehicles = [];
     let currentPage = 1;
-    const rowsPerPage = 3;
+    let rowsPerPage = parseInt(pageSizeInput.value, 10) || 3;
 
-    // --- DATA FETCHING ---
+    // DATA FETCHING
     async function fetchVehicles() {
         try {
             const response = await fetch("/vehicles/api/");
@@ -38,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- RENDERING ---
+    // RENDERING
     function renderPage() {
         applyFiltersAndSort();
         renderVehicleCards();
@@ -66,24 +64,24 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = document.createElement("div");
             card.className = "card";
             card.innerHTML = `
-                <img class="card-img-top" src="${vehicle.image}" alt="${vehicle.car_model.brand} ${vehicle.car_model.model}">
-                <div class="card-content">
-                    <div class="card-main-info">
-                        <h5>${vehicle.car_model.brand} ${vehicle.car_model.model}</h5>
-                        <p><strong>${vehicle.daily_rental_price} $</strong>/день</p>
-                        <p>${vehicle.year} г. | ${vehicle.car_model.body_type.name}</p>
+                    <img class="card-img-top" src="${vehicle.image}" alt="${vehicle.car_model.brand} ${vehicle.car_model.model}">
+                    <div class="card-content">
+                        <div class="card-main-info">
+                            <h5>${vehicle.car_model.brand} ${vehicle.car_model.model}</h5>
+                            <p><strong>${vehicle.daily_rental_price} $</strong>/день</p>
+                            <p>${vehicle.year} г. | ${vehicle.car_model.body_type.name}</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="/vehicles/${vehicle.id}/" class="btn btn-primary">Подробнее</a>
+                        </div>
                     </div>
-                    <div class="card-actions">
-                        <a href="/vehicles/${vehicle.id}/" class="btn btn-primary">Подробнее</a>
-                    </div>
-                </div>
-            `;
+                `;
             vehicleListContainer.appendChild(card);
         });
 
         // Initialize parallax effect on the newly created cards
-        if (typeof initializeVehicleCardParallax === 'function') {
-            const newCards = vehicleListContainer.querySelectorAll('.card');
+        if (typeof initializeVehicleCardParallax === "function") {
+            const newCards = vehicleListContainer.querySelectorAll(".card");
             initializeVehicleCardParallax(newCards);
         }
     }
@@ -120,11 +118,15 @@ document.addEventListener("DOMContentLoaded", () => {
             paginationContainer.appendChild(createButton(i, i, true, currentPage === i));
         }
 
-        paginationContainer.appendChild(createButton("&raquo;", currentPage + 1, currentPage < pageCount));
-        paginationContainer.appendChild(createButton("&raquo;&raquo;", pageCount, currentPage < pageCount));
+        paginationContainer.appendChild(
+            createButton("&raquo;", currentPage + 1, currentPage < pageCount),
+        );
+        paginationContainer.appendChild(
+            createButton("&raquo;&raquo;", pageCount, currentPage < pageCount),
+        );
     }
 
-    // --- LOGIC ---
+    // LOGIC
     function applyFiltersAndSort() {
         const search = searchInput.value.toLowerCase();
         const brand = brandSelect.value;
@@ -134,8 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const carPark = carParkSelect.value;
         const ordering = orderingSelect.value;
 
-        filteredVehicles = allVehicles.filter(v => {
-            const matchesSearch = !search || 
+        filteredVehicles = allVehicles.filter((v) => {
+            const matchesSearch =
+                !search ||
                 v.car_model.brand.toLowerCase().includes(search) ||
                 v.car_model.model.toLowerCase().includes(search);
             const matchesBrand = !brand || v.car_model.brand === brand;
@@ -143,21 +146,33 @@ document.addEventListener("DOMContentLoaded", () => {
             const matchesYear = !year || v.year == year;
             const matchesAvailable = isAvailable === "" || String(v.is_available) === isAvailable;
             const matchesCarPark = !carPark || v.car_park.id == carPark;
-            return matchesSearch && matchesBrand && matchesBodyType && matchesYear && matchesAvailable && matchesCarPark;
+            return (
+                matchesSearch &&
+                matchesBrand &&
+                matchesBodyType &&
+                matchesYear &&
+                matchesAvailable &&
+                matchesCarPark
+            );
         });
 
         filteredVehicles.sort((a, b) => {
             switch (ordering) {
-                case 'daily_rental_price': return a.daily_rental_price - b.daily_rental_price;
-                case '-daily_rental_price': return b.daily_rental_price - a.daily_rental_price;
-                case 'year': return b.year - a.year;
-                case '-year': return a.year - b.year;
-                default: return 0;
+                case "daily_rental_price":
+                    return a.daily_rental_price - b.daily_rental_price;
+                case "-daily_rental_price":
+                    return b.daily_rental_price - a.daily_rental_price;
+                case "year":
+                    return b.year - a.year;
+                case "-year":
+                    return a.year - b.year;
+                default:
+                    return 0;
             }
         });
     }
 
-    // --- EVENT LISTENERS ---
+    // EVENT LISTENERS
     function handleFilterChange() {
         currentPage = 1;
         renderPage();
@@ -182,6 +197,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     orderingSelect.addEventListener("change", handleFilterChange);
 
-    // --- INITIALIZATION ---
+    pageSizeInput.addEventListener("input", () => {
+        const newSize = parseInt(pageSizeInput.value, 10);
+        if (newSize > 0) {
+            rowsPerPage = newSize;
+            currentPage = 1;
+            renderPage();
+        }
+    });
+
     fetchVehicles();
 });

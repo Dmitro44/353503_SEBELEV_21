@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // --- 1. Geolocation API ---
     const geoBtn = document.getElementById("geo-btn");
     const geoResult = document.getElementById("geo-result");
 
@@ -9,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 1. Проверяем разрешения
         navigator.permissions.query({ name: "geolocation" }).then((permissionStatus) => {
             if (permissionStatus.state === "granted") {
                 geoResult.textContent = "Разрешение есть. Получаем координаты...";
@@ -57,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
 
-    // Battery Status API ---
+    // Battery
     const batteryBtn = document.getElementById("battery-btn");
     const batteryResult = document.getElementById("battery-result");
 
@@ -88,45 +86,4 @@ document.addEventListener("DOMContentLoaded", () => {
             batteryResult.textContent = "Battery Status API не поддерживается вашим браузером.";
         }
     });
-
-    // --- 3. Speech Synthesis API ---
-    // const speechBtn = document.getElementById("speech-btn");
-    // const speechText = document.getElementById("speech-text");
-    // const speechResult = document.getElementById("speech-result");
-    // const synth = window.speechSynthesis;
-    //
-    // speechBtn.addEventListener("click", () => {
-    //     if (synth.speaking) {
-    //         speechResult.textContent = "Синтезатор уже говорит.";
-    //         return;
-    //     }
-    //     if (speechText.value !== "") {
-    //         const utterThis = new SpeechSynthesisUtterance(speechText.value);
-    //         utterThis.onstart = () => {
-    //             speechResult.textContent = "Синтез речи начался...";
-    //         };
-    //         utterThis.onend = () => {
-    //             speechResult.textContent = "Синтез речи завершен.";
-    //         };
-    //         utterThis.onerror = (event) => {
-    //             speechResult.textContent = `Ошибка синтеза речи: ${event.error}`;
-    //         };
-    //
-    //         const russianVoice = synth
-    //             .getVoices()
-    //             .find((voice) => voice.lang === "en-US");
-    //
-    //         if (russianVoice) {
-    //             utterThis.voice = russianVoice;
-    //         }
-    //         synth.speak(utterThis);
-    //     } else {
-    //         speechResult.textContent = "Поле для текста пустое.";
-    //     }
-    // });
-    //
-    // // Убедимся, что голоса загружены, прежде чем пытаться их использовать
-    // if (synth.onvoiceschanged !== undefined) {
-    //     synth.onvoiceschanged = () => synth.getVoices();
-    // }
 });

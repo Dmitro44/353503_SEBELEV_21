@@ -97,6 +97,10 @@
             <main class="vehicle-list-column">
                 <div class="list-header form-group">
                     <p><span id="vehicle-count">0</span> автомобилей найдено</p>
+                    <div class="page-size-form form-group">
+                        <label class="form-label" for="page-size-input">На странице:</label>
+                        <input type="number" id="page-size-input" class="form-control" value="3" min="1" max="50">
+                    </div>
                     <form method="get" class="sort-form">
                         <label class="form-label" for="ordering">Сортировать:</label>
                         <select name="ordering" id="ordering" class="form-control">

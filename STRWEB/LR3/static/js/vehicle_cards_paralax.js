@@ -16,15 +16,12 @@ function initializeVehicleCardParallax(cards) {
         card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
 
-            // Позиция курсора относительно центра карточки (-0.5 до 0.5)
             const x = (e.clientX - rect.left) / rect.width - 0.5;
             const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-            // Вычисляем углы поворота
             const rotateY = x * maxRotation;
             const rotateX = -y * maxRotation;
 
-            // Применяем трансформацию
             card.style.transform = `
                 perspective(${perspective}px)
                 rotateX(${rotateX}deg)
@@ -32,7 +29,6 @@ function initializeVehicleCardParallax(cards) {
                 scale3d(${scale}, ${scale}, ${scale})
             `;
 
-            // Динамическая тень в зависимости от положения
             const shadowX = x * 20;
             const shadowY = y * 20;
             card.style.boxShadow = `
@@ -41,7 +37,6 @@ function initializeVehicleCardParallax(cards) {
                 0 5px 10px rgba(0, 0, 0, 0.1)
             `;
 
-            // Световой блик следует за курсором
             const glareX = (x + 0.5) * 100;
             const glareY = (y + 0.5) * 100;
             card.style.setProperty("--glare-x", `${glareX}%`);

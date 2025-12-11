@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let chart;
 
-    // --- Функции для вычислений ---
+    // Функции для вычислений
 
     // Исходная функция f(x) = 1 / (1 - x)
     const originalFunction = (x) => {
@@ -23,13 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return sum;
     };
 
-    // --- Генерация данных для графика ---
+    // Генерация данных для графика
     const generateChartData = (n) => {
         const labels = [];
         const originalData = [];
         const taylorData = [];
 
-        // Генерируем точки от 0 до 0.99 с шагом 0.01
         for (let x = 0.3; x <= 0.99; x += 0.01) {
             labels.push(x.toFixed(2));
             originalData.push(originalFunction(x));
@@ -61,17 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     };
 
-    // --- Создание и обновление графика ---
     const createOrUpdateChart = (n) => {
         const data = generateChartData(n);
 
         if (chart) {
-            // Обновляем существующий график
             chart.data = data;
             chart.options.plugins.annotation.annotations.nLabel.content = `n = ${n}`;
             chart.update();
         } else {
-            // Создаем новый график
             chart = new Chart(ctx, {
                 type: "line",
                 data: data,
@@ -125,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // --- Обработчики событий ---
+    // Обработчики событий
 
     // Изменение ползунка
     nSlider.addEventListener("input", (e) => {
@@ -144,6 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- Инициализация ---
+    // Инициализация
     createOrUpdateChart(parseInt(nSlider.value, 10));
 });
