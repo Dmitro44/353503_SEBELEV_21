@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
   res.send('Hello from Express Server!');
 });
 
+// Define Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/cars', require('./routes/cars'));
+
 const PORT = process.env.PORT || 5000;
 const DB_URI = process.env.DB_URI;
 
