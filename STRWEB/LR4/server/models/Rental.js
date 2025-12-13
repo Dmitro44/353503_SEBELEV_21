@@ -1,0 +1,37 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const RentalSchema = new Schema({
+    car: {
+        type: Schema.Types.ObjectId,
+        ref: 'Car',
+        required: true
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    rentalDate: {
+        type: Date,
+        required: true
+    },
+    returnDate: {
+        type: Date,
+        required: true
+    },
+    actualReturnDate: {
+        type: Date
+    },
+    totalCost: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['upcoming', 'active', 'completed', 'cancelled'],
+        default: 'upcoming'
+    }
+}, { timestamps: true });
+
+module.exports = mongoose.model('Rental', RentalSchema);
