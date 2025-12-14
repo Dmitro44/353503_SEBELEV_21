@@ -1,7 +1,16 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
+
+const setAuthToken = token => {
+    if (token) {
+        axios.defaults.headers.common['x-auth-token'] = token;
+    } else {
+        delete axios.defaults.headers.common['x-auth-token'];
+    }
+};
 
 const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({
@@ -11,18 +20,23 @@ const AuthProvider = ({ children }) => {
         user: null
     });
 
-    useEffect(() => {
+    const loadUser = () => {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.defaults.headers.common['x-auth-token'] = token;
-            // Here you would typically have an endpoint to get user data from token
-            // For now, we'll just assume the token is valid if it exists
-            setAuth({
-                token,
-                isAuthenticated: true,
-                loading: false,
-                user: { role: 'customer' } // Placeholder, should be fetched from server
-            });
+            setAuthToken(token);
+            try {
+                const decoded = jwtDecode(token);
+                setAuth({
+                    token,
+                    isAuthenticated: true,
+                    loading: false,
+                    user: decoded.user
+                });
+            } catch (error) {
+                // Handle invalid token
+                console.error("Invalid token");
+                logout();
+            }
         } else {
             setAuth({
                 token: null,
@@ -31,58 +45,44 @@ const AuthProvider = ({ children }) => {
                 user: null
             });
         }
+    };
+
+    useEffect(() => {
+        loadUser();
     }, []);
 
     const login = async (email, password) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
+        const config = { headers: { 'Content-Type': 'application/json' } };
         const body = JSON.stringify({ email, password });
 
         try {
             const res = await axios.post('http://localhost:5000/api/auth/login', body, config);
             localStorage.setItem('token', res.data.token);
-            axios.defaults.headers.common['x-auth-token'] = res.data.token;
-            setAuth({
-                ...auth,
-                token: res.data.token,
-                isAuthenticated: true,
-                loading: false,
-            });
+            loadUser(); // Reload user state from new token
         } catch (err) {
             console.error(err.response.data);
-            // Handle error (e.g., show alert)
+            // Handle error properly in component
+            throw err;
         }
     };
 
     const register = async ({ name, email, password }) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
+        const config = { headers: { 'Content-Type': 'application/json' } };
         const body = JSON.stringify({ name, email, password });
 
         try {
             const res = await axios.post('http://localhost:5000/api/auth/register', body, config);
             localStorage.setItem('token', res.data.token);
-            axios.defaults.headers.common['x-auth-token'] = res.data.token;
-            setAuth({
-                ...auth,
-                token: res.data.token,
-                isAuthenticated: true,
-                loading: false,
-            });
+            loadUser(); // Reload user state from new token
         } catch (err) {
             console.error(err.response.data);
+            throw err;
         }
     };
 
     const logout = () => {
         localStorage.removeItem('token');
-        delete axios.defaults.headers.common['x-auth-token'];
+        setAuthToken(null);
         setAuth({
             token: null,
             isAuthenticated: false,
