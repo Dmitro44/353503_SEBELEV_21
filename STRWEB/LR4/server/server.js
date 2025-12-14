@@ -3,7 +3,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+// Load all models to register them with Mongoose
+require('./models/User');
+require('./models/Car');
+require('./models/Rental');
+require('./models/Location');
+
 const app = express();
+
+// Serve static files from the 'public' directory
+app.use('/public', express.static('public'));
 
 // Middleware
 app.use(cors());
