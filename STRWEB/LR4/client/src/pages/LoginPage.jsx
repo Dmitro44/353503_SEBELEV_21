@@ -25,7 +25,7 @@ const LoginPage = () => {
 
     return (
         <div className="form-container">
-            <h1>Login</h1>
+            <h1>Вход</h1>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Email</label>
@@ -38,7 +38,7 @@ const LoginPage = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>Пароль</label>
                     <input
                         type="password"
                         name="password"
@@ -47,7 +47,7 @@ const LoginPage = () => {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button type="submit" className="btn btn-primary">Войти</button>
             </form>
         </div>
     );

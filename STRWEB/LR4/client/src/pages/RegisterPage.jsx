@@ -20,7 +20,7 @@ const RegisterPage = () => {
     const onSubmit = async e => {
         e.preventDefault();
         if (password !== password2) {
-            console.log('Passwords do not match'); // Replace with user-friendly alert
+            alert('Пароли не совпадают');
         } else {
             await register({ name, email, password });
             navigate('/');
@@ -29,10 +29,10 @@ const RegisterPage = () => {
 
     return (
         <div className="form-container">
-            <h1>Register</h1>
+            <h1>Регистрация</h1>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
-                    <label>Name</label>
+                    <label>Имя</label>
                     <input type="text" name="name" value={name} onChange={onChange} required />
                 </div>
                 <div className="form-group">
@@ -40,14 +40,14 @@ const RegisterPage = () => {
                     <input type="email" name="email" value={email} onChange={onChange} required />
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>Пароль</label>
                     <input type="password" name="password" value={password} onChange={onChange} required minLength="6" />
                 </div>
                 <div className="form-group">
-                    <label>Confirm Password</label>
+                    <label>Подтвердите пароль</label>
                     <input type="password" name="password2" value={password2} onChange={onChange} required minLength="6" />
                 </div>
-                <button type="submit" className="btn btn-primary">Register</button>
+                <button type="submit" className="btn btn-primary">Зарегистрироваться</button>
             </form>
         </div>
     );

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import carService from '../services/carService';
 import rentalService from '../services/rentalService';
 import { AuthContext } from '../context/AuthContext';
+import { SERVER_URL } from '../config';
 import './CarDetailPage.css';
 
 const CarDetailPage = () => {
@@ -26,7 +27,7 @@ const CarDetailPage = () => {
                 const response = await carService.getCarById(id);
                 setCar(response.data);
             } catch (err) {
-                setError('Failed to fetch car details.');
+                setError('Не удалось загрузить информацию об автомобиле.');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -42,11 +43,11 @@ const CarDetailPage = () => {
     const handleBookingSubmit = async e => {
         e.preventDefault();
         if (!isAuthenticated) {
-            setBookingMessage('Please log in to book a car.');
+            setBookingMessage('Пожалуйста, войдите, чтобы забронировать автомобиль.');
             return;
         }
         if (!rentalDates.rentalDate || !rentalDates.returnDate) {
-            setBookingMessage('Please select both rental and return dates.');
+            setBookingMessage('Пожалуйста, выберите дату начала и окончания аренды.');
             return;
         }
 
@@ -56,40 +57,49 @@ const CarDetailPage = () => {
                 rentalDate: rentalDates.rentalDate,
                 returnDate: rentalDates.returnDate
             });
-            setBookingMessage('Booking request sent! Awaiting admin approval.');
+            setBookingMessage('Запрос на бронирование отправлен! Ожидается подтверждение администратора.');
             setTimeout(() => navigate('/profile'), 2000); // Redirect after 2 seconds
         } catch (err) {
-            setBookingMessage(err.response?.data?.msg || 'Failed to send booking request.');
+            setBookingMessage(err.response?.data?.msg || 'Не удалось отправить запрос на бронирование.');
             console.error(err);
         }
     };
 
-    if (loading) return <p>Loading car details...</p>;
+    const translateStatus = (status) => {
+        switch (status) {
+            case 'available': return 'Доступен';
+            case 'rented': return 'В аренде';
+            case 'maintenance': return 'На обслуживании';
+            default: return status;
+        }
+    };
+
+    if (loading) return <p>Загрузка информации об автомобиле...</p>;
     if (error) return <p className="error-message">{error}</p>;
-    if (!car) return <p>Car not found.</p>;
+    if (!car) return <p>Автомобиль не найден.</p>;
 
     return (
         <div className="car-detail-page">
             <div className="car-detail-card">
-                <img src={car.imageUrl || 'https://via.placeholder.com/600x400'} alt={`${car.brand} ${car.model}`} />
+                <img src={`${SERVER_URL}${car.imageUrl}`} alt={`${car.brand} ${car.model}`} />
                 <div className="car-info">
                     <h1>{car.brand} {car.model} ({car.year})</h1>
-                    <p><strong>Category:</strong> {car.category}</p>
-                    <p><strong>License Plate:</strong> {car.licensePlate}</p>
-                    <p><strong>Daily Rate:</strong> ${car.dailyRate}</p>
-                    <p><strong>Status:</strong> <span className={`status status-${car.status}`}>{car.status}</span></p>
+                    <p><strong>Категория:</strong> {car.category}</p>
+                    <p><strong>Гос. номер:</strong> {car.licensePlate}</p>
+                    <p><strong>Стоимость в день:</strong> ${car.dailyRate}</p>
+                    <p><strong>Статус:</strong> <span className={`status status-${car.status}`}>{translateStatus(car.status)}</span></p>
                     {car.currentLocation && (
-                        <p><strong>Location:</strong> {car.currentLocation.name} ({car.currentLocation.address})</p>
+                        <p><strong>Местоположение:</strong> {car.currentLocation.name} ({car.currentLocation.address})</p>
                     )}
                 </div>
             </div>
 
             <div className="booking-section">
-                <h2>Book this Car</h2>
-                {!isAuthenticated && <p className="warning-message">You must be logged in to book a car.</p>}
+                <h2>Забронировать этот автомобиль</h2>
+                {!isAuthenticated && <p className="warning-message">Вы должны войти в систему, чтобы забронировать автомобиль.</p>}
                 <form onSubmit={handleBookingSubmit}>
                     <div className="form-group">
-                        <label htmlFor="rentalDate">Rental Date:</label>
+                        <label htmlFor="rentalDate">Дата начала аренды:</label>
                         <input
                             type="date"
                             id="rentalDate"
@@ -102,7 +112,7 @@ const CarDetailPage = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="returnDate">Return Date:</label>
+                        <label htmlFor="returnDate">Дата возврата:</label>
                         <input
                             type="date"
                             id="returnDate"
@@ -115,10 +125,10 @@ const CarDetailPage = () => {
                         />
                     </div>
                     <button type="submit" className="btn btn-primary" disabled={!isAuthenticated || car.status !== 'available'}>
-                        {car.status !== 'available' ? 'Car Not Available' : 'Request Booking'}
+                        {car.status !== 'available' ? 'Автомобиль недоступен' : 'Отправить запрос'}
                     </button>
                 </form>
-                {bookingMessage && <p className={`booking-message ${bookingMessage.includes('sent') ? 'success' : 'error'}`}>{bookingMessage}</p>}
+                {bookingMessage && <p className={`booking-message ${bookingMessage.includes('sent') || bookingMessage.includes('отправлен') ? 'success' : 'error'}`}>{bookingMessage}</p>}
             </div>
         </div>
     );

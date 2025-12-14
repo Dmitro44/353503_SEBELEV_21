@@ -5,30 +5,31 @@ import './Header.css';
 
 const Header = () => {
     const { auth, logout } = useContext(AuthContext);
-    const { isAuthenticated } = auth;
+    const { isAuthenticated, user } = auth;
 
     const authLinks = (
         <ul>
-            <li><Link to="/profile">Profile</Link></li>
-            <li><a onClick={logout} href="#!">Logout</a></li>
+            {user?.role === 'admin' && <li><Link to="/admin">Админ</Link></li>}
+            <li><Link to="/profile">Профиль</Link></li>
+            <li><a onClick={logout} href="#!">Выйти</a></li>
         </ul>
     );
 
     const guestLinks = (
         <ul>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Войти</Link></li>
+            <li><Link to="/register">Регистрация</Link></li>
         </ul>
     );
 
     return (
         <header className="header">
             <div className="logo">
-                <Link to="/">CarRental</Link>
+                <Link to="/">АвтоПрокат</Link>
             </div>
             <nav>
                 <ul>
-                    <li><Link to="/">Catalog</Link></li>
+                    <li><Link to="/">Каталог</Link></li>
                 </ul>
                 {isAuthenticated ? authLinks : guestLinks}
             </nav>
