@@ -1,0 +1,65 @@
+.profile-page {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.profile-page h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.rental-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rental-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.rental-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.rental-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rental-card-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.rental-card-body p {
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+.rental-card .status {
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+}
+
+.status-pending-approval { background-color: #f39c12; }
+.status-active { background-color: #2ecc71; }
+.status-completed { background-color: #3498db; }
+.status-cancelled { background-color: #95a5a6; }
+.status-rejected { background-color: #e74c3c; }
