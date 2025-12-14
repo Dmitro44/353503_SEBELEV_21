@@ -29,8 +29,8 @@ const RentalSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['upcoming', 'active', 'completed', 'cancelled'],
-        default: 'upcoming'
+        enum: ['pending_approval', 'active', 'completed', 'cancelled', 'rejected'],
+        default: 'pending_approval'
     }
 }, { timestamps: true });
 

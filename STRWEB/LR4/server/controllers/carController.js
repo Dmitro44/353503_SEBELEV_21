@@ -1,9 +1,34 @@
 const Car = require('../models/Car');
 
-// Get all cars
+// Get all cars with filtering, searching, and sorting
 exports.getAllCars = async (req, res) => {
     try {
-        const cars = await Car.find().populate('currentLocation');
+        const { search, category, sortBy, order = 'asc' } = req.query;
+
+        let query = {};
+
+        // Filtering by category
+        if (category) {
+            query.category = category;
+        }
+
+        // Searching by brand or model
+        if (search) {
+            query.$or = [
+                { brand: { $regex: search, $options: 'i' } },
+                { model: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        let sortOptions = {};
+        if (sortBy) {
+            sortOptions[sortBy] = order === 'desc' ? -1 : 1;
+        }
+
+        const cars = await Car.find(query)
+            .populate('currentLocation')
+            .sort(sortOptions);
+            
         res.json(cars);
     } catch (err) {
         console.error(err.message);
