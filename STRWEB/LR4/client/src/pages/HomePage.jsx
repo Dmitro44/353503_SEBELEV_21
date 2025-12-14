@@ -58,25 +58,34 @@ const HomePage = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <select value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="">Все категории</option>
-                    <option value="Sedan">Седан</option>
-                    <option value="SUV">Внедорожник</option>
-                    <option value="Truck">Грузовик</option>
-                    <option value="Van">Минивэн</option>
-                    <option value="Luxury">Люкс</option>
-                    <option value="Sport">Спорт</option>
-                </select>
-                <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                    <option value="">Сортировать по</option>
-                    <option value="dailyRate">Стоимость в день</option>
-                    <option value="year">Год выпуска</option>
-                </select>
-                {sortBy && (
-                    <select value={order} onChange={(e) => setOrder(e.target.value)}>
-                        <option value="asc">По возрастанию</option>
-                        <option value="desc">По убыванию</option>
+                <div className="filter-group">
+                    <label htmlFor="category-select">Категория:</label>
+                    <select id="category-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Все</option>
+                        <option value="Sedan">Седан</option>
+                        <option value="SUV">Внедорожник</option>
+                        <option value="Truck">Грузовик</option>
+                        <option value="Van">Минивэн</option>
+                        <option value="Luxury">Люкс</option>
+                        <option value="Sport">Спорт</option>
                     </select>
+                </div>
+                <div className="filter-group">
+                    <label htmlFor="sort-select">Сортировка:</label>
+                    <select id="sort-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                        <option value="">По умолчанию</option>
+                        <option value="dailyRate">По цене</option>
+                        <option value="year">По году</option>
+                    </select>
+                </div>
+                {sortBy && (
+                    <div className="filter-group">
+                        <label htmlFor="order-select">Порядок:</label>
+                        <select id="order-select" value={order} onChange={(e) => setOrder(e.target.value)}>
+                            <option value="asc">По возрастанию</option>
+                            <option value="desc">По убыванию</option>
+                        </select>
+                    </div>
                 )}
             </div>
 
@@ -87,11 +96,15 @@ const HomePage = () => {
                     cars.map(car => (
                         <div key={car._id} className="car-card">
                             <img src={`${SERVER_URL}${car.imageUrl}`} alt={`${car.brand} ${car.model}`} />
-                            <h2>{car.brand} {car.model} ({car.year})</h2>
-                            <p>Категория: {car.category}</p>
-                            <p>Стоимость в день: ${car.dailyRate}</p>
-                            <p>Статус: {translateStatus(car.status)}</p>
-                            <Link to={`/cars/${car._id}`} className="btn btn-primary">Подробнее</Link>
+                            <div className="car-card-content">
+                                <div>
+                                    <h2>{car.brand} {car.model} ({car.year})</h2>
+                                    <p>Категория: {car.category}</p>
+                                    <p>Стоимость в день: ${car.dailyRate}</p>
+                                    <p>Статус: {translateStatus(car.status)}</p>
+                                </div>
+                                <Link to={`/cars/${car._id}`} className="btn btn-primary">Подробнее</Link>
+                            </div>
                         </div>
                     ))
                 )}

@@ -1,13 +1,14 @@
 .car-detail-page {
     max-width: 900px;
     margin: 2rem auto;
+    padding: 0 1rem; /* Add padding for smaller screens */
 }
 
 .car-detail-card {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    background: #fff;
+    background: var(--white-color);
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -28,7 +29,7 @@
 
 .car-info h1 {
     margin-top: 0;
-    color: #333;
+    color: var(--text-color);
 }
 
 .car-info p {
@@ -41,15 +42,15 @@
     font-weight: bold;
     text-transform: capitalize;
 }
-.status-available { color: #2ecc71; }
-.status-rented { color: #e74c3c; }
-.status-maintenance { color: #f39c12; }
+.status-available { color: var(--success-color); }
+.status-rented { color: var(--danger-color); }
+.status-maintenance { color: var(--primary-color); }
 
 
 .booking-section {
     margin-top: 2rem;
     padding: 2rem;
-    background: #f9f9f9;
+    background: var(--light-color);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -72,7 +73,7 @@
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     font-size: 1rem;
     box-sizing: border-box;
 }
@@ -99,8 +100,21 @@
     font-weight: bold;
 }
 .booking-message.success {
-    color: #27ae60;
+    color: var(--success-color);
 }
 .booking-message.error {
-    color: #c0392b;
+    color: var(--danger-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .car-detail-page {
+        margin: 1rem auto;
+    }
+    .car-detail-card {
+        padding: 1rem;
+    }
+    .booking-section {
+        padding: 1rem;
+    }
 }

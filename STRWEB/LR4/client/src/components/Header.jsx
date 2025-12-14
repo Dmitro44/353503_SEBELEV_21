@@ -24,15 +24,21 @@ const Header = () => {
 
     return (
         <header className="header">
-            <div className="logo">
-                <Link to="/">АвтоПрокат</Link>
+            <div className="header-left">
+                <div className="logo">
+                    <Link to="/">АвтоПрокат</Link>
+                </div>
+                <nav className="main-nav">
+                    <ul>
+                        <li><Link to="/">Каталог</Link></li>
+                    </ul>
+                </nav>
             </div>
-            <nav>
-                <ul>
-                    <li><Link to="/">Каталог</Link></li>
-                </ul>
-                {isAuthenticated ? authLinks : guestLinks}
-            </nav>
+            <div className="header-right">
+                <nav className="auth-nav">
+                    {isAuthenticated ? authLinks : guestLinks}
+                </nav>
+            </div>
         </header>
     );
 };

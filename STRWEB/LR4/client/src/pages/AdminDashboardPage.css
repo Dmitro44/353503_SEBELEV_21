@@ -1,18 +1,25 @@
 .admin-dashboard {
     width: 100%; /* Ensure it takes full available width */
     margin: 2rem auto;
+    padding: 0 1rem; /* Add padding for smaller screens */
 }
 
 .admin-dashboard h1 {
     text-align: center;
     margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.table-responsive {
+    overflow-x: auto; /* Enable horizontal scrolling for the table */
 }
 
 .dashboard-table {
     width: 100%;
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: #fff;
+    background: var(--white-color);
+    min-width: 700px; /* Ensure table doesn't get too squished */
 }
 
 .dashboard-table th,
@@ -23,7 +30,7 @@
 }
 
 .dashboard-table th {
-    background-color: #f7f7f7;
+    background-color: var(--light-color);
     font-weight: bold;
 }
 
@@ -37,11 +44,11 @@
 }
 
 .btn-success {
-    background-color: #2ecc71;
-    color: white;
+    background-color: var(--success-color);
+    color: var(--white-color);
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     cursor: pointer;
 }
 .btn-success:hover {
@@ -49,13 +56,20 @@
 }
 
 .btn-danger {
-    background-color: #e74c3c;
-    color: white;
+    background-color: var(--danger-color);
+    color: var(--white-color);
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     cursor: pointer;
 }
 .btn-danger:hover {
     background-color: #c0392b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-dashboard {
+        margin: 1rem auto;
+    }
 }

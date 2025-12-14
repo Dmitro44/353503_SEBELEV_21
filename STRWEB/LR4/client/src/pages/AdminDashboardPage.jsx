@@ -67,31 +67,33 @@ const AdminDashboardPage = () => {
             {rentals.length === 0 ? (
                 <p className="text-center">В настоящее время нет запросов, ожидающих подтверждения.</p>
             ) : (
-                <table className="dashboard-table">
-                    <thead>
-                        <tr>
-                            <th>Пользователь</th>
-                            <th>Автомобиль</th>
-                            <th>Дата аренды</th>
-                            <th>Дата возврата</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rentals.map(rental => (
-                            <tr key={rental._id}>
-                                <td>{rental.user.name} ({rental.user.email})</td>
-                                <td>{rental.car.brand} {rental.car.model}</td>
-                                <td>{new Date(rental.rentalDate).toLocaleDateString()}</td>
-                                <td>{new Date(rental.returnDate).toLocaleDateString()}</td>
-                                <td className="actions">
-                                    <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
-                                    <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
-                                </td>
+                <div className="table-responsive">
+                    <table className="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Пользователь</th>
+                                <th>Автомобиль</th>
+                                <th>Дата аренды</th>
+                                <th>Дата возврата</th>
+                                <th>Действия</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {rentals.map(rental => (
+                                <tr key={rental._id}>
+                                    <td>{rental.user.name} ({rental.user.email})</td>
+                                    <td>{rental.car.brand} {rental.car.model}</td>
+                                    <td>{new Date(rental.rentalDate).toLocaleDateString()}</td>
+                                    <td>{new Date(rental.returnDate).toLocaleDateString()}</td>
+                                    <td className="actions">
+                                        <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
+                                        <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
         </div>
     );

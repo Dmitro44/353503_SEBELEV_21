@@ -1,11 +1,13 @@
 .profile-page {
     max-width: 800px;
     margin: 2rem auto;
+    padding: 0 1rem; /* Add padding for smaller screens */
 }
 
 .profile-page h1 {
     text-align: center;
     margin-bottom: 2rem;
+    color: var(--text-color);
 }
 
 .text-center {
@@ -19,7 +21,7 @@
 }
 
 .rental-card {
-    background: #fff;
+    background: var(--white-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     padding: 1.5rem;
@@ -41,7 +43,7 @@
 
 .rental-card-header h3 {
     margin: 0;
-    color: #333;
+    color: var(--text-color);
 }
 
 .rental-card-body p {
@@ -54,12 +56,24 @@
     border-radius: 12px;
     font-size: 0.8rem;
     font-weight: bold;
-    color: white;
+    color: var(--white-color);
     text-transform: capitalize;
 }
 
-.status-pending-approval { background-color: #f39c12; }
-.status-active { background-color: #2ecc71; }
-.status-completed { background-color: #3498db; }
+.status-pending-approval { background-color: var(--primary-color); }
+.status-active { background-color: var(--success-color); }
+.status-completed { background-color: var(--dark-color); }
 .status-cancelled { background-color: #95a5a6; }
-.status-rejected { background-color: #e74c3c; }
+.status-rejected { background-color: var(--danger-color); }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .profile-page {
+        margin: 1rem auto;
+    }
+    .rental-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
