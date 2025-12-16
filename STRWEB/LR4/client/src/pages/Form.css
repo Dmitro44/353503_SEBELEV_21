@@ -54,11 +54,12 @@
     background-color: var(--primary-hover-color);
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .form-container {
-        margin: 1rem auto;
-        padding: 1.5rem;
-        max-width: 90%; /* Adjust max-width for smaller screens */
-    }
+.google-login-section {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.google-login-section p {
+    margin-bottom: 1rem;
+    color: #555;
 }

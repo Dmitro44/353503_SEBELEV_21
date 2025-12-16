@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { SERVER_URL } from '../config';
 import './Form.css';
 
 const LoginPage = () => {
@@ -8,8 +11,9 @@ const LoginPage = () => {
         email: '',
         password: ''
     });
-    const { login } = useContext(AuthContext);
+    const { login, loadUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [loginError, setLoginError] = useState(null);
 
     const { email, password } = formData;
 
@@ -17,10 +21,31 @@ const LoginPage = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await login(email, password);
-        // After login, AuthContext will update and you might want to redirect
-        // This can be handled by a PrivateRoute or checking isAuthenticated in a useEffect
-        navigate('/');
+        setLoginError(null);
+        try {
+            await login(email, password);
+            navigate('/');
+        } catch (err) {
+            setLoginError(err.response?.data?.msg || 'Ошибка входа');
+        }
+    };
+
+    const handleGoogleSuccess = async (response) => {
+        setLoginError(null);
+        try {
+            const res = await axios.post(`${SERVER_URL}/api/auth/google`, { idToken: response.credential });
+            localStorage.setItem('token', res.data.token);
+            loadUser(); // Correctly call loadUser from context
+            navigate('/');
+        } catch (err) {
+            setLoginError(err.response?.data?.msg || 'Ошибка входа через Google');
+            console.error('Google login error:', err);
+        }
+    };
+
+    const handleGoogleError = () => {
+        setLoginError('Вход через Google не удался.');
+        console.log('Google Login Failed');
     };
 
     return (
@@ -49,6 +74,15 @@ const LoginPage = () => {
                 </div>
                 <button type="submit" className="btn btn-primary">Войти</button>
             </form>
+            {loginError && <p className="error-message text-center">{loginError}</p>}
+            <div className="google-login-section">
+                <p>Или войдите через Google:</p>
+                <GoogleLogin
+                    onSuccess={handleGoogleSuccess}
+                    onError={handleGoogleError}
+                    useOneTap
+                />
+            </div>
         </div>
     );
 };
