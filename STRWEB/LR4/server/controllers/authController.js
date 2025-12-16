@@ -10,30 +10,28 @@ exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        // Check if user already exists
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ msg: 'User already exists' });
         }
 
-        // Create a new user instance
         user = new User({
             name,
             email,
             password,
         });
 
-        // Hash password
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
 
-        // Save user to database
         await user.save();
 
         // Create and return a JWT
         const payload = {
             user: {
                 id: user.id,
+                name: user.name,
+                email: user.email,
                 role: user.role
             },
         };
@@ -58,13 +56,11 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid credentials' });
@@ -74,6 +70,8 @@ exports.login = async (req, res) => {
         const payload = {
             user: {
                 id: user.id,
+                name: user.name,
+                email: user.email,
                 role: user.role
             },
         };
@@ -93,7 +91,6 @@ exports.login = async (req, res) => {
     }
 };
 
-// Google Login
 exports.googleLogin = async (req, res) => {
     const { idToken } = req.body;
 
@@ -124,10 +121,11 @@ exports.googleLogin = async (req, res) => {
             await user.save();
         }
 
-        // Create and return a JWT for our application
         const appPayload = {
             user: {
                 id: user.id,
+                name: user.name,
+                email: user.email,
                 role: user.role
             },
         };
