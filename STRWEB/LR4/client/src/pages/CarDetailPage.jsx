@@ -4,6 +4,8 @@ import carService from '../services/carService';
 import rentalService from '../services/rentalService';
 import { AuthContext } from '../context/AuthContext';
 import { SERVER_URL } from '../config';
+import RentalCalculator from '../components/RentalCalculator';
+import '../components/RentalCalculator.css';
 import './CarDetailPage.css';
 
 const CarDetailPage = () => {
@@ -125,10 +127,16 @@ const CarDetailPage = () => {
                         />
                     </div>
                     <button type="submit" className="btn btn-primary" disabled={!isAuthenticated || car.status !== 'available'}>
-                        {car.status !== 'available' ? 'Автомобиль недоступен' : 'Отправить запрос'}
+                        {car.status !== 'available' ? 'Автомобиль недоступен' : 'Арендовать автомобиль'}
                     </button>
                 </form>
                 {bookingMessage && <p className={`booking-message ${bookingMessage.includes('sent') || bookingMessage.includes('отправлен') ? 'success' : 'error'}`}>{bookingMessage}</p>}
+                
+                <RentalCalculator 
+                    dailyRate={car.dailyRate}
+                    rentalDate={rentalDates.rentalDate}
+                    returnDate={rentalDates.returnDate}
+                />
             </div>
         </div>
     );
