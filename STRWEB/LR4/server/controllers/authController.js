@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { OAuth2Client } = require('google-auth-library');
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Register a new user
 exports.register = async (req, res) => {
@@ -87,5 +90,60 @@ exports.login = async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
+    }
+};
+
+// Google Login
+exports.googleLogin = async (req, res) => {
+    const { idToken } = req.body;
+
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        const { sub: googleId, email, name } = payload;
+
+        let user = await User.findOne({ $or: [{ email }, { googleId }] });
+
+        if (user) {
+            // If user exists, update their googleId if it's missing
+            if (!user.googleId) {
+                user.googleId = googleId;
+                await user.save();
+            }
+        } else {
+            // If user does not exist, create a new one
+            user = new User({
+                name,
+                email,
+                googleId,
+                password: 'google_auth_user_no_password' // Placeholder, as Google handles auth
+            });
+            await user.save();
+        }
+
+        // Create and return a JWT for our application
+        const appPayload = {
+            user: {
+                id: user.id,
+                role: user.role
+            },
+        };
+
+        jwt.sign(
+            appPayload,
+            process.env.JWT_SECRET,
+            { expiresIn: '5h' },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            }
+        );
+
+    } catch (err) {
+        console.error('Google Auth Error:', err.message);
+        res.status(500).json({ msg: 'Google authentication failed' });
     }
 };

@@ -13,7 +13,12 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false // Password is not required if signing in with Google
+    },
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true // Allows multiple documents to have a null value for googleId
     },
     role: {
         type: String,
