@@ -3,34 +3,35 @@ import './CarFormModal.css';
 
 const CarFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
     const [formData, setFormData] = useState({});
+    const [imageFile, setImageFile] = useState(null);
 
     useEffect(() => {
-        // Если переданы начальные данные (для редактирования), заполняем форму
-        // Иначе, устанавливаем пустые значения (для добавления)
-        if (initialData) {
-            setFormData(initialData);
-        } else {
-            setFormData({
-                brand: '',
-                model: '',
-                year: '',
-                licensePlate: '',
-                category: 'Economy',
-                dailyRate: '',
-                status: 'available',
-                imageUrl: ''
-            });
+        if (isOpen) {
+            if (initialData) {
+                setFormData(initialData);
+            } else {
+                setFormData({
+                    brand: '', model: '', year: '', licensePlate: '',
+                    category: 'Sedan', dailyRate: '', status: 'available', imageUrl: '' // ИСПРАВЛЕНО
+                });
+            }
+
+            setImageFile(null);
         }
     }, [initialData, isOpen]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, files } = e.target;
+        if (name === 'image') {
+            setImageFile(files[0]);
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
+        onSubmit(formData, imageFile);
     };
 
     if (!isOpen) {
@@ -60,11 +61,12 @@ const CarFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
                     </div>
                     <div className="form-group">
                         <label>Категория</label>
-                        <select name="category" value={formData.category || 'Economy'} onChange={handleChange}>
-                            <option value="Economy">Эконом</option>
-                            <option value="Business">Бизнес</option>
-                            <option value="Premium">Премиум</option>
+                        <select name="category" value={formData.category || 'Sedan'} onChange={handleChange}>
+                            <option value="Sedan">Седан</option>
+                            <option value="Truck">Грузовик</option>
+                            <option value="Van">Фургон</option>
                             <option value="SUV">Внедорожник</option>
+                            <option value="Luxury">Люкс</option>
                             <option value="Sport">Спорт</option>
                         </select>
                     </div>
@@ -80,10 +82,15 @@ const CarFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
                             <option value="maintenance">На обслуживании</option>
                         </select>
                     </div>
+                    
                     <div className="form-group">
-                        <label>URL изображения</label>
-                        <input type="text" name="imageUrl" value={formData.imageUrl || ''} onChange={handleChange} required />
+                        <label>Изображение</label>
+                        <input type="file" name="image" onChange={handleChange} accept="image/*" />
+                        {initialData && !imageFile && (
+                            <p className="current-image-text">Текущее изображение: {initialData.imageUrl}</p>
+                        )}
                     </div>
+
                     <div className="modal-actions">
                         <button type="submit" className="btn btn-primary">{initialData ? 'Сохранить' : 'Создать'}</button>
                         <button type="button" className="btn btn-secondary" onClick={onClose}>Отмена</button>

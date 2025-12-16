@@ -1,4 +1,6 @@
 const Car = require('../models/Car');
+const fs = require('fs');
+const path = require('path')
 
 // Get all cars with filtering, searching, and sorting
 exports.getAllCars = async (req, res) => {
@@ -55,9 +57,15 @@ exports.getCarById = async (req, res) => {
 
 // Create a new car
 exports.createCar = async (req, res) => {
-    const { brand, model, year, licensePlate, category, dailyRate, status, imageUrl, currentLocation } = req.body;
+    const { brand, model, year, licensePlate, category, dailyRate, status, currentLocation } = req.body;
 
     try {
+        if (!req.file) {
+            return res.status(400).json({ msg: 'Image file is required' });
+        }
+
+        const imageUrl = '/' + req.file.path.replace(/\\/g, '/');
+
         const newCar = new Car({
             brand,
             model,
@@ -80,9 +88,8 @@ exports.createCar = async (req, res) => {
 
 // Update a car
 exports.updateCar = async (req, res) => {
-    const { brand, model, year, licensePlate, category, dailyRate, status, imageUrl, currentLocation } = req.body;
+    const { brand, model, year, licensePlate, category, dailyRate, status, currentLocation } = req.body;
 
-    // Build car object
     const carFields = {};
     if (brand) carFields.brand = brand;
     if (model) carFields.model = model;
@@ -91,12 +98,29 @@ exports.updateCar = async (req, res) => {
     if (category) carFields.category = category;
     if (dailyRate) carFields.dailyRate = dailyRate;
     if (status) carFields.status = status;
-    if (imageUrl) carFields.imageUrl = imageUrl;
     if (currentLocation) carFields.currentLocation = currentLocation;
+
+    if (req.file) {
+
+        try {
+            const oldCar = await Car.findById(req.params.id);
+            if (oldCar && oldCar.imageUrl){
+                const oldImagePath = path.join(__dirname, '..', oldCar.imageUrl);
+                if (fs.existsSync(oldImagePath)) {
+                    fs.unlinkSync(oldImagePath);
+                }
+            }
+        } catch (err) {
+            console.error('Unable to delete old car image', err);
+        }
+
+        carFields.imageUrl = '/' + req.file.path.replace(/\\/g, '/');
+    } else if (req.body.imageUrl) {
+        carFields.imageUrl = req.body.imageUrl;
+    }
 
     try {
         let car = await Car.findById(req.params.id);
-
         if (!car) return res.status(404).json({ msg: 'Car not found' });
 
         car = await Car.findByIdAndUpdate(
@@ -118,6 +142,17 @@ exports.deleteCar = async (req, res) => {
         const car = await Car.findById(req.params.id);
 
         if (!car) return res.status(404).json({ msg: 'Car not found' });
+
+        if (car.imageUrl) {
+            const imagePath = path.join(__dirname, '..', car.imageUrl);
+            if (fs.existsSync(imagePath)) {
+                fs.unlinkSync(imagePath, (err) => {
+                    if (err) {
+                        console.error('Unable to delete car image', err);
+                    }
+                })
+            }
+        }
 
         await Car.findByIdAndDelete(req.params.id);
 

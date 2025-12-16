@@ -46,18 +46,30 @@ const FleetManager = () => {
         setIsModalOpen(true);
     };
 
-    const handleFormSubmit = async (formData) => {
+    const handleFormSubmit = async (formData, imageFile) => {
         try {
-            if (editingCar) {
-                await carService.updateCar(editingCar._id, formData);
-            } else {
-                await carService.createCar(formData);
+            const data = new FormData();
+
+            for (const key in formData) {
+                data.append(key, formData[key]);
             }
+
+            if (imageFile) {
+                data.append('image', imageFile);
+            }
+
+            if (editingCar) {
+                await carService.updateCar(editingCar._id, data);
+            } else {
+                await carService.createCar(data);
+            }
+
             fetchCars();
             handleCloseModal();
         } catch (err) {
             console.error('Ошибка при сохранении автомобиля:', err);
-            alert('Не удалось сохранить автомобиль.');
+            const errorMsg = err.response?.data?.msg || 'Не удалось сохранить автомобиль.';
+            alert(errorMsg);
         }
     };
 
