@@ -19,7 +19,8 @@
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background: var(--white-color);
-    min-width: 900px; /* Increased min-width for more columns */
+    min-width: 900px;
+    margin-bottom: 2rem;
 }
 
 .dashboard-table th,

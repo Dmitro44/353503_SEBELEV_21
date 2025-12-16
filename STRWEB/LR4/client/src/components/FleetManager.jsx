@@ -120,12 +120,14 @@ const FleetManager = () => {
                                 <td>{translateStatus(car.status)}</td>
                                 <td>${car.dailyRate}</td>
                                 <td>
-                                    <button onClick={() => handleEdit(car)} className="btn btn-secondary btn-sm">
-                                        Изменить
-                                    </button>
-                                    <button onClick={() => handleDelete(car._id)} className="btn btn-danger btn-sm">
-                                        Удалить
-                                    </button>
+                                    <div className="action-buttons">
+                                        <button onClick={() => handleEdit(car)} className="btn btn-secondary btn-sm">
+                                            Изменить
+                                        </button>
+                                        <button onClick={() => handleDelete(car._id)} className="btn btn-danger btn-sm">
+                                            Удалить
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}

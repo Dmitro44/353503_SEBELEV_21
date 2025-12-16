@@ -3,6 +3,7 @@
     background-color: var(--white-color);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-top: 2rem;
 }
 
 .fleet-manager h2 {
@@ -47,10 +48,8 @@
     border-radius: 4px;
 }
 
-.fleet-table td .btn {
-    margin-right: 5px;
-}
-
-.fleet-table td .btn:last-child {
-    margin-right: 0;
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

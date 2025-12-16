@@ -94,9 +94,11 @@ const AdminDashboardPage = () => {
                                         <td><DateDisplay date={rental.createdAt} /></td>
                                         <td><DateDisplay date={rental.rentalDate} showTime={false} /></td>
                                         <td><DateDisplay date={rental.returnDate} showTime={false} /></td>
-                                        <td className="actions">
-                                            <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
-                                            <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
+                                        <td>
+                                            <div className="actions">
+                                                <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
+                                                <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
