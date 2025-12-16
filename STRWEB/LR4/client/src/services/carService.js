@@ -10,9 +10,24 @@ const getCarById = (id) => {
     return axios.get(`${API_URL}/${id}`);
 };
 
+const createCar = (params) => {
+    return axios.post(`${API_URL}/`, params);
+};
+
+const updateCar = (id, params) => {
+    return axios.put(`${API_URL}/${id}`, params);
+};
+
+const deleteCar = (id) => {
+    return axios.delete(`${API_URL}/${id}`);
+}
+
 const carService = {
     getAllCars,
     getCarById,
+    createCar,
+    updateCar,
+    deleteCar
 };
 
 export default carService;

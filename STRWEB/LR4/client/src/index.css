@@ -67,17 +67,47 @@ a:hover {
     font-weight: bold;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.btn-primary {
+.btn.btn-primary {
     background-color: var(--primary-color);
+    color: var(--white-color);
 }
 
-.btn-primary:hover {
+.btn.btn-primary:hover {
     background-color: var(--primary-hover-color);
+}
+
+.btn.btn-secondary {
+    background-color: var(--light-color);
+    color: var(--dark-color); 
+    border: 1px solid #bdc3c7;}
+
+
+.btn.btn-secondary:hover {
+    background-color: #bdc3c7;}
+
+
+.btn.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--white-color);
+}
+
+.btn.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn.btn-success {
+    background-color: var(--success-color);
+    color: var(--white-color);
+}
+
+.btn.btn-success:hover {
+    background-color: #27ae60;
+}
+
+/* Small button variant */
+.btn.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
 }

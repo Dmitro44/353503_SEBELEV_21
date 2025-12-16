@@ -2,7 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import adminService from '../services/adminService';
 import { AuthContext } from '../context/AuthContext';
 import DateDisplay from '../components/DateDisplay';
+import FleetManager from '../components/FleetManager'; // Импорт FleetManager
 import '../components/DateDisplay.css';
+import '../components/FleetManager.css'; // Импорт стилей FleetManager
 import './AdminDashboardPage.css';
 
 const AdminDashboardPage = () => {
@@ -65,40 +67,50 @@ const AdminDashboardPage = () => {
 
     return (
         <div className="admin-dashboard">
-            <h1>Панель администратора: Ожидающие подтверждения</h1>
-            {rentals.length === 0 ? (
-                <p className="text-center">В настоящее время нет запросов, ожидающих подтверждения.</p>
-            ) : (
-                <div className="table-responsive">
-                    <table className="dashboard-table">
-                        <thead>
-                            <tr>
-                                <th>Пользователь</th>
-                                <th>Автомобиль</th>
-                                <th>Запрос создан</th>
-                                <th>Дата начала</th>
-                                <th>Дата возврата</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rentals.map(rental => (
-                                <tr key={rental._id}>
-                                    <td>{rental.user.name} ({rental.user.email})</td>
-                                    <td>{rental.car.brand} {rental.car.model}</td>
-                                    <td><DateDisplay date={rental.createdAt} /></td>
-                                    <td><DateDisplay date={rental.rentalDate} showTime={false} /></td>
-                                    <td><DateDisplay date={rental.returnDate} showTime={false} /></td>
-                                    <td className="actions">
-                                        <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
-                                        <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
-                                    </td>
+            <h1>Панель администратора</h1>
+            
+            <div className="dashboard-section">
+                <h2>Ожидающие подтверждения</h2>
+                {rentals.length === 0 ? (
+                    <p className="text-center">В настоящее время нет запросов, ожидающих подтверждения.</p>
+                ) : (
+                    <div className="table-responsive">
+                        <table className="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Пользователь</th>
+                                    <th>Автомобиль</th>
+                                    <th>Запрос создан</th>
+                                    <th>Дата начала</th>
+                                    <th>Дата возврата</th>
+                                    <th>Действия</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+                            </thead>
+                            <tbody>
+                                {rentals.map(rental => (
+                                    <tr key={rental._id}>
+                                        <td>{rental.user.name} ({rental.user.email})</td>
+                                        <td>{rental.car.brand} {rental.car.model}</td>
+                                        <td><DateDisplay date={rental.createdAt} /></td>
+                                        <td><DateDisplay date={rental.rentalDate} showTime={false} /></td>
+                                        <td><DateDisplay date={rental.returnDate} showTime={false} /></td>
+                                        <td className="actions">
+                                            <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
+                                            <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
+
+            <hr className="section-divider" />
+
+            <div className="dashboard-section">
+                <FleetManager />
+            </div>
         </div>
     );
 };
