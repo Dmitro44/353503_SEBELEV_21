@@ -1,0 +1,14 @@
+.date-display p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.date-display strong {
+    color: #333;
+}
+
+.date-display span {
+    display: block;
+    padding-left: 1rem;
+}

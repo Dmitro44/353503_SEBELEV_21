@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import rentalService from '../services/rentalService';
 import { AuthContext } from '../context/AuthContext';
+import DateDisplay from '../components/DateDisplay';
+import '../components/DateDisplay.css';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
@@ -8,6 +10,7 @@ const ProfilePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { auth } = useContext(AuthContext);
+    const { user } = auth;
 
     useEffect(() => {
         if (auth.isAuthenticated) {
@@ -48,7 +51,17 @@ const ProfilePage = () => {
 
     return (
         <div className="profile-page">
-            <h1>Моя история аренды</h1>
+            <h1>Профиль</h1>
+            {user && (
+                <div className="user-info-section">
+                    <p><strong>Имя:</strong> {user.name}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
+                    <p><strong>Роль:</strong> {user.role === 'admin' ? 'Администратор' : 'Пользователь'}</p>
+                    <DateDisplay date={new Date()} label="Текущая дата" />
+                </div>
+            )}
+
+            <h2>История аренды</h2>
             {rentals.length === 0 ? (
                 <p className="text-center">У вас нет истории аренды.</p>
             ) : (
@@ -60,9 +73,12 @@ const ProfilePage = () => {
                                 <span className={`status status-${rental.status.replace('_', '-')}`}>{translateStatus(rental.status)}</span>
                             </div>
                             <div className="rental-card-body">
-                                <p><strong>Дата аренды:</strong> {new Date(rental.rentalDate).toLocaleDateString()}</p>
-                                <p><strong>Дата возврата:</strong> {new Date(rental.returnDate).toLocaleDateString()}</p>
+                                <DateDisplay date={rental.rentalDate} label="Дата аренды" showTime={false} />
+                                <DateDisplay date={rental.returnDate} label="Дата возврата" showTime={false} />
                                 <p><strong>Итоговая стоимость:</strong> ${rental.totalCost}</p>
+                                <hr />
+                                <DateDisplay date={rental.createdAt} label="Запрос создан" />
+                                <DateDisplay date={rental.updatedAt} label="Последнее обновление" />
                             </div>
                         </div>
                     ))}

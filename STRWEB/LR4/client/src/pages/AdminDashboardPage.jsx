@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import adminService from '../services/adminService';
 import { AuthContext } from '../context/AuthContext';
+import DateDisplay from '../components/DateDisplay';
+import '../components/DateDisplay.css';
 import './AdminDashboardPage.css';
 
 const AdminDashboardPage = () => {
@@ -73,7 +75,8 @@ const AdminDashboardPage = () => {
                             <tr>
                                 <th>Пользователь</th>
                                 <th>Автомобиль</th>
-                                <th>Дата аренды</th>
+                                <th>Запрос создан</th>
+                                <th>Дата начала</th>
                                 <th>Дата возврата</th>
                                 <th>Действия</th>
                             </tr>
@@ -83,8 +86,9 @@ const AdminDashboardPage = () => {
                                 <tr key={rental._id}>
                                     <td>{rental.user.name} ({rental.user.email})</td>
                                     <td>{rental.car.brand} {rental.car.model}</td>
-                                    <td>{new Date(rental.rentalDate).toLocaleDateString()}</td>
-                                    <td>{new Date(rental.returnDate).toLocaleDateString()}</td>
+                                    <td><DateDisplay date={rental.createdAt} /></td>
+                                    <td><DateDisplay date={rental.rentalDate} showTime={false} /></td>
+                                    <td><DateDisplay date={rental.returnDate} showTime={false} /></td>
                                     <td className="actions">
                                         <button onClick={() => handleApprove(rental._id)} className="btn btn-success">Одобрить</button>
                                         <button onClick={() => handleReject(rental._id)} className="btn btn-danger">Отклонить</button>
