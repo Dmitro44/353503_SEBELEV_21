@@ -2,24 +2,27 @@ const Car = require('../models/Car');
 const fs = require('fs');
 const path = require('path')
 
-// Get all cars with filtering, searching, and sorting
 exports.getAllCars = async (req, res) => {
     try {
         const { search, category, sortBy, order = 'asc' } = req.query;
 
         let query = {};
 
-        // Filtering by category
         if (category) {
             query.category = category;
         }
 
-        // Searching by brand or model
         if (search) {
-            query.$or = [
-                { brand: { $regex: search, $options: 'i' } },
-                { model: { $regex: search, $options: 'i' } }
-            ];
+            const searchTerms = search.split(' ').filter(term => term);
+            const regexTerms = searchTerms.map(term => new RegExp(term, 'i'))
+            ;
+            // Ищем, чтобы каждое слово из поиска было или в марке, или в модели
+            query.$and = regexTerms.map(regex => ({
+                $or: [
+                    { brand: regex },
+                    { model: regex }
+                ]
+            }));
         }
 
         let sortOptions = {};
@@ -38,7 +41,6 @@ exports.getAllCars = async (req, res) => {
     }
 };
 
-// Get a single car by ID
 exports.getCarById = async (req, res) => {
     try {
         const car = await Car.findById(req.params.id).populate('currentLocation');
@@ -55,7 +57,6 @@ exports.getCarById = async (req, res) => {
     }
 };
 
-// Create a new car
 exports.createCar = async (req, res) => {
     const { brand, model, year, licensePlate, category, dailyRate, status, currentLocation } = req.body;
 
@@ -86,7 +87,6 @@ exports.createCar = async (req, res) => {
     }
 };
 
-// Update a car
 exports.updateCar = async (req, res) => {
     const { brand, model, year, licensePlate, category, dailyRate, status, currentLocation } = req.body;
 
@@ -136,7 +136,6 @@ exports.updateCar = async (req, res) => {
     }
 };
 
-// Delete a car
 exports.deleteCar = async (req, res) => {
     try {
         const car = await Car.findById(req.params.id);
