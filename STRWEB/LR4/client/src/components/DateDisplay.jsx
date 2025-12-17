@@ -1,6 +1,6 @@
 import { formatInTimeZone } from 'date-fns-tz';
 
-const DateDisplay = ({ date, label, showTime = true }) => {
+function DateDisplay({ date, label, showTime = true }) {
     if (!date) return null;
 
     const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -16,6 +16,6 @@ const DateDisplay = ({ date, label, showTime = true }) => {
             </p>
         </div>
     );
-};
+}
 
 export default DateDisplay;
