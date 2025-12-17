@@ -5,7 +5,9 @@ import rentalService from '../services/rentalService';
 import { AuthContext } from '../context/AuthContext';
 import { SERVER_URL } from '../config';
 import RentalCalculator from '../components/RentalCalculator';
+import Toast from '../components/Toast';
 import '../components/RentalCalculator.css';
+import '../components/Toast.css';
 import './CarDetailPage.css';
 
 const CarDetailPage = () => {
@@ -22,6 +24,7 @@ const CarDetailPage = () => {
         returnDate: ''
     });
     const [bookingMessage, setBookingMessage] = useState('');
+    const [showToast, setShowToast] = useState(false); // Состояние для уведомления
 
     useEffect(() => {
         const fetchCar = async () => {
@@ -67,6 +70,10 @@ const CarDetailPage = () => {
         }
     };
 
+    const handleCopy = () => {
+        setShowToast(true);
+    };
+
     const translateStatus = (status) => {
         switch (status) {
             case 'available': return 'Доступен';
@@ -82,12 +89,13 @@ const CarDetailPage = () => {
 
     return (
         <div className="car-detail-page">
+            {showToast && <Toast message="Гос. номер скопирован!" onClose={() => setShowToast(false)} />}
             <div className="car-detail-card">
                 <img src={`${SERVER_URL}${car.imageUrl}`} alt={`${car.brand} ${car.model}`} />
                 <div className="car-info">
                     <h1>{car.brand} {car.model} ({car.year})</h1>
                     <p><strong>Категория:</strong> {car.category}</p>
-                    <p><strong>Гос. номер:</strong> {car.licensePlate}</p>
+                    <p onCopy={handleCopy}><strong>Гос. номер:</strong> {car.licensePlate}</p>
                     <p><strong>Стоимость в день:</strong> ${car.dailyRate}</p>
                     <p><strong>Статус:</strong> <span className={`status status-${car.status}`}>{translateStatus(car.status)}</span></p>
                     {car.currentLocation && (

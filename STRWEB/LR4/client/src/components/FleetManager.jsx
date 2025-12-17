@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import carService from '../services/carService';
 import { SERVER_URL } from '../config';
 import CarFormModal from './CarFormModal';
+import ContextMenu from './ContextMenu';
 import './FleetManager.css';
 import './CarFormModal.css';
+import './ContextMenu.css';
 
 const FleetManager = () => {
     const [cars, setCars] = useState([]);
@@ -12,6 +14,13 @@ const FleetManager = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingCar, setEditingCar] = useState(null);
+
+    const [contextMenu, setContextMenu] = useState({
+        show: false,
+        x: 0,
+        y: 0,
+        selectedCar: null,
+    });
 
     useEffect(() => {
         fetchCars();
@@ -49,21 +58,17 @@ const FleetManager = () => {
     const handleFormSubmit = async (formData, imageFile) => {
         try {
             const data = new FormData();
-
             for (const key in formData) {
                 data.append(key, formData[key]);
             }
-
             if (imageFile) {
                 data.append('image', imageFile);
             }
-
             if (editingCar) {
                 await carService.updateCar(editingCar._id, data);
             } else {
                 await carService.createCar(data);
             }
-
             fetchCars();
             handleCloseModal();
         } catch (err) {
@@ -85,6 +90,22 @@ const FleetManager = () => {
         }
     };
 
+    const handleContextMenu = (e, car) => {
+        e.preventDefault();
+        setContextMenu({
+            show: true,
+            x: e.pageX,
+            y: e.pageY,
+            selectedCar: car,
+        });
+    };
+
+    const handleCloseContextMenu = () => {
+        if (contextMenu.show) {
+            setContextMenu({ ...contextMenu, show: false });
+        }
+    };
+
     const translateStatus = (status) => {
         switch (status) {
             case 'available': return 'Доступен';
@@ -98,7 +119,7 @@ const FleetManager = () => {
     if (error) return <p className="error-message">{error}</p>;
 
     return (
-        <div className="fleet-manager">
+        <div className="fleet-manager" onClick={handleCloseContextMenu}>
             <h2>Управление автопарком</h2>
             <button onClick={handleAdd} className="btn btn-primary add-car-btn">
                 Добавить новый автомобиль
@@ -118,7 +139,7 @@ const FleetManager = () => {
                     </thead>
                     <tbody>
                         {cars.map(car => (
-                            <tr key={car._id}>
+                            <tr key={car._id} onContextMenu={(e) => handleContextMenu(e, car)}>
                                 <td>
                                     <img
                                         src={`${SERVER_URL}${car.imageUrl}`}
@@ -152,6 +173,25 @@ const FleetManager = () => {
                 onClose={handleCloseModal}
                 onSubmit={handleFormSubmit}
                 initialData={editingCar}
+            />
+
+            <ContextMenu
+                x={contextMenu.x}
+                y={contextMenu.y}
+                show={contextMenu.show}
+                onClose={handleCloseContextMenu}
+                onEdit={() => {
+                    if (contextMenu.selectedCar) {
+                        handleEdit(contextMenu.selectedCar);
+                    }
+                    handleCloseContextMenu();
+                }}
+                onDelete={() => {
+                    if (contextMenu.selectedCar) {
+                        handleDelete(contextMenu.selectedCar._id);
+                    }
+                    handleCloseContextMenu();
+                }}
             />
         </div>
     );

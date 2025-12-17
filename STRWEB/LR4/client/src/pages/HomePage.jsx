@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import carService from '../services/carService';
 import { SERVER_URL } from '../config';
-import './HomePage.css'; // For styling the car catalog
+import './HomePage.css';
 
 const HomePage = () => {
     const [cars, setCars] = useState([]);
-    const [loading, setLoading] = useState(true); // For initial page load
-    const [isSearching, setIsSearching] = useState(false); // For subsequent searches
+    const [loading, setLoading] = useState(true);
+    const [isSearching, setIsSearching] = useState(false);
     const [error, setError] = useState(null);
     const [search, setSearch] = useState('');
     const [category, setCategory] = useState('');
     const [sortBy, setSortBy] = useState('');
     const [order, setOrder] = useState('asc');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCars = async () => {
-            // Don't use the main loader for subsequent searches
             if (!loading) {
                 setIsSearching(true);
             }
@@ -34,6 +34,10 @@ const HomePage = () => {
         };
         fetchCars();
     }, [search, category, sortBy, order]);
+
+    const handleCarDoubleClick = (carId) => {
+        navigate(`/cars/${carId}`);
+    };
 
     const translateStatus = (status) => {
         switch (status) {
@@ -94,7 +98,11 @@ const HomePage = () => {
                     <p>Автомобили, соответствующие вашим критериям, не найдены.</p>
                 ) : (
                     cars.map(car => (
-                        <div key={car._id} className="car-card">
+                        <div 
+                            key={car._id} 
+                            className="car-card"
+                            onDoubleClick={() => handleCarDoubleClick(car._id)}
+                        >
                             <img src={`${SERVER_URL}${car.imageUrl}`} alt={`${car.brand} ${car.model}`} />
                             <div className="car-card-content">
                                 <div>

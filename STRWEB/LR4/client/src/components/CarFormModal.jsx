@@ -12,13 +12,27 @@ const CarFormModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             } else {
                 setFormData({
                     brand: '', model: '', year: '', licensePlate: '',
-                    category: 'Sedan', dailyRate: '', status: 'available', imageUrl: '' // ИСПРАВЛЕНО
+                    category: 'Sedan', dailyRate: '', status: 'available', imageUrl: ''
                 });
             }
-
             setImageFile(null);
         }
-    }, [initialData, isOpen]);
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        if (isOpen) {
+            window.addEventListener('keydown', handleKeyDown);
+        }
+
+        // Функция очистки для удаления обработчика
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [initialData, isOpen, onClose]);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
