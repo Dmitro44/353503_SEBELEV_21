@@ -2,17 +2,28 @@ import React, { useState, useEffect, useContext } from 'react';
 import rentalService from '../services/rentalService';
 import { AuthContext } from '../context/AuthContext';
 import DateDisplay from '../components/DateDisplay';
+import DocumentVerifier from '../components/DocumentVerifier';
+import Toast from '../components/Toast';
 import '../components/DateDisplay.css';
+import '../components/DocumentVerifier.css';
+import '../components/Toast.css';
 import './ProfilePage.css';
 
 const ProfilePage = () => {
     const [rentals, setRentals] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { auth } = useContext(AuthContext);
+    const { auth, loadUser } = useContext(AuthContext);
     const { user } = auth;
 
+    const [isVerified, setIsVerified] = useState(user?.isVerified || false);
+    
+    const [toastInfo, setToastInfo] = useState({ show: false, message: '' });
+
     useEffect(() => {
+        if (user) {
+            setIsVerified(user.isVerified);
+        }
         if (auth.isAuthenticated) {
             const fetchRentals = async () => {
                 try {
@@ -29,7 +40,40 @@ const ProfilePage = () => {
         } else {
             setLoading(false);
         }
-    }, [auth.isAuthenticated]);
+    }, [auth.isAuthenticated, user]);
+
+    useEffect(() => {
+        const twoHours = 2 * 60 * 60 * 1000;
+        const timeoutIds = [];
+
+        rentals.forEach(rental => {
+            if (rental.status === 'active') {
+                const returnDate = new Date(rental.returnDate);
+                const now = new Date();
+                const timeUntilReturn = returnDate.getTime() - now.getTime();
+
+                if (timeUntilReturn < 0) {
+                    setToastInfo({ show: true, message: `Вы просрочили возврат ${rental.car.brand} ${rental.car.model}!` });
+                } else if (timeUntilReturn <= twoHours) {
+                    setToastInfo({ show: true, message: `Не забудьте вернуть ${rental.car.brand} ${rental.car.model}!` });
+                } else {
+                    const timeoutId = setTimeout(() => {
+                        setToastInfo({ show: true, message: `Через 2 часа необходимо вернуть ${rental.car.brand} ${rental.car.model}.` });
+                    }, timeUntilReturn - twoHours);
+                    timeoutIds.push(timeoutId);
+                }
+            }
+        });
+
+        return () => {
+            timeoutIds.forEach(id => clearTimeout(id));
+        };
+    }, [rentals]);
+
+    const handleVerificationSuccess = () => {
+        setIsVerified(true);
+        loadUser();
+    };
 
     const translateStatus = (status) => {
         const statusMap = {
@@ -51,14 +95,20 @@ const ProfilePage = () => {
 
     return (
         <div className="profile-page">
+            {toastInfo.show && <Toast message={toastInfo.message} onClose={() => setToastInfo({ show: false, message: '' })} />}
             <h1>Профиль</h1>
             {user && (
                 <div className="user-info-section">
                     <p><strong>Имя:</strong> {user.name}</p>
                     <p><strong>Email:</strong> {user.email}</p>
                     <p><strong>Роль:</strong> {user.role === 'admin' ? 'Администратор' : 'Пользователь'}</p>
+                    <p><strong>Статус верификации:</strong> {isVerified ? <span className="verified">Подтвержден</span> : <span className="not-verified">Не подтвержден</span>}</p>
                     <DateDisplay date={new Date()} label="Текущая дата:" />
                 </div>
+            )}
+
+            {!isVerified && user?.role !== 'admin' && (
+                <DocumentVerifier onVerified={handleVerificationSuccess} />
             )}
 
             <h2>История аренды</h2>

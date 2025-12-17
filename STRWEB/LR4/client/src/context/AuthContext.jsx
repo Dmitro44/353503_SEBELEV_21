@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
@@ -20,21 +19,20 @@ const AuthProvider = ({ children }) => {
         user: null
     });
 
-    const loadUser = () => {
+    const loadUser = async () => {
         const token = localStorage.getItem('token');
         if (token) {
             setAuthToken(token);
             try {
-                const decoded = jwtDecode(token);
+                const res = await axios.get('http://localhost:5000/api/auth/me');
                 setAuth({
                     token,
                     isAuthenticated: true,
                     loading: false,
-                    user: decoded.user
+                    user: res.data
                 });
             } catch (error) {
-                // Handle invalid token
-                console.error("Invalid token");
+                console.error("Could not load user", error);
                 logout();
             }
         } else {
@@ -58,10 +56,9 @@ const AuthProvider = ({ children }) => {
         try {
             const res = await axios.post('http://localhost:5000/api/auth/login', body, config);
             localStorage.setItem('token', res.data.token);
-            loadUser(); // Reload user state from new token
+            loadUser();
         } catch (err) {
             console.error(err.response.data);
-            // Handle error properly in component
             throw err;
         }
     };
@@ -73,7 +70,7 @@ const AuthProvider = ({ children }) => {
         try {
             const res = await axios.post('http://localhost:5000/api/auth/register', body, config);
             localStorage.setItem('token', res.data.token);
-            loadUser(); // Reload user state from new token
+            loadUser();
         } catch (err) {
             console.error(err.response.data);
             throw err;

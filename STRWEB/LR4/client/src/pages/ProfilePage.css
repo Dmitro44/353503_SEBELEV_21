@@ -83,3 +83,22 @@
 .user-info-section p strong {
     color: var(--dark-color);
 }
+
+.user-info-section .verified {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.user-info-section .not-verified {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
