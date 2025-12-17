@@ -30,8 +30,6 @@ exports.register = async (req, res) => {
         const payload = {
             user: {
                 id: user.id,
-                name: user.name,
-                email: user.email,
                 role: user.role
             },
         };
@@ -70,8 +68,6 @@ exports.login = async (req, res) => {
         const payload = {
             user: {
                 id: user.id,
-                name: user.name,
-                email: user.email,
                 role: user.role
             },
         };
@@ -124,8 +120,6 @@ exports.googleLogin = async (req, res) => {
         const appPayload = {
             user: {
                 id: user.id,
-                name: user.name,
-                email: user.email,
                 role: user.role
             },
         };
@@ -143,5 +137,19 @@ exports.googleLogin = async (req, res) => {
     } catch (err) {
         console.error('Google Auth Error:', err.message);
         res.status(500).json({ msg: 'Google authentication failed' });
+    }
+};
+
+exports.getMe = async (req, res) => {
+    try {
+        // req.user is set by authMiddleware
+        const user = await User.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
 };

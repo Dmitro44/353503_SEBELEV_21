@@ -25,6 +25,10 @@ const UserSchema = new Schema({
         enum: ['customer', 'admin'],
         default: 'customer'
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     rentalHistory: [{
         type: Schema.Types.ObjectId,
         ref: 'Rental'

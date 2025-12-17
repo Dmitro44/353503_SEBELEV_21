@@ -3,7 +3,7 @@ const router = express.Router();
 const carController = require('../controllers/carController');
 const authMiddleware = require('../middleware/authMiddleware');
 const adminMiddleware = require('../middleware/adminMiddleware');
-const upload = require('../middleware/uploadMiddleware');
+const { uploadDisk } = require('../middleware/uploadMiddleware');
 
 // @route   GET api/cars
 // @desc    Get all cars
@@ -18,12 +18,12 @@ router.get('/:id', carController.getCarById);
 // @route   POST api/cars
 // @desc    Create a new car
 // @access  Admin
-router.post('/', [authMiddleware, adminMiddleware, upload.single('image')], carController.createCar);
+router.post('/', [authMiddleware, adminMiddleware, uploadDisk.single('image')], carController.createCar);
 
 // @route   PUT api/cars/:id
 // @desc    Update a car
 // @access  Admin
-router.put('/:id', [authMiddleware, adminMiddleware, upload.single('image')], carController.updateCar);
+router.put('/:id', [authMiddleware, adminMiddleware, uploadDisk.single('image')], carController.updateCar);
 
 // @route   DELETE api/cars/:id
 // @desc    Delete a car

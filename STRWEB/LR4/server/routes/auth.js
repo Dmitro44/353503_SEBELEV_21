@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // @route   POST api/auth/register
 // @desc    Register a new user
@@ -16,5 +17,10 @@ router.post('/login', authController.login);
 // @desc    Authenticate user with Google
 // @access  Public
 router.post('/google', authController.googleLogin);
+
+// @route   GET api/auth/me
+// @desc    Get current user's data
+// @access  Private
+router.get('/me', authMiddleware, authController.getMe);
 
 module.exports = router;
