@@ -57,7 +57,7 @@ const ProfilePage = () => {
                     <p><strong>Имя:</strong> {user.name}</p>
                     <p><strong>Email:</strong> {user.email}</p>
                     <p><strong>Роль:</strong> {user.role === 'admin' ? 'Администратор' : 'Пользователь'}</p>
-                    <DateDisplay date={new Date()} label="Текущая дата" />
+                    <DateDisplay date={new Date()} label="Текущая дата:" />
                 </div>
             )}
 

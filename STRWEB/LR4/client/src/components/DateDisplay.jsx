@@ -11,6 +11,7 @@ const DateDisplay = ({ date, label, showTime = true }) => {
     return (
         <div className="date-display">
             <p>
+                <label><strong>{label}</strong></label>
                 <span title={`Часовой пояс: ${userTimeZone}`}> {localTime}</span>
             </p>
         </div>
