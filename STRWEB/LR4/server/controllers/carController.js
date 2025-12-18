@@ -178,3 +178,58 @@ exports.deleteCar = async (req, res) => {
         res.status(500).send('Server Error');
     }
 };
+
+exports.addMaintenanceRecord = async (req, res) => {
+    const { notes } = req.body;
+
+    try {
+        const car = await Car.findById(req.params.id);
+        if (!car) {
+            return res.status(404).json({ msg: 'Car not found' });
+        }
+
+        if (car.status !== 'available') {
+            return res.status(400).json({ msg: 'Car is not available to be sent for maintenance' });
+        }
+
+        const newRecord = {
+            notes: notes || 'Плановое ТО', // Default notes if not provided
+        };
+
+        car.maintenanceHistory.push(newRecord);
+        car.status = 'maintenance';
+
+        await car.save();
+        res.json(car);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+
+exports.addDamageRecord = async (req, res) => {
+    const { description, estimatedCost } = req.body;
+
+    try {
+        const car = await Car.findById(req.params.id);
+        if (!car) {
+            return res.status(404).json({ msg: 'Car not found' });
+        }
+
+        const newRecord = {
+            description,
+            estimatedCost: estimatedCost || 0,
+        };
+
+        car.damageHistory.push(newRecord);
+
+        await car.save();
+        res.json(car);
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+};
+

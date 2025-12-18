@@ -115,26 +115,58 @@ const FleetManager = () => {
         }
     };
 
-    const handleMaintenanceSubmit = async (maintenanceData) => {
+        const handleMaintenanceSubmit = async (maintenanceData) => {
+
+            if (!selectedCar) return;
+
+            try {
+
+                await carService.addMaintenance(selectedCar._id, { notes: maintenanceData.notes });
+
+                fetchCars();
+
+            } catch (err) {
+
+                console.error('Ошибка при отправке на обслуживание:', err);
+
+                alert('Не удалось изменить статус автомобиля.');
+
+            } finally {
+
+                closeModal('isMaintenanceOpen');
+
+            }
+
+        };
+
+    const handleDamageSubmit = async (damageData) => {
         if (!selectedCar) return;
-        console.log(`Отправка на ТО автомобиля ${selectedCar._id} с заметкой: ${maintenanceData.notes}`);
         try {
-            await carService.updateCar(selectedCar._id, { status: 'maintenance' });
+            await carService.addDamage(selectedCar._id, damageData.description, damageData.cost);
             fetchCars();
         } catch (err) {
-            console.error('Ошибка при отправке на обслуживание:', err);
-            alert('Не удалось изменить статус автомобиля.');
-        }
-        finally {
-            closeModal('isMaintenanceOpen');
+            console.error('Ошибка при сохранении отчета о повреждениях:', err);
+            alert('Не удалось сохранить отчет о повреждениях.');
+        } finally {
+            closeModal('isDamageOpen');
         }
     };
 
-    const handleDamageSubmit = (damageData) => {
-        if (!selectedCar) return;
-        console.log(`Зафиксированы повреждения для ${selectedCar.brand} (${selectedCar._id}):\n        Описание: ${damageData.description}\n        Стоимость: ${damageData.cost}`);
-        alert('Отчет о повреждениях сохранен в консоли.');
-        closeModal('isDamageOpen');
+    // Обработчик для возврата автомобиля с техобслуживания
+    const processReturnFromMaintenance = async (car) => {
+        if (car.status !== 'maintenance') {
+            alert('Этот автомобиль не находится на техобслуживании.');
+            return;
+        }
+        if (window.confirm(`Вернуть автомобиль ${car.brand} ${car.model} с техобслуживания?`)) {
+            try {
+                await carService.updateCar(car._id, { status: 'available' });
+                fetchCars();
+            } catch (err) {
+                console.error('Ошибка при возврате с техобслуживания:', err);
+                alert('Не удалось вернуть автомобиль с техобслуживания.');
+            }
+        }
     };
 
     // --- Context Menu ---
@@ -190,6 +222,9 @@ const FleetManager = () => {
                                         {car.status === 'available' && (
                                             <button onClick={() => openModal('isMaintenanceOpen', car)} className="btn btn-secondary btn-sm">На ТО</button>
                                         )}
+                                        {car.status === 'maintenance' && (
+                                            <button onClick={() => processReturnFromMaintenance(car)} className="btn btn-success btn-sm">Вернуть с ТО</button>
+                                        )}
                                         <button onClick={() => openModal('isDamageOpen', car)} className="btn btn-secondary btn-sm">Ущерб</button>
                                     </div>
                                 </td>
@@ -235,6 +270,7 @@ const FleetManager = () => {
                     { label: 'Удалить', action: () => handleDelete(contextMenu.selectedCar?._id) },
                     { label: 'Принять возврат', action: () => openModal('isReturnOpen', contextMenu.selectedCar), hidden: contextMenu.selectedCar?.status !== 'rented' },
                     { label: 'На ТО', action: () => openModal('isMaintenanceOpen', contextMenu.selectedCar), hidden: contextMenu.selectedCar?.status !== 'available' },
+                    { label: 'Вернуть с ТО', action: () => processReturnFromMaintenance(contextMenu.selectedCar), hidden: contextMenu.selectedCar?.status !== 'maintenance' },
                     { label: 'Оценить ущерб', action: () => openModal('isDamageOpen', contextMenu.selectedCar) },
                 ]}
             />

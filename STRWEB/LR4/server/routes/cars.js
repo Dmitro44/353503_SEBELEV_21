@@ -30,4 +30,14 @@ router.put('/:id', [authMiddleware, adminMiddleware, uploadDisk.single('image')]
 // @access  Admin
 router.delete('/:id', [authMiddleware, adminMiddleware], carController.deleteCar);
 
+// @route   POST api/cars/:id/maintenance
+// @desc    Add a maintenance record to a car
+// @access  Admin
+router.post('/:id/maintenance', [authMiddleware, adminMiddleware], carController.addMaintenanceRecord);
+
+// @route   POST api/cars/:id/damage
+// @desc    Add a damage record to a car
+// @access  Admin
+router.post('/:id/damage', [authMiddleware, adminMiddleware], carController.addDamageRecord);
+
 module.exports = router;

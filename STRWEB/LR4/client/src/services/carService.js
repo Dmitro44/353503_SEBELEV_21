@@ -22,12 +22,22 @@ const deleteCar = (id) => {
     return axios.delete(`${API_URL}/${id}`);
 }
 
+const addMaintenance = (id, notes) => {
+    return axios.post(`${API_URL}/${id}/maintenance`, notes);
+};
+
+const addDamage = (id, description, estimatedCost) => {
+    return axios.post(`${API_URL}/${id}/damage`, { description, estimatedCost });
+};
+
 const carService = {
     getAllCars,
     getCarById,
     createCar,
     updateCar,
-    deleteCar
+    deleteCar,
+    addMaintenance,
+    addDamage
 };
 
 export default carService;

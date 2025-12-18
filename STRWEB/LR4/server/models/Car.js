@@ -1,6 +1,32 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const MaintenanceRecordSchema = new Schema({
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    notes: {
+        type: String,
+        required: true
+    }
+});
+
+const DamageRecordSchema = new Schema({
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    estimatedCost: {
+        type: Number,
+        default: 0
+    }
+});
+
 const CarSchema = new Schema({
     brand: {
         type: String,
@@ -39,7 +65,9 @@ const CarSchema = new Schema({
     currentLocation: {
         type: Schema.Types.ObjectId,
         ref: 'Location'
-    }
+    },
+    maintenanceHistory: [MaintenanceRecordSchema],
+    damageHistory: [DamageRecordSchema]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Car', CarSchema);
