@@ -157,3 +157,39 @@ exports.rejectRental = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
+
+// Complete a rental (process a return)
+exports.completeRental = async (req, res) => {
+    const { returnComments } = req.body;
+    try {
+        const rental = await Rental.findById(req.params.id);
+        if (!rental) {
+            return res.status(404).json({ msg: "Rental not found" });
+        }
+        if (rental.status !== "active") {
+            return res
+                .status(400)
+                .json({ msg: "This rental is not currently active." });
+        }
+
+        // Update rental
+        rental.status = "completed";
+        rental.actualReturnDate = new Date();
+        if (returnComments) {
+            rental.returnComments = returnComments;
+        }
+        await rental.save();
+
+        // Update car status
+        const car = await Car.findById(rental.car);
+        if (car) {
+            car.status = "available";
+            await car.save();
+        }
+
+        res.json(rental);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+};

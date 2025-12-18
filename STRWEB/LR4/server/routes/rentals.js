@@ -34,5 +34,10 @@ router.put('/:id/approve', [authMiddleware, adminMiddleware], rentalController.a
 // @access  Admin
 router.put('/:id/reject', [authMiddleware, adminMiddleware], rentalController.rejectRental);
 
+// @route   POST api/rentals/:id/complete
+// @desc    Complete a rental (process return)
+// @access  Admin
+router.post('/:id/complete', [authMiddleware, adminMiddleware], rentalController.completeRental);
+
 
 module.exports = router;

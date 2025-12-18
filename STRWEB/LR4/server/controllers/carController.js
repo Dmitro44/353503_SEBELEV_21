@@ -1,4 +1,5 @@
 const Car = require('../models/Car');
+const Rental = require('../models/Rental');
 const fs = require('fs');
 const path = require('path')
 
@@ -16,7 +17,6 @@ exports.getAllCars = async (req, res) => {
             const searchTerms = search.split(' ').filter(term => term);
             const regexTerms = searchTerms.map(term => new RegExp(term, 'i'))
             ;
-            // Ищем, чтобы каждое слово из поиска было или в марке, или в модели
             query.$and = regexTerms.map(regex => ({
                 $or: [
                     { brand: regex },
@@ -33,8 +33,22 @@ exports.getAllCars = async (req, res) => {
         const cars = await Car.find(query)
             .populate('currentLocation')
             .sort(sortOptions);
+
+        const activeRentals = await Rental.find({ status: 'active' });
+        const rentalMap = new Map();
+        activeRentals.forEach(rental => {
+            rentalMap.set(rental.car.toString(), rental._id.toString());
+        });
+
+        const carsWithRentalInfo = cars.map(car => {
+            const carObj = car.toObject();
+            if (carObj.status === 'rented' && rentalMap.has(carObj._id.toString())) {
+                carObj.activeRentalId = rentalMap.get(carObj._id.toString());
+            }
+            return carObj;
+        });
             
-        res.json(cars);
+        res.json(carsWithRentalInfo);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

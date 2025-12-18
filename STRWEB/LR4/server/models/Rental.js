@@ -27,6 +27,10 @@ const RentalSchema = new Schema({
         type: Number,
         required: true
     },
+    returnComments: {
+        type: String,
+        default: ''
+    },
     status: {
         type: String,
         enum: ['pending_approval', 'active', 'completed', 'cancelled', 'rejected'],
