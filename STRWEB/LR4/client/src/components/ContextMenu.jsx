@@ -1,24 +1,26 @@
 import React from 'react';
-import './ContextMenu.css';
 
-const ContextMenu = ({ x, y, show, onEdit, onDelete, onClose }) => {
+const ContextMenu = ({ x, y, show, onClose, actions = [] }) => {
     if (!show) {
         return null;
     }
 
-    const style = {
-        top: y,
-        left: x,
+    const handleActionClick = (action) => {
+        action();
+        onClose();
     };
 
     return (
-        <div className="context-menu-overlay" onClick={onClose}>
-            <div className="context-menu" style={style}>
-                <ul>
-                    <li onClick={onEdit}>Изменить</li>
-                    <li onClick={onDelete}>Удалить</li>
-                </ul>
-            </div>
+        <div className="context-menu" style={{ top: y, left: x }} onClick={(e) => e.stopPropagation()}>
+            <ul>
+                {actions.map((item, index) => (
+                    !item.hidden && (
+                        <li key={index} onClick={() => handleActionClick(item.action)}>
+                            {item.label}
+                        </li>
+                    )
+                ))}
+            </ul>
         </div>
     );
 };
