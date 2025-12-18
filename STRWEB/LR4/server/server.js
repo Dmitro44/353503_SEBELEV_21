@@ -14,20 +14,18 @@ const app = express();
 // Serve static files from the 'public' directory
 app.use('/public', express.static('public'));
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Basic Route
 app.get('/', (req, res) => {
   res.send('Hello from Express Server!');
 });
 
-// Define Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/cars', require('./routes/cars'));
 app.use('/api/rentals', require('./routes/rentals'));
-app.use('/api/users', require('./routes/users')); // Добавляем новый роут
+app.use('/api/users', require('./routes/users'));
+app.use('/api/deepseek', require('./routes/deepseek'));
 
 const PORT = process.env.PORT || 5000;
 const DB_URI = process.env.DB_URI;

@@ -9,6 +9,7 @@ import ProfilePage from './pages/ProfilePage';
 import CarDetailPage from './pages/CarDetailPage';
 import PrivateRoute from './components/PrivateRoute';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import DeepSeekAssistantPage from './pages/DeepSeekAssistantPage'; // Импортируем новую страницу
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             {/* Protected Routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/deepseek-assistant" element={<DeepSeekAssistantPage />} /> {/* Новый маршрут */}
             </Route>
             <Route element={<PrivateRoute requiredRole="admin" />}>
               <Route path="/admin" element={<AdminDashboardPage />} />

@@ -11,6 +11,7 @@ const Header = () => {
         <ul>
             {user?.role === 'admin' && <li><Link to="/admin">Админ</Link></li>}
             <li><Link to="/profile">Профиль</Link></li>
+            <li><Link to="/deepseek-assistant">Ассистент</Link></li>
             <li><a onClick={logout} href="#!">Выйти</a></li>
         </ul>
     );
