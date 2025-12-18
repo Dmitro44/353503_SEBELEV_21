@@ -8,6 +8,7 @@ require('./models/User');
 require('./models/Car');
 require('./models/Rental');
 require('./models/Location');
+require('./models/ChatHistory');
 
 const app = express();
 

@@ -74,9 +74,36 @@ exports.getCarById = async (req, res) => {
 exports.createCar = async (req, res) => {
     const { brand, model, year, licensePlate, category, dailyRate, status, currentLocation } = req.body;
 
+    const errors = {};
+    if (!brand) errors.brand = 'Марка обязательна';
+    if (!model) errors.model = 'Модель обязательна';
+    if (!year || isNaN(year) || year < 1900 || year > new Date().getFullYear() + 1)
+        errors.year = 'Некорректный год (1900 - ' + (new Date().getFullYear() + 1) + ')';
+
+    if (!licensePlate)
+        errors.licensePlate = 'Гос. номер обязателен';
+    else if (!/^[АВЕКМНОРСТУХABEKMHOPCTYX]\d{3}(?<!000)[АВЕКМНОРСТУХABEKMHOPCTYX]{2}\d{2,3}$/i.test(licensePlate))
+        errors.licensePlate = 'Некорректный формат гос. номера (например, А123ВВ77)';
+
+    if (!dailyRate || isNaN(dailyRate) || parseFloat(dailyRate) <= 0)
+        errors.dailyRate = 'Цена должна быть положительным числом';
+    if (!category || !['Sedan', 'SUV', 'Truck', 'Van', 'Luxury', 'Sport'].includes(category))
+        errors.category = 'Некорректная категория';
+    if (!status || !['available', 'rented', 'maintenance'].includes(status))
+        errors.status = 'Некорректный статус';
+
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors });
+    }
+
     try {
         if (!req.file) {
             return res.status(400).json({ msg: 'Image file is required' });
+        }
+
+        const existingCar = await Car.findOne({ licensePlate });
+        if (existingCar) {
+            return res.status(400).json({ msg: 'Автомобиль с таким гос. номером уже существует.' });
         }
 
         const imageUrl = '/' + req.file.path.replace(/\\/g, '/');
@@ -105,17 +132,42 @@ exports.updateCar = async (req, res) => {
     const { brand, model, year, licensePlate, category, dailyRate, status, currentLocation } = req.body;
 
     const carFields = {};
-    if (brand) carFields.brand = brand;
-    if (model) carFields.model = model;
-    if (year) carFields.year = year;
-    if (licensePlate) carFields.licensePlate = licensePlate;
-    if (category) carFields.category = category;
-    if (dailyRate) carFields.dailyRate = dailyRate;
-    if (status) carFields.status = status;
-    if (currentLocation) carFields.currentLocation = currentLocation;
+    const errors = {};
+    const currentYear = new Date().getFullYear();
+
+    if (brand) carFields.brand = brand; else errors.brand = 'Марка обязательна';
+    if (model) carFields.model = model; else errors.model = 'Модель обязательна';
+    
+    if (year) {
+        if (isNaN(year) || year < 1900 || year > currentYear + 1) errors.year = `Некорректный год (1900 - ${currentYear + 1})`;
+        else carFields.year = year;
+    } else errors.year = 'Год обязателен';
+
+    if (licensePlate) {
+        if (!/^[АВЕКМНОРСТУХABEKMHOPCTYX]\d{3}(?<!000)[АВЕКМНОРСТУХABEKMHOPCTYX]{2}\d{2,3}$/i.test(licensePlate)) errors.licensePlate = 'Некорректный формат гос. номера (например, А123ВВ77)';
+        else carFields.licensePlate = licensePlate;
+    } else errors.licensePlate = 'Гос. номер обязателен';
+
+    if (dailyRate) {
+        if (isNaN(dailyRate) || parseFloat(dailyRate) <= 0) errors.dailyRate = 'Цена должна быть положительным числом';
+        else carFields.dailyRate = dailyRate;
+    } else errors.dailyRate = 'Цена в день обязательна';
+
+    if (category) {
+        if (!['Sedan', 'SUV', 'Truck', 'Van', 'Luxury', 'Sport'].includes(category)) errors.category = 'Некорректная категория';
+        else carFields.category = category;
+    } else errors.category = 'Категория обязательна';
+
+    if (status) {
+        if (!['available', 'rented', 'maintenance'].includes(status)) errors.status = 'Некорректный статус';
+        else carFields.status = status;
+    } else errors.status = 'Статус обязателен';
+
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors });
+    }
 
     if (req.file) {
-
         try {
             const oldCar = await Car.findById(req.params.id);
             if (oldCar && oldCar.imageUrl){
@@ -136,6 +188,13 @@ exports.updateCar = async (req, res) => {
     try {
         let car = await Car.findById(req.params.id);
         if (!car) return res.status(404).json({ msg: 'Car not found' });
+
+        if (licensePlate && licensePlate !== car.licensePlate) {
+            const existingCar = await Car.findOne({ licensePlate });
+            if (existingCar) {
+                return res.status(400).json({ msg: 'Автомобиль с таким гос. номером уже существует.' });
+            }
+        }
 
         car = await Car.findByIdAndUpdate(
             req.params.id,
