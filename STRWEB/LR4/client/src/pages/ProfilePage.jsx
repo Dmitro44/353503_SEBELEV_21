@@ -108,7 +108,7 @@ const ProfilePage = () => {
             )}
 
             {!isVerified && user?.role !== 'admin' && (
-                <DocumentVerifier onVerified={handleVerificationSuccess} />
+                <DocumentVerifier onDocumentVerify={handleVerificationSuccess} />
             )}
 
             <h2>История аренды</h2>

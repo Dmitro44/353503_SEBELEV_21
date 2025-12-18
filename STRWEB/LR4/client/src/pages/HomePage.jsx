@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import carService from '../services/carService';
-import { SERVER_URL } from '../config';
+import CarCard from '../components/CarCard';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -35,17 +35,8 @@ const HomePage = () => {
         fetchCars();
     }, [search, category, sortBy, order]);
 
-    const handleCarDoubleClick = (carId) => {
+    const handleCarSelect = (carId) => {
         navigate(`/cars/${carId}`);
-    };
-
-    const translateStatus = (status) => {
-        switch (status) {
-            case 'available': return 'Доступен';
-            case 'rented': return 'В аренде';
-            case 'maintenance': return 'На обслуживании';
-            default: return status;
-        }
     };
 
     if (loading) return <p>Загрузка автомобилей...</p>;
@@ -98,22 +89,11 @@ const HomePage = () => {
                     <p>Автомобили, соответствующие вашим критериям, не найдены.</p>
                 ) : (
                     cars.map(car => (
-                        <div 
-                            key={car._id} 
-                            className="car-card"
-                            onDoubleClick={() => handleCarDoubleClick(car._id)}
-                        >
-                            <img src={`${SERVER_URL}${car.imageUrl}`} alt={`${car.brand} ${car.model}`} />
-                            <div className="car-card-content">
-                                <div>
-                                    <h2>{car.brand} {car.model} ({car.year})</h2>
-                                    <p>Категория: {car.category}</p>
-                                    <p>Стоимость в день: ${car.dailyRate}</p>
-                                    <p>Статус: {translateStatus(car.status)}</p>
-                                </div>
-                                <Link to={`/cars/${car._id}`} className="btn btn-primary">Подробнее</Link>
-                            </div>
-                        </div>
+                        <CarCard 
+                            key={car._id}
+                            car={car}
+                            onCarSelect={handleCarSelect}
+                        />
                     ))
                 )}
             </div>

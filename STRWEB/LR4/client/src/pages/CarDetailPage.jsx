@@ -23,8 +23,13 @@ const CarDetailPage = () => {
         rentalDate: '',
         returnDate: ''
     });
+    const [totalCost, setTotalCost] = useState(0);
     const [bookingMessage, setBookingMessage] = useState('');
     const [showToast, setShowToast] = useState(false); // Состояние для уведомления
+
+    const handleRentalCalculate = (data) => {
+        setTotalCost(data.cost);
+    };
 
     useEffect(() => {
         const fetchCar = async () => {
@@ -55,15 +60,20 @@ const CarDetailPage = () => {
             setBookingMessage('Пожалуйста, выберите дату начала и окончания аренды.');
             return;
         }
+        if (totalCost <= 0) {
+            setBookingMessage('Пожалуйста, рассчитайте стоимость перед бронированием.');
+            return;
+        }
 
         try {
             await rentalService.createRental({
                 carId: car._id,
                 rentalDate: rentalDates.rentalDate,
-                returnDate: rentalDates.returnDate
+                returnDate: rentalDates.returnDate,
+                totalCost: totalCost,
             });
             setBookingMessage('Запрос на бронирование отправлен! Ожидается подтверждение администратора.');
-            setTimeout(() => navigate('/profile'), 2000); // Redirect after 2 seconds
+            setTimeout(() => navigate('/profile'), 2000);
         } catch (err) {
             setBookingMessage(err.response?.data?.msg || 'Не удалось отправить запрос на бронирование.');
             console.error(err);
@@ -134,6 +144,11 @@ const CarDetailPage = () => {
                             disabled={!isAuthenticated || car.status !== 'available'}
                         />
                     </div>
+                    {totalCost > 0 && (
+                        <div className="total-cost-display">
+                            <h3>Итоговая стоимость: ${totalCost}</h3>
+                        </div>
+                    )}
                     <button type="submit" className="btn btn-primary" disabled={!isAuthenticated || car.status !== 'available'}>
                         {car.status !== 'available' ? 'Автомобиль недоступен' : 'Арендовать автомобиль'}
                     </button>
@@ -144,6 +159,7 @@ const CarDetailPage = () => {
                     dailyRate={car.dailyRate}
                     rentalDate={rentalDates.rentalDate}
                     returnDate={rentalDates.returnDate}
+                    onRentalCalculate={handleRentalCalculate}
                 />
             </div>
         </div>

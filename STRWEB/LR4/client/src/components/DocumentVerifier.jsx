@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ocrService from '../services/ocrService';
 import './DocumentVerifier.css';
 
-const DocumentVerifier = ({ onVerified }) => {
+const DocumentVerifier = ({ onDocumentVerify }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [fileName, setFileName] = useState('');
     const [status, setStatus] = useState('idle');
     const [message, setMessage] = useState('Загрузите документ для верификации.');
+
+    // useRef to calculate attempts of verification
+    const attemptCount = useRef(0);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -17,7 +20,7 @@ const DocumentVerifier = ({ onVerified }) => {
                 setMessage('Файл слишком большой. Максимальный размер - 1 МБ.');
                 setFileName('');
                 setSelectedFile(null);
-                e.target.value = null; // Сбрасываем значение input
+                e.target.value = null;
                 return;
             }
             setSelectedFile(file);
@@ -34,6 +37,9 @@ const DocumentVerifier = ({ onVerified }) => {
             return;
         }
 
+        attemptCount.current += 1;
+        console.log(`Попытка верификации #${attemptCount.current}`);
+
         setStatus('uploading');
         setMessage('Идет верификация документа...');
 
@@ -43,10 +49,15 @@ const DocumentVerifier = ({ onVerified }) => {
             if (result.success) {
                 setStatus('success');
                 setMessage(result.message);
-                onVerified();
+                onDocumentVerify();
             } else {
                 setStatus('error');
-                setMessage(result.message);
+
+                if (attemptCount.current >= 3) {
+                    setMessage(`${result.message} Пожалуйста, попробуйте другой документ или свяжитесь с поддержкой.`);
+                } else {
+                    setMessage(result.message);
+                }
             }
         } catch (err) {
             setStatus('error');
