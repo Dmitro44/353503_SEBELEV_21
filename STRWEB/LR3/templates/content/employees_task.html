@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Задание с массивом в JS{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <h1>Задание с массивом сотрудников</h1>
+
+    <hr>
+
+    <!-- Вариант 1: Прототипное наследование -->
+    <div class="oop-section form-container">
+        <h2>Вариант 1: Прототипное наследование</h2>
+        
+        <!-- Форма для добавления -->
+        <form id="proto-form" class="form-group">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="proto-fullname" class="form-label">ФИО:</label>
+                    <input type="text" id="proto-fullname" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="proto-gender" class="form-label">Пол:</label>
+                    <select id="proto-gender" name="gender">
+                        <option value="Мужской">Мужской</option>
+                        <option value="Женский">Женский</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="proto-marital-status" class="form-label">Семейное положение:</label>
+                    <select id="proto-marital-status" name="marital-status">
+                        <option value="Не в браке">Не в браке</option>
+                        <option value="В браке">В браке</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Добавить сотрудника</button>
+            </div>
+        </form>
+
+        <!-- Вывод списка объектов -->
+        <h4>Список сотрудников (Прототипы):</h4>
+        <div id="proto-display-all" class="display-area"></div>
+
+        <!-- Вывод результата -->
+        <h4>Результат (Прототипы):</h4>
+        <div id="proto-display-result" class="result-area"></div>
+    </div>
+
+    <hr>
+
+    <!-- Вариант 2: Классы ES6 -->
+    <div class="oop-section form-container">
+        <h2>Вариант 2: Классы ES6</h2>
+        
+        <!-- Форма для добавления -->
+        <form id="class-form" class="form-group">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="class-fullname" class="form-label">ФИО:</label>
+                    <input type="text" id="class-fullname" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="class-gender" class="form-label">Пол:</label>
+                    <select id="class-gender" name="gender">
+                        <option value="Мужской">Мужской</option>
+                        <option value="Женский">Женский</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="class-marital-status" class="form-label">Семейное положение:</label>
+                    <select id="class-marital-status" name="marital-status">
+                        <option value="Не в браке">Не в браке</option>
+                        <option value="В браке">В браке</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Добавить сотрудника</button>
+            </div>
+        </form>
+
+        <!-- Вывод списка объектов -->
+        <h4>Список сотрудников (Классы):</h4>
+        <div id="class-display-all" class="display-area"></div>
+
+        <!-- Вывод результата -->
+        <h4>Результат (Классы):</h4>
+        <div id="class-display-result" class="result-area"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/employees_oop.js' %}"></script>
+{% endblock %}

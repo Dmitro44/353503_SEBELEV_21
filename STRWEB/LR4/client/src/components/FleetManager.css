@@ -1,0 +1,55 @@
+.fleet-manager {
+    padding: 2rem;
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-top: 2rem;
+}
+
+.fleet-manager h2 {
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.add-car-btn {
+    margin-bottom: 1.5rem;
+}
+
+.fleet-table-container {
+    overflow-x: auto; /* Для адаптивности на малых экранах */
+}
+
+.fleet-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.fleet-table th,
+.fleet-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--light-color);
+}
+
+.fleet-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.fleet-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.car-thumbnail {
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

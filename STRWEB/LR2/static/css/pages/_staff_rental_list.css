@@ -1,0 +1,17 @@
+/* Styles for the staff rental list page */
+
+.action-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.action-group .btn,
+.action-group form {
+    margin: 0;
+}
+
+.action-group form {
+    flex: 1 1 auto;
+}

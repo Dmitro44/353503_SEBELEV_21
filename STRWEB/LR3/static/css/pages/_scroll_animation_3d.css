@@ -1,0 +1,25 @@
+/* Styles for the 3D scroll animation scene */
+
+#bg-3d-scene {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; /* Помещаем canvas за основной контент */
+}
+
+/* Делаем основной контейнер страницы отзывов "прозрачным" для фона */
+.review-page-container {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+}
+
+/* Делаем фон карточек полупрозрачным, чтобы было видно 3D-сцену */
+.review-summary,
+.review-item {
+    background-color: rgba(var(--light-color-rgb), 0.85); /* Используем RGB-версию цвета для прозрачности */
+    backdrop-filter: blur(5px); /* Эффект размытия фона для лучшей читаемости */
+    -webkit-backdrop-filter: blur(5px);
+}

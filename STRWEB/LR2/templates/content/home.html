@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="animation-scene">
+        <div class="building"></div>
+        <div class="person">
+            <div class="person-head"></div>
+            <div class="person-left-leg"></div>
+            <div class="person-right-leg"></div>
+            <div class="person-left-arm"></div>
+            <div class="person-right-arm"></div>
+        </div>
+        <div class="car">
+            <div class="headlight headlight-left"></div>
+            <div class="headlight headlight-right"></div>
+            <div class="left-wheel"></div>
+            <div class="right-wheel"></div>
+            <div class="car-person-head"></div>
+        </div>
+        <div class="car-side">
+            <div class="car-window-side"></div>
+            <div class="side-wheel-front"></div>
+            <div class="side-wheel-rear"></div>
+        </div>
+        <div class="company-name">{{ company_info.name|default:'Автопрокат' }}</div>
+    </div>
+
+    <div class="home-top-layout">
+        <div class="home-column home-column-left">
+            {% if latest_article %}
+                <section>
+                    <h1>Последняя новость</h1>
+                    <article class="last_news">
+                        {% if latest_article.image %}
+                            <img src="{{ latest_article.image.url }}" alt="{{ latest_article.title }}" style="max-width: 100%; height: auto;">
+                        {% endif %}
+                        <h4>{{ latest_article.title }}</h4>
+                        <p><small>Опубликовано: {{ latest_article.published_at|date:"d.m.Y" }}</small></p>
+                        <p>{{ latest_article.summary }}</p>
+                        <a href="{% url 'news_detail' latest_article.pk %}" class="btn btn-primary">Читать полностью</a>
+                    </article>
+                </section>
+            {% endif %}
+        </div>
+
+        <div class="home-column home-column-center">
+            {% if banners %}
+            <section class="banner-carousel">
+                <h1>Рекламные баннеры</h1>
+                <div class="carousel-viewport">
+                    {% for banner in banners %}
+                    <div class="carousel-slide">
+                        <a href="{{ banner.link }}">
+                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+        </div>
+
+        <div class="home-column home-column-right">
+            <section>
+                <h1>Календарь</h1>
+                {{ calendar|safe }}
+            </section>
+        </div>
+    </div>
+
+    {% if vehicles %}
+    <section>
+        <h2>Новые поступления</h2>
+        <div class="home_new_arrivals">
+            {% for vehicle in vehicles %}
+                <div class="card">
+                    <img class="card-img-top" src="{{ vehicle.image.url }}" alt="{{ vehicle.car_model }}">
+                    <div class="card-content">
+                        <div class="card-main-info">
+                            <h5>{{ vehicle.car_model }}</h5>
+                            <p><strong>{{ vehicle.daily_rental_price }} $</strong>/сутки</p>
+                            <p>{{ vehicle.year }} г.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'vehicle_detail' vehicle.pk %}" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="info-cards">
+        <article class="info-card">
+            <h3>Автомобили</h3>
+            <p>Просмотр доступных автомобилей для аренды.</p>
+            <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Перейти</a>
+        </article>
+        <article class="info-card">
+            <h3>О компании</h3>
+            <p>Информация о нашей компании и услугах.</p>
+            <a href="{% url 'about' %}" class="btn btn-primary">Подробнее</a>
+        </article>
+        <article class="info-card">
+            <h3>Новости</h3>
+            <p>Последние новости и акции компании.</p>
+            <a href="{% url 'news_list' %}" class="btn btn-primary">Читать</a>
+        </article>
+    </section>
+
+    <section class="info-cards">
+        <article class="info-card">
+            <h3>Отзывы</h3>
+            <p>Отзывы наших клиентов о сервисе.</p>
+            <a href="{% url 'review_list' %}" class="btn btn-primary">Смотреть отзывы</a>
+        </article>
+        <article class="info-card">
+            <h3>Промокоды</h3>
+            <p>Действующие промокоды и скидки.</p>
+            <a href="{% url 'promocode_list' %}" class="btn btn-primary">Посмотреть</a>
+        </article>
+    </section>
+
+    {% if partners %}
+    <section>
+        <h2>Наши партнеры</h2>
+        <div class="partners-list">
+        {% for partner in partners %}
+        <div>
+            <a href="{{ partner.website_url }}" target="_blank" rel="noopener noreferrer">
+                {% if partner.logo %}
+                <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" style="max-height: 80px;">
+                {% else %}
+                <span>{{ partner.name }}</span>
+                {% endif %}
+            </a>
+        </div>
+        {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+
+    <div class="misc-section">
+        <section>
+            <h3>Случайная шутка</h3>
+            <div>
+                {% if joke_setup %}
+                    <p>{{ joke_setup }}</p>
+                    <p><strong>{{ joke_punchline }}</strong></p>
+                {% else %}
+                    <p>Нажмите на кнопку, чтобы получить шутку</p>
+                {% endif %}
+            </div>
+            <form method="GET">
+                <input type="hidden" name="get_joke" value="1">
+                <button type="submit" class="btn btn-secondary">Получить случайную шутку</button>
+            </form>
+        </section>
+
+        <section>
+            <h3>Интересный факт о кошках</h3>
+            <p>{{ cat_fact }}</p>
+            <form method="GET">
+                <input type="hidden" name="refresh_cat_fact" value="1">
+                <button type="submit" class="btn btn-secondary">Обновить факт</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="preloader">
+        <div class="preloader-container">
+            <div class="preloader-arc"></div>
+            <div class="preloader-arc"></div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

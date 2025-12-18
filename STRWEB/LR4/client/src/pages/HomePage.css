@@ -1,0 +1,127 @@
+.home-page {
+    padding: 2rem 0;
+}
+
+.home-page h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.filters-sort-search {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* Increased gap */
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-group label {
+    font-weight: 500;
+    color: #555;
+}
+
+.filters-sort-search input,
+.filters-sort-search select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+
+.car-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.car-card {
+    background: var(--white-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.car-card-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+}
+
+.car-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.car-card h2 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+    color: var(--text-color);
+}
+
+.car-card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 0.5rem;
+}
+
+.car-card .btn {
+    margin: 0;
+    margin-top: 1rem; /* Add space above the button */
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.car-card .btn:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.error-message {
+    color: var(--danger-color);
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filters-sort-search {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 1rem;
+    }
+
+    .filters-sort-search input,
+    .filters-sort-search select {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .car-list {
+        grid-template-columns: 1fr; /* Single column on small screens */
+        padding: 0 1rem;
+    }
+}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Детали промокода: {{ promocode.code }} - Автопрокат{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="promocode-detail-container">
+        <div class="page-header">
+            <h1>Промокод: <span class="code-highlight">{{ promocode.code }}</span></h1>
+            {% if promocode.is_active %}
+                <span class="status-badge status-published">Активен</span>
+            {% else %}
+                <span class="status-badge status-expired">Неактивен</span>
+            {% endif %}
+        </div>
+
+        <div class="details-section">
+            <dl class="details-list">
+                <dt>Описание</dt>
+                <dd>{{ promocode.description|default:"Описание отсутствует" }}</dd>
+
+                <dt>Процент скидки</dt>
+                <dd>{{ promocode.discount_percentage }}%</dd>
+
+                <dt>Срок действия</dt>
+                <dd>С {{ promocode.valid_from|date:"d.m.Y" }} по {{ promocode.valid_to|date:"d.m.Y" }}</dd>
+
+                <dt>Использование</dt>
+                <dd>{{ promocode.current_uses }} из {{ promocode.max_uses|default:"неограниченного количества" }}</dd>
+            </dl>
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'promocode_list' %}" class="btn btn-secondary">Назад к списку</a>
+            {% if is_staff_user or is_admin_user %}
+                <a href="{% url 'promocode_edit' promocode.id %}" class="btn btn-primary">Редактировать</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Список автомобилей{% endblock %}
+
+{% block content %}
+    <div class="vehicle-list-page content-container">
+        <h1>Список автомобилей</h1>
+
+        <div class="vehicle-list-layout">
+            
+            <!-- Left Column: Filters -->
+            <aside class="vehicle-filters-column">
+                <div class="filter-container filter-container-vertical">
+                    
+                    <!-- Search -->
+                    <div class="filter-section">
+                        <h5>Поиск</h5>
+                        <form method="get" action="" id="search-form">
+                            <div class="form-group">
+                                <input type="text" placeholder="Марка, модель..." name="search" value="{{ search_query|default:'' }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Искать</button>
+                            {% if search_query %}
+                                <a href="{% url 'vehicle_list' %}" class="btn btn-secondary">Сбросить</a>
+                            {% endif %}
+                        </form>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="filter-section">
+                        <h5>Фильтры</h5>
+                        <form method="get" id="filters-form">
+                            {% if search_query %}
+                                <input type="hidden" name="search" value="{{ search_query }}">
+                            {% endif %}
+
+                            <div class="form-group">
+                                <label class="form-label" for="brand">Марка</label>
+                                <select id="brand" name="brand">
+                                    <option value="">Все марки</option>
+                                    {% for brand_option in brands %}
+                                        <option value="{{ brand_option }}" {% if selected_brand == brand_option %}selected{% endif %}>{{ brand_option }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="body_type">Тип кузова</label>
+                                <select id="body_type" name="body_type">
+                                    <option value="">Все типы кузова</option>
+                                    {% for body_type_option in body_types %}
+                                        <option value="{{ body_type_option.id }}" {% if selected_body_type == body_type_option.id|stringformat:"s" %}selected{% endif %}>{{ body_type_option.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="year">Год выпуска</label>
+                                <select id="year" name="year">
+                                    <option value="">Все годы</option>
+                                    {% for year_option in years %}
+                                        <option value="{{ year_option }}" {% if selected_year == year_option|stringformat:"s" %}selected{% endif %}>{{ year_option }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="is_available">Статус</label>
+                                <select id="is_available" name="is_available">
+                                    <option value="">Все</option>
+                                    <option value="true" {% if selected_is_available == True %}selected{% endif %}>Доступные</option>
+                                    <option value="false" {% if selected_is_available == False %}selected{% endif %}>Недоступные</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="car_park">Автопарк</label>
+                                <select id="car_park" name="car_park">
+                                    <option value="">Все автопарки</option>
+                                    {% for car_park_option in car_parks %}
+                                        <option value="{{ car_park_option.id }}" {% if selected_car_park == car_park_option.id|stringformat:"s" %}selected{% endif %}>{{ car_park_option.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="filter-buttons">
+                                <button type="submit" class="btn btn-primary">Применить</button>
+                                <a href="{% url 'vehicle_list' %}" class="btn btn-secondary" id="reset-filters-btn">Сбросить все</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Column: Vehicle List -->
+            <main class="vehicle-list-column">
+                <div class="list-header form-group">
+                    <p><span id="vehicle-count">0</span> автомобилей найдено</p>
+                    <div class="page-size-form form-group">
+                        <label class="form-label" for="page-size-input">На странице:</label>
+                        <input type="number" id="page-size-input" class="form-control" value="3" min="1" max="50">
+                    </div>
+                    <form method="get" class="sort-form">
+                        <label class="form-label" for="ordering">Сортировать:</label>
+                        <select name="ordering" id="ordering" class="form-control">
+                            <option value="daily_rental_price" {% if current_ordering == 'daily_rental_price' %}selected{% endif %}>Цена (по возрастанию)</option>
+                            <option value="-daily_rental_price" {% if current_ordering == '-daily_rental_price' %}selected{% endif %}>Цена (по убыванию)</option>
+                            <option value="year" {% if current_ordering == 'year' %}selected{% endif %}>Год (сначала новые)</option>
+                            <option value="-year" {% if current_ordering == '-year' %}selected{% endif %}>Год (сначала старые)</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="vehicle-list">
+                    <!-- Vehicle cards will be inserted here by JavaScript -->
+                </div>
+                <div class="no-vehicles-found" style="display: none;">
+                    <p>По вашему запросу не найдено ни одного автомобиля.</p>
+                    <a href="{% url 'vehicle_list' %}" class="btn btn-primary">Сбросить все фильтры</a>
+                </div>
+
+                <div class="pagination-buttons">
+                    <!-- Pagination will be inserted here by JavaScript -->
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/vehicle_cards_paralax.js' %}" defer></script>
+<script src="{% static 'js/vehicle_list_pagination.js' %}" defer></script>
+{% endblock %}

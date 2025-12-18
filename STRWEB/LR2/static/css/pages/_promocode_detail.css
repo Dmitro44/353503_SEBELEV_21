@@ -1,0 +1,51 @@
+/* Styles for the promocode detail page */
+
+.promocode-detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.promocode-detail-container .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.code-highlight {
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--primary-color);
+    background-color: #e9ecef;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Reusing status-badge from review management, adding expired style */
+.status-badge.status-expired {
+    background-color: #6c757d;
+}
+
+.details-section {
+    margin-bottom: 2rem;
+}
+
+.details-list {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem 1.5rem;
+}
+
+.details-list dt {
+    font-weight: 600;
+    color: #333;
+}
+
+.details-list dd {
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 3px solid #eee;
+}

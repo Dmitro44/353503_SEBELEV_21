@@ -1,0 +1,67 @@
+/* /static/css/pages/_glossary.css */
+
+.glossary-container {
+    max-width: 100%;
+    padding: 2rem;
+}
+
+.glossary-container details {
+    background-color: #f9f9f9;
+    font-size: 1.1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.glossary-container details[open] {
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 1.1rem;
+}
+
+.glossary-container summary {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1.5rem;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.glossary-container summary::-webkit-details-marker {
+    display: none; /* Hide default marker in Chrome/Safari */
+}
+
+.glossary-container summary::after {
+    content: '+';
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.glossary-container details[open] summary::after {
+    transform: rotate(45deg);
+}
+
+.glossary-container .details-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--text-color-light);
+    line-height: 1.6;
+}
+
+.glossary-container .details-content p {
+    margin-top: 0;
+}
+
+.glossary-container .details-content small {
+    display: block;
+    margin-top: 1rem;
+    color: #888;
+    font-style: italic;
+}

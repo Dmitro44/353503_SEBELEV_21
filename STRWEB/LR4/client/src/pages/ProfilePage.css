@@ -1,0 +1,104 @@
+.profile-page {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem; /* Add padding for smaller screens */
+}
+
+.profile-page h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.rental-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rental-card {
+    background: var(--white-color);
+    border: 1px solid var(--light-color); /* Added border */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.rental-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.rental-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rental-card-header h3 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.rental-card-body p {
+    margin: 0.5rem 0;
+    color: #555;
+}
+
+.rental-card .status {
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--white-color);
+}
+
+.status-pending-approval { background-color: var(--primary-color); }
+.status-active { background-color: var(--success-color); }
+.status-completed { background-color: var(--dark-color); }
+.status-cancelled { background-color: #95a5a6; }
+.status-rejected { background-color: var(--danger-color); }
+
+.user-info-section {
+    background: var(--white-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.user-info-section p {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.user-info-section p strong {
+    color: var(--dark-color);
+}
+
+.user-info-section .verified {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.user-info-section .not-verified {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+

@@ -1,0 +1,11 @@
+/* Styles for the vehicle form page */
+
+/* Form-specific styles */
+.form-image-preview {
+    max-width: 200px;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 4px;
+    margin-top: 0.5rem;
+}

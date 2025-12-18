@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Подтверждение удаления - {{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="delete-confirmation-container">
+        <h2>Удаление новости</h2>
+
+        <p class="confirmation-question">Вы уверены, что хотите удалить новость <strong>"{{ object.title }}"</strong>?</p>
+
+        <div class="article-details">
+            <p><strong>Дата публикации:</strong> {{ object.published_at|date:"d.m.Y H:i" }}</p>
+            <p><strong>Краткое описание:</strong> {{ object.summary }}</p>
+            {% if object.image %}
+                <div class="article-image-preview">
+                    <img src="{{ object.image.url }}" alt="Превью изображения: {{ object.title }}">
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="warning-message">
+            <p><strong>Внимание!</strong> Это действие необратимо. Новость будет полностью удалена из системы.</p>
+        </div>
+
+        <form method="post" class="confirmation-form">
+            {% csrf_token %}
+            <div class="form-actions">
+                <a href="{% url 'news_detail' object.pk %}" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

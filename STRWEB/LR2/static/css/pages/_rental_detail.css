@@ -1,0 +1,53 @@
+.rental-detail-container {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc
+}
+
+.rental-detail-header {
+    margin-bottom: 1.5rem;
+}
+
+.rental-detail-header h3 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.rental-detail-body {
+    display: flex;
+    gap: 2rem;
+}
+
+.rental-info,
+.vehicle-info {
+    flex: 1;
+}
+
+.rental-info h4,
+.vehicle-info h4 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.condition-notes,
+.penalties {
+    margin-top: 2rem;
+}
+
+.condition-notes h5,
+.penalties h5 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.rental-detail-footer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}

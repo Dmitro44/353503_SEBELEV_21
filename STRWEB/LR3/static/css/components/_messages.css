@@ -1,0 +1,38 @@
+.messages-container {
+    margin: 1rem auto;
+    padding: 1rem;
+    max-width: 800px;
+    border-radius: 5px;
+}
+
+.message {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.message.success {
+    color: var(--success-color);
+    background-color: var(--success-color-light); /* Assuming a light variant for background */
+    border-color: var(--success-color-border); /* Assuming a border variant */
+}
+
+.message.info {
+    color: var(--info-color);
+    background-color: var(--info-color-light);
+    border-color: var(--info-color-border);
+}
+
+.message.warning {
+    color: var(--warning-color);
+    background-color: var(--warning-color-light);
+    border-color: var(--warning-color-border);
+}
+
+.message.error {
+    color: var(--danger-color);
+    background-color: var(--danger-color-light);
+    border-color: var(--danger-color-border);
+}

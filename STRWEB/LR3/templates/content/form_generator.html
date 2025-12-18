@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Генератор Форм{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Генератор элементов формы &lt;select&gt;</h2>
+
+    <div class="form-group-checkbox">
+        <input type="checkbox" id="addElementCheckbox">
+        <label for="addElementCheckbox">
+            Добавить новый элемент &lt;select&gt;
+        </label>
+    </div>
+
+    <div id="formContainer">
+        <!-- Сгенерированные формы будут появляться здесь -->
+    </div>
+</div>
+
+<template id="selectTemplate">
+    <div class="generated-form">
+        <div class="card-content">
+            <div class="form-row">
+                <div class="form-group" style="flex-basis: 48%;">
+                    <label class="form-label">Сгенерированный элемент:</label>
+                    <select>
+                        <option>Пример 1</option>
+                        <option>Пример 2</option>
+                        <option>Пример 3</option>
+                        <option>Пример 4</option>
+                        <option>Пример 5</option>
+                        <option>Пример 6</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex-basis: 48%;">
+                    <label class="form-label">Атрибуты:</label>
+                    <div class="form-group">
+                        <label class="form-label">name</label>
+                        <input type="text" class="attribute-control" data-attr="name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">size</label>
+                        <input type="number" class="attribute-control" data-attr="size" min="1" value="1">
+                    </div>
+                    <div class="form-group-checkbox">
+                        <input class="attribute-control" type="checkbox" data-attr="multiple">
+                        <label>multiple</label>
+                    </div>
+                    <div class="form-group-checkbox">
+                        <input class="attribute-control" type="checkbox" data-attr="required">
+                        <label>required</label>
+                    </div>
+                    <div class="form-group-checkbox">
+                        <input class="attribute-control" type="checkbox" data-attr="disabled">
+                        <label>disabled</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-danger delete-btn">Удалить</button>
+            </div>
+        </div>
+    </div>
+</template>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/form_generator.js' %}"></script>
+{% endblock %}
