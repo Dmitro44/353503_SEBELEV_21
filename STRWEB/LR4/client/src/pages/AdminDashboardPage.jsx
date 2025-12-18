@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import adminService from '../services/adminService';
 import { AuthContext } from '../context/AuthContext';
 import DateDisplay from '../components/DateDisplay';
-import FleetManager from '../components/FleetManager'; // Импорт FleetManager
+import FleetManager from '../components/FleetManager';
 import '../components/DateDisplay.css';
-import '../components/FleetManager.css'; // Импорт стилей FleetManager
+import '../components/FleetManager.css';
 import './AdminDashboardPage.css';
 
 const AdminDashboardPage = () => {

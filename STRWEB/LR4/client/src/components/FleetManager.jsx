@@ -66,6 +66,12 @@ const FleetManager = () => {
         openModal('isCarFormOpen', car);
     };
 
+    const handleCarFormKeyDown = (e) => {
+        if (e.key === 'Escape') {
+            closeModal('isCarFormOpen');
+        }
+    };
+
     const handleCarFormSubmit = async (formData, imageFile) => {
         const data = new FormData();
         for (const key in formData) {
@@ -115,29 +121,18 @@ const FleetManager = () => {
         }
     };
 
-        const handleMaintenanceSubmit = async (maintenanceData) => {
-
-            if (!selectedCar) return;
-
-            try {
-
-                await carService.addMaintenance(selectedCar._id, { notes: maintenanceData.notes });
-
-                fetchCars();
-
-            } catch (err) {
-
-                console.error('Ошибка при отправке на обслуживание:', err);
-
-                alert('Не удалось изменить статус автомобиля.');
-
-            } finally {
-
-                closeModal('isMaintenanceOpen');
-
-            }
-
-        };
+    const handleMaintenanceSubmit = async (maintenanceData) => {
+        if (!selectedCar) return;
+        try {
+            await carService.addMaintenance(selectedCar._id, { notes: maintenanceData.notes });
+            fetchCars();
+        } catch (err) {
+            console.error('Ошибка при отправке на обслуживание:', err);
+            alert('Не удалось изменить статус автомобиля.');
+        } finally {
+            closeModal('isMaintenanceOpen');
+        }
+    };
 
     const handleDamageSubmit = async (damageData) => {
         if (!selectedCar) return;
@@ -152,7 +147,6 @@ const FleetManager = () => {
         }
     };
 
-    // Обработчик для возврата автомобиля с техобслуживания
     const processReturnFromMaintenance = async (car) => {
         if (car.status !== 'maintenance') {
             alert('Этот автомобиль не находится на техобслуживании.');
@@ -235,15 +229,18 @@ const FleetManager = () => {
             </div>
 
             <CarFormModal 
-                isOpen={modalState.isCarFormOpen}
-                onClose={() => closeModal('isCarFormOpen')}
-                onSubmit={handleCarFormSubmit} initialData={editingCar}
+                isOpen={modalState.isCarFormOpen} 
+                onClose={() => closeModal('isCarFormOpen')} 
+                onSubmit={handleCarFormSubmit} 
+                initialData={editingCar} 
+                onKeyDown={handleCarFormKeyDown}
             />
 
-            <ReturnFormModal
+            <ReturnFormModal 
                 isOpen={modalState.isReturnOpen}
                 onClose={() => closeModal('isReturnOpen')}
-                car={selectedCar} onSubmit={handleReturnSubmit}
+                car={selectedCar}
+                onSubmit={handleReturnSubmit}
             />
 
             <MaintenanceFormModal

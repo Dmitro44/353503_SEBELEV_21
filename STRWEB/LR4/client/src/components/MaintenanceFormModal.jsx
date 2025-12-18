@@ -30,6 +30,7 @@ const MaintenanceFormModal = ({ isOpen, onClose, car, onSubmit }) => {
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                             rows="4"
+                            style={{ width: '100%' }}
                         />
                     </div>
                     <div className="modal-actions">

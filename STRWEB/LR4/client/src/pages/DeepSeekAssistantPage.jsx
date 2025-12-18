@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import deepseekService from '../services/deepseekService';
-import carService from '../services/carService'; // Импортируем carService
+import carService from '../services/carService';
 import ReactMarkdown from 'react-markdown';
 import './DeepSeekAssistantPage.css';
 
@@ -18,7 +18,19 @@ const DeepSeekAssistantPage = () => {
 
     useEffect(scrollToBottom, [messages]);
 
-    // Загрузка списка доступных автомобилей при монтировании компонента
+    // Загрузка истории чата из БД при монтировании компонента
+    useEffect(() => {
+        const fetchChatHistory = async () => {
+            try {
+                const response = await deepseekService.getChatHistory();
+                setMessages(response.data);
+            } catch (err) {
+                console.error("Ошибка при загрузке истории чата:", err);
+            }
+        };
+        fetchChatHistory();
+    }, []);
+
     useEffect(() => {
         const fetchCars = async () => {
             setCarsLoading(true);
@@ -39,19 +51,18 @@ const DeepSeekAssistantPage = () => {
         if (!input.trim() || loading || carsLoading) return;
 
         const userMessage = { role: "user", content: input };
-        const newMessages = [...messages, userMessage];
-        setMessages(newMessages);
+        const messagesToSend = [...messages, userMessage];
+        setMessages(messagesToSend);
         setInput('');
         setLoading(true);
 
-        // Формируем контекстные сообщения для ассистента
         const contextMessages = [
             { role: "system", content: "Ты — помощник для сервиса по прокату автомобилей. Твоя задача — помогать пользователям находить и понимать варианты аренды автомобилей, отвечать на вопросы о машинах и условиях аренды. Будь краток и по делу." },
             { role: "system", content: `Вот список автомобилей, доступных для аренды в данный момент: ${availableCars.map(car => `${car.brand} ${car.model} (${car.year}, ${car.licensePlate}, $${car.dailyRate}/день)`).join('; ')}. Используй эту информацию для ответов.` }
         ];
 
         try {
-            const response = await deepseekService.chat([...contextMessages, ...newMessages]);
+            const response = await deepseekService.chat([...contextMessages, ...messagesToSend]);
             const assistantMessage = { role: "assistant", content: response.data.reply };
             setMessages(prevMessages => [...prevMessages, assistantMessage]);
         } catch (error) {
@@ -62,19 +73,30 @@ const DeepSeekAssistantPage = () => {
         }
     };
 
+    const handleClearChat = async () => {
+        try {
+            await deepseekService.clearChatHistory();
+            setMessages([]);
+        } catch (err) {
+            console.error("Ошибка при очистке истории чата:", err);
+            alert("Не удалось очистить историю чата.");
+        }
+    };
+
     return (
         <div className="deepseek-assistant-page">
             <h1>Ассистент</h1>
+            <button onClick={handleClearChat} className="btn btn-secondary clear-chat-btn">Очистить чат</button>
             <div className="chat-window">
                 {messages.length === 0 && !carsLoading && (
                     <div className="chat-placeholder">
-                        Начните диалог с вашим DeepSeek помощником!
+                        Начните диалог с вашим умным помощником!
                     </div>
                 )}
                 {carsLoading && (
                     <div className="chat-placeholder">Загрузка информации об автомобилях...</div>
                 )}
-                {messages.map((msg, index) => (
+                {messages.filter(msg => msg.role !== 'system').map((msg, index) => (
                     <div key={index} className={`chat-message ${msg.role}`}>
                         <strong>{msg.role === 'user' ? 'Вы' : 'Ассистент'}:</strong>
                         {msg.role === 'assistant' ? (

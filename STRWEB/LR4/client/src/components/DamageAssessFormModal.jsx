@@ -32,6 +32,7 @@ const DamageAssessFormModal = ({ isOpen, onClose, car, onSubmit }) => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             rows="4"
+                            style={{ width: '100%' }}
                             required
                         />
                     </div>
